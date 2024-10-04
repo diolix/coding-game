@@ -1,15 +1,33 @@
 # Godot 4+ specific ignores
-.godot/
+src/game/.godot/
 
 # Godot-specific ignores
-.import/
-export.cfg
-export_presets.cfg
+src/game/.import/
+src/game/export.cfg
+src/game/export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
-*.translation
+src/game/**/*.translation
 
 # Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
+src/game/.mono/
+src/game/data_*/
+src/game/mono_crash.*.json
+
+# Autres ignores potentiels
+*.tmp
+*.bak
+*.log
+
+# Ignorer les fichiers de configuration spécifiques à l'IDE si nécessaire
+.vscode/
+.idea/
+
+## Dossiers spécifiques à Visual Studio
+.vs/
+**/bin/
+**/obj/
+
+# Ignorer les fichiers de build ou de sortie si vous en avez
+build/
+dist/
