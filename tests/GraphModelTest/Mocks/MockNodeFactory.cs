@@ -16,7 +16,7 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INode CreateStringInputSpyNode(Action<HandlesExecution> callback)
+    public INode CreateStringInputMockNode(Action<HandlesExecution> callback)
     {
         return new NodeBuildable.Builder()
             .SetName("Spy")

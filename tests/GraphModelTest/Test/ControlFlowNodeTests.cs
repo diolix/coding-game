@@ -5,7 +5,7 @@ namespace GraphModelTest.Test;
 
 public class ControlFlowNodeTests : BaseNodeTests
 {
-    private readonly ControlFlowFactoryNode _controlFlowNodeTests = new();
+    private readonly ControlFlowNodeFactory _controlFlowNodeTests = new();
     private readonly ConstantNodeFactory _constantNodeFactory = new();
     private readonly MockNodeFactory _mockNodeFactory = new();
 

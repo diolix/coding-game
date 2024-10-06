@@ -16,7 +16,7 @@ public class HandlesExecution
         _outputManager = outputManager;
         _onLastExecution = onLastExecution;
     }
-    
+    public Optional<object> GetInputValue(int index) => _inputManager.SafeGetInputValue(index);
     public Optional<string> GetStringInputValue(int index) => GetInputValue<string>(index);
     public Optional<int> GetIntInputValue(int index) => GetInputValue<int>(index);
     public Optional<bool> GetBoolInputValue(int index) => GetInputValue<bool>(index);

@@ -32,13 +32,16 @@ public class VariableModel<RealType> : IVariable
     
     public bool SafeSetValue(object value)
     {
-        if (value is RealType type)
+        try
         {
-            _value = type;
+            RealType valueAsRealType = (RealType)value;
+            _value = valueAsRealType;
             return true;
+        } catch (InvalidCastException e)
+        {
+            Console.Error.WriteLine($"The value type {value.GetType()} is not coherent with the generic type {typeof(RealType)}");
+            return false;
         }
-        Console.Error.WriteLine($"The value type {value.GetType()} is not coherent with the generic type {typeof(RealType)}");
-        return false;
     }
 
     public void Reset()

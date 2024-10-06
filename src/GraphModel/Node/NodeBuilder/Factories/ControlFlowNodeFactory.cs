@@ -2,7 +2,7 @@ using GraphModel.Node.BaseNodes;
 
 namespace GraphModel.Node.NodeBuilder.Factories;
 
-public class ControlFlowFactoryNode
+public class ControlFlowNodeFactory
 {
     public INode CreateIf() => new NodeBuildable.Builder()
         .SetName("if")

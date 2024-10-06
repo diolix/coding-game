@@ -16,7 +16,7 @@ public class ValueTests : BaseNodeTests
     {
         var helloWorldConstant = _constantNodeFactory.CreateImpureHelloWorldContant();
         string input = string.Empty;
-        var spy = _mockNodeFactory.CreateStringInputSpyNode(execution =>
+        var spy = _mockNodeFactory.CreateStringInputMockNode(execution =>
         {
             input = execution.GetStringInputValue(1).Value;
         });
@@ -33,7 +33,7 @@ public class ValueTests : BaseNodeTests
     {
         var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldContant();
         string input = string.Empty;
-        var spy = _mockNodeFactory.CreateStringInputSpyNode(execution =>
+        var spy = _mockNodeFactory.CreateStringInputMockNode(execution =>
         {
             input = execution.GetStringInputValue(1).Value;
         });
@@ -49,12 +49,12 @@ public class ValueTests : BaseNodeTests
     {
         var helloWorldConstant = _constantNodeFactory.CreateImpureHelloWorldContant();
         string input1 = string.Empty;
-        var spy1 = _mockNodeFactory.CreateStringInputSpyNode(execution =>
+        var spy1 = _mockNodeFactory.CreateStringInputMockNode(execution =>
         {
             input1 = execution.GetStringInputValue(1).Value;
         });
         string input2 = string.Empty;
-        var spy2 = _mockNodeFactory.CreateStringInputSpyNode(execution =>
+        var spy2 = _mockNodeFactory.CreateStringInputMockNode(execution =>
         {
             input2 = execution.GetStringInputValue(1).Value;
         });

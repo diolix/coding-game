@@ -1,4 +1,3 @@
-using CodingGame.Script.Graph.Model.Node.BaseNodes;
 using CodingGame.Script.Util;
 using GraphModel.Node.BaseNodes;
 
@@ -7,7 +6,7 @@ namespace GraphModel.Node.Input;
 public class InputValue
 {
     private Optional<object> _value = new();
-    private INode _pureNode;
+    private INode? _pureNode;
     
     public static InputValue[] CreateInputValues(int count)
     {
@@ -44,7 +43,7 @@ public class InputValue
 
     private object GetValueFromPureNode()
     {
-        _pureNode.Execute();
+        _pureNode?.Execute();
         return _value.Value;
     }
 

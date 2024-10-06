@@ -1,8 +1,6 @@
-using System;
-using GraphModel.Variable;
-using ValueType = GraphModel.ValueType;
+using CodingGame.Script.Graph.Model.Variable;
 
-namespace CodingGame.Script.Graph.Model.Variable;
+namespace GraphModel.Variable;
 
 public class VariableFactory
 {
