@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using GraphModel.NewHandle;
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 using GraphModel.Util;
@@ -26,12 +27,23 @@ public partial class NodeBuildable
             _outputsHandlesConstructor.AddHandle(label, new ColorHex(Color.White));
             return this;
         }
+
+        public Builder AddOutputValue(string label, ValueType type)
+        {
+            return this;
+        }
         
         public Builder AddInputFlow(string label)
         {
-            _inputsHandlesConstructor.AddHandle(label, null);
+            _inputsHandlesConstructor.AddHandle(label, new ColorHex(Color.White));
             return this;
         }
+        
+        public Builder AddOutputValue(string label, ValueType type)
+        {
+            return this;
+        }
+        
         public Builder SetName(string name)
         {
             _name = name;

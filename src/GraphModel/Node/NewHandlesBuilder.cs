@@ -1,8 +1,9 @@
 ﻿using GraphModel.Handle;
+using GraphModel.NewHandle;
 using GraphModel.Node.BaseNodes;
 using GraphModel.Util;
 
-namespace GraphModel.Node.NodeBuilder;
+namespace GraphModel.Node;
 
 public class NewHandlesBuilder
 {
@@ -15,6 +16,19 @@ public class NewHandlesBuilder
         _index = 0;
     }
 
+    public void AddFlow(string label)
+    {
+        _handlesBuilder.Add(new NewHandleFlowModel.Builder()
+            .SetLabel(label)
+            .SetIndex(_index++));
+    }
+
+    public void AddValue(string label, ValueType type)
+    {
+        var test = new NewHandleValueModel.Builder();
+        
+    }
+    
     public void AddHandle(string label, ColorHex color)
     {
         _handlesBuilder.Add(new NewHandleModel.Builder()

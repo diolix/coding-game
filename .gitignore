@@ -13,6 +13,7 @@ src/game/**/*.translation
 src/game/.mono/
 src/game/data_*/
 src/game/mono_crash.*.json
+src/Game/coding-game.sln.DotSettings.user
 
 # Autres ignores potentiels
 *.tmp
@@ -31,5 +32,3 @@ src/game/mono_crash.*.json
 # Ignorer les fichiers de build ou de sortie si vous en avez
 build/
 dist/
-
-src/Game/coding-game.sln.DotSettings.user
