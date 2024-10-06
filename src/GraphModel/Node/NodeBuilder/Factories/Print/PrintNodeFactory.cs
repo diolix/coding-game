@@ -22,7 +22,7 @@ public class PrintNodeFactory
         
         .SetExecution(execution =>
         {
-            _console.WriteLine(execution.GetInputValue<string>(1).Value);
+            _console.WriteLine(execution.GetStringInputValue(1).Value);
             execution.SafeExecute(0);
         }).Build();
     

@@ -1,12 +1,14 @@
 using GraphModel.Node.BaseNodes;
 using GraphModel.Node.NodeBuilder;
+using GraphModelTest.Mocks;
 using PrimitiveNodeFactory = GraphModel.Node.NodeBuilder.Factories.PrimitiveNodeFactory;
 
-namespace GraphModelTest;
+namespace GraphModelTest.Test;
 
 public class FlowTests : BaseNodeTests
 {
     private readonly PrimitiveNodeFactory _primitiveNodeFactory = new();
+    private readonly MockNodeFactory _mockNodeFactory = new();
     
     [Test]
     public void BasicFlow()
@@ -14,21 +16,11 @@ public class FlowTests : BaseNodeTests
         var start = _primitiveNodeFactory.CreateStart();
         
         bool hasBeenExecuted = false;
-        var spy = CreateSpyNode(_ => hasBeenExecuted = true);
+        var spy = _mockNodeFactory.CreateImpureInputFlowSpyNode(_ => hasBeenExecuted = true);
         
         AddEdge(start, 0, spy, 0);
         start.Execute();
         
         Assert.IsTrue(hasBeenExecuted);
-    }
-
-    private INode CreateSpyNode(Action<HandlesExecution> callback)
-    {
-        return new NodeBuildable.Builder()
-            .SetName("Spy")
-            .SetIsPure(false)
-            .AddInputFlow("")
-            .SetExecution(callback)
-            .Build();
     }
 }

@@ -29,4 +29,24 @@ public class ConstantNodeFactory
             execution.SetOutputValue(0, "Hello World");
         })
         .Build();
+    
+    public INode CreatePureTrueContant() => new NodeBuildable.Builder()
+        .SetName("True Constant")
+        .SetIsPure(true)
+        .AddOutputValue("Value", ValueType.Bool)
+        .SetExecution(execution =>
+        {
+            execution.SetOutputValue(0, true);
+        })
+        .Build();
+    
+    public INode CreatePureFalseContant() => new NodeBuildable.Builder()
+        .SetName("False Constant")
+        .SetIsPure(true)
+        .AddOutputValue("Value", ValueType.Bool)
+        .SetExecution(execution =>
+        {
+            execution.SetOutputValue(0, false);
+        })
+        .Build();
 }

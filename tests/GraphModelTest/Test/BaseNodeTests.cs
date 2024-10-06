@@ -2,7 +2,7 @@ using GraphModel.Edge;
 using GraphModel.Handle;
 using GraphModel.Node.BaseNodes;
 
-namespace GraphModelTest;
+namespace GraphModelTest.Test;
 
 public abstract class BaseNodeTests
 {
