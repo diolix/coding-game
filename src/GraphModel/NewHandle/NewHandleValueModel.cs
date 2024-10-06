@@ -14,9 +14,11 @@ public class NewHandleValueModel : NewHandleModel, IHandleValue
         Color = type.GetColor();
     }
     
-    public class Builder : NewHandleModel.Builder
+    public class HandleValueBuilder : Builder<HandleValueBuilder>
     {
-        public Builder SetType(ValueType type)
+        private ValueType _type;
+        protected override HandleValueBuilder This => this;
+        public HandleValueBuilder SetType(ValueType type)
         {
             _type = type;
             return this;

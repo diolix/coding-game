@@ -1,12 +1,10 @@
-using GraphModel.Edge;
-using GraphModel.Handle;
 using GraphModel.Node.BaseNodes;
 using GraphModel.Node.NodeBuilder;
-using PrimitiveNodeFactory = GraphModel.Node.NodeBuilder.PrimitiveNodeFactory;
+using PrimitiveNodeFactory = GraphModel.Node.NodeBuilder.Factories.PrimitiveNodeFactory;
 
 namespace GraphModelTest;
 
-public class BasicNodeTests
+public class FlowTests : BaseNodeTests
 {
     private readonly PrimitiveNodeFactory _primitiveNodeFactory = new();
     
@@ -14,6 +12,7 @@ public class BasicNodeTests
     public void BasicFlow()
     {
         var start = _primitiveNodeFactory.CreateStart();
+        
         bool hasBeenExecuted = false;
         var spy = CreateSpyNode(_ => hasBeenExecuted = true);
         
@@ -21,16 +20,6 @@ public class BasicNodeTests
         start.Execute();
         
         Assert.IsTrue(hasBeenExecuted);
-    }
-    
-    private void AddEdge(INode from, int indexFrom, INode to, int indexTo)
-    {
-        from.Output.AddEdge(CreateEdge(from.Output.Handles[indexFrom], to.Input.Handles[indexTo]));
-    }
-    
-    private IEdge CreateEdge(IHandle from, IHandle to)
-    {
-        return new EdgeModel(from, to);
     }
 
     private INode CreateSpyNode(Action<HandlesExecution> callback)

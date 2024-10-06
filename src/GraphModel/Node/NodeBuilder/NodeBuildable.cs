@@ -1,5 +1,4 @@
-﻿using CodingGame.Script.Graph.Model.Node.BaseNodes;
-using GraphModel.Node.BaseNodes;
+﻿using GraphModel.Node.BaseNodes;
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 

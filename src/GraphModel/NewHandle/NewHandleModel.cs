@@ -22,28 +22,29 @@ public abstract class NewHandleModel : IHandle
         Node = node;
     }
     
-    public abstract class Builder
+    public abstract class Builder<T> where T : Builder<T>
     {
         protected string Label;
         protected int Index;
         protected INode Node;
-
-        public Builder SetLabel(string label)
+        protected abstract T This { get; }
+        
+        public T SetLabel(string label)
         {
             Label = label;
-            return this;
+            return This;
         }
 
-        public Builder SetIndex(int index)
+        public T SetIndex(int index)
         {
             Index = index;
-            return this;
+            return This;
         }
 
-        public Builder SetNode(INode node)
+        public T SetNode(INode node)
         {
             Node = node;
-            return this;
+            return This;
         }
 
         public abstract NewHandleModel Build();

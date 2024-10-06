@@ -1,6 +1,6 @@
 ﻿using GraphModel.Node.BaseNodes;
 
-namespace GraphModel.Node.NodeBuilder;
+namespace GraphModel.Node.NodeBuilder.Factories;
 
 public class PrimitiveNodeFactory
 {
@@ -9,17 +9,5 @@ public class PrimitiveNodeFactory
         .SetIsPure(true)
         .SetExecution(handlesExecution => handlesExecution.SafeExecute(0))
         .AddOutputFlow("")
-        .Build();
-
-    public INode CreatePrintHelloWorld() => new NodeBuildable.Builder()
-        .SetName("Print Hello World")
-        .SetIsPure(true)
-        .SetExecution(handlesExecution =>
-        {
-            Console.WriteLine("Hello World");
-            handlesExecution.SafeExecute(0);
-        })
-        .AddOutputFlow("")
-        .AddInputFlow("")
         .Build();
 }

@@ -1,8 +1,5 @@
-﻿using System.Drawing;
-using GraphModel.NewHandle;
-using GraphModel.Node.Input;
+﻿using GraphModel.Node.Input;
 using GraphModel.Node.Output;
-using GraphModel.Util;
 
 namespace GraphModel.Node.NodeBuilder;
 
@@ -24,23 +21,25 @@ public partial class NodeBuildable
 
         public Builder AddOutputFlow(string label)
         {
-            _outputsHandlesConstructor.AddHandle(label, new ColorHex(Color.White));
+            _outputsHandlesConstructor.AddFlow(label);
             return this;
         }
 
         public Builder AddOutputValue(string label, ValueType type)
         {
+            _outputsHandlesConstructor.AddValue(label, type);
             return this;
         }
         
         public Builder AddInputFlow(string label)
         {
-            _inputsHandlesConstructor.AddHandle(label, new ColorHex(Color.White));
+            _inputsHandlesConstructor.AddFlow(label);
             return this;
         }
         
-        public Builder AddOutputValue(string label, ValueType type)
+        public Builder AddInputValue(string label, ValueType type)
         {
+            _inputsHandlesConstructor.AddValue(label, type);
             return this;
         }
         

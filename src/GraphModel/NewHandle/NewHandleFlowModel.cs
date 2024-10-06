@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using GraphModel.Handle.HandleFlow;
+﻿using GraphModel.Handle.HandleFlow;
 using GraphModel.Node.BaseNodes;
 using GraphModel.Util;
 
@@ -11,8 +10,10 @@ public class NewHandleFlowModel : NewHandleModel, IHandleFlow
 
     private NewHandleFlowModel(string label, int index, INode node) : base(label, index, node) { }
     
-    public new class Builder : NewHandleModel.Builder
+    public class HandleFlowBuilder : Builder<HandleFlowBuilder>
     {
+        protected override HandleFlowBuilder This => this;
+
         public override NewHandleModel Build()
         {
             return new NewHandleFlowModel(Label, Index, Node);

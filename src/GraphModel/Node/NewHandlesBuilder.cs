@@ -7,38 +7,51 @@ namespace GraphModel.Node;
 
 public class NewHandlesBuilder
 {
-    private IList<NewHandleModel.Builder> _handlesBuilder;
+    private IList<NewHandleValueModel.HandleValueBuilder?> _valueHandlesBuilder;
+    private IList<NewHandleFlowModel.HandleFlowBuilder?> _flowHandlesBuilder;
     private int _index;
     
     public NewHandlesBuilder()
     {
-        _handlesBuilder = new List<NewHandleModel.Builder>();
+        _valueHandlesBuilder = new List<NewHandleValueModel.HandleValueBuilder?>();
+        _flowHandlesBuilder = new List<NewHandleFlowModel.HandleFlowBuilder?>();
         _index = 0;
     }
 
     public void AddFlow(string label)
     {
-        _handlesBuilder.Add(new NewHandleFlowModel.Builder()
+        _valueHandlesBuilder.Add(null);
+        var test = new NewHandleFlowModel.HandleFlowBuilder()
             .SetLabel(label)
-            .SetIndex(_index++));
+            .SetIndex(_index++);
+        _flowHandlesBuilder.Add(test);
     }
 
     public void AddValue(string label, ValueType type)
     {
-        var test = new NewHandleValueModel.Builder();
-        
-    }
-    
-    public void AddHandle(string label, ColorHex color)
-    {
-        _handlesBuilder.Add(new NewHandleModel.Builder()
+        _flowHandlesBuilder.Add(null);
+        var test = new NewHandleValueModel.HandleValueBuilder()
             .SetLabel(label)
-            .SetColor(color)
-            .SetIndex(_index++));
+            .SetIndex(_index++)
+            .SetType(type);
+        _valueHandlesBuilder.Add(test);
+        
     }
     
     public IList<IHandle> BuildHandles(INode node)
     {
-        return _handlesBuilder.Select(builder => builder.SetNode(node).Build()).ToArray();
+        var res = new List<IHandle>();
+        
+        var highestCount = Math.Max(_valueHandlesBuilder.Count, _flowHandlesBuilder.Count);
+        for (int i = 0; i < _index; i++)
+        {
+            if(_valueHandlesBuilder[i] != null)
+                res.Add(_valueHandlesBuilder[i]!.SetNode(node).Build());
+            
+            else if (_flowHandlesBuilder[i] != null) 
+                res.Add(_flowHandlesBuilder[i]!.SetNode(node).Build());
+        }
+        
+        return res;
     }
 }

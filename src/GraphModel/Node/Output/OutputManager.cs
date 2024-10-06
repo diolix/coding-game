@@ -7,7 +7,7 @@ namespace GraphModel.Node.Output;
 public class OutputManager : IOutputManager
 {
     private IList<IEdge> EdgesFlow;
-    private Dictionary<int, IList<IEdge>> _edgesValuePerHandle;
+    private Dictionary<int, IList<IEdge>> _edgesValuePerHandle = null!;
     private readonly IList<IHandle> _handles;
     public IList<IHandle> Handles => _handles;
 
@@ -46,7 +46,7 @@ public class OutputManager : IOutputManager
     }
     
     public bool SafeExecuteFlowOutput(int index) {
-        if (EdgesFlow[index] == null) return false;
+        if (EdgesFlow.Count <= index) return false;
         EdgesFlow[index].To.Node.Execute();
         return true;
     }

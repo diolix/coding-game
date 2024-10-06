@@ -17,17 +17,7 @@ public class HandlesExecution
         _onLastExecution = onLastExecution;
     }
     
-    public Optional<object> GetInputValue(int index, ValueType type)
-    {
-        if (type.Equals(ValueType.AnyValue)) return _inputManager.SafeGetInputValue(index);
-        if (type.Equals(ValueType.Int)) return GetInputValue<int>(index).Cast<object>();
-        if (type.Equals(ValueType.String)) return GetInputValue<string>(index).Cast<object>();
-        if (type.Equals(ValueType.Bool)) return GetInputValue<bool>(index).Cast<object>();
-        
-        return new Optional<object>();
-    }
-    
-    private Optional<T> GetInputValue<T>(int index)
+    public Optional<T> GetInputValue<T>(int index)
     {
         var objectValue = _inputManager.SafeGetInputValue(index);
         if (!objectValue.HasValue()) return new Optional<T>();
