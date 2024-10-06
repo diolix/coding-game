@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7pvmyyy05c2l"]
+
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/NodeController.cs" id="1_id4pi"]
+[ext_resource type="PackedScene" uid="uid://doqdbg872y5fg" path="res://Scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/EdgeController.cs" id="1_udpt4"]
+[ext_resource type="Resource" uid="uid://55v33bwh6r4y" path="res://Resource/handle_event_bus.tres" id="2_0mgyh"]
+[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://Scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/VariableController.cs" id="7_5r6to"]
+[ext_resource type="PackedScene" uid="uid://bsjl28l4yno5b" path="res://Scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/CreateVariableView.cs" id="8_5g7cp"]
+[ext_resource type="PackedScene" uid="uid://dep4u7a1ylngm" path="res://Scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/VariablesContainerView.cs" id="9_bnsft"]
+[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://Scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
+
+[node name="Main" type="Node2D"]
+
+[node name="NodeController" type="Node" parent="." node_paths=PackedStringArray("_startNodePosition", "_createNodeContextMenu", "_startButton", "_edgeController", "_variableController")]
+script = ExtResource("1_id4pi")
+_startNodePosition = NodePath("../GraphLayer/start")
+_nodeViewScene = ExtResource("1_ja4pk")
+_createNodeContextMenu = NodePath("../UILayer/PanelScreen/CreateNodeContextMenu")
+_startButton = NodePath("../UILayer/PanelScreen/RunButton")
+_edgeController = NodePath("../EdgeController")
+_variableController = NodePath("../VariableController")
+
+[node name="EdgeController" type="Node" parent="."]
+script = ExtResource("1_udpt4")
+_handleEventBus = ExtResource("2_0mgyh")
+_controlLineScene = ExtResource("3_gu1o8")
+_edgeScene = ExtResource("7_ifjd8")
+
+[node name="VariableController" type="Node" parent="." node_paths=PackedStringArray("_createVariableContainer", "_variablesContainerView", "_createNodeContextMenu")]
+script = ExtResource("7_5r6to")
+_createVariableContainer = NodePath("../UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/CreateVariableContainer")
+_variablesContainerView = NodePath("../UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/VariablesContainer")
+_createNodeContextMenu = NodePath("../UILayer/PanelScreen/CreateNodeContextMenu")
+
+[node name="GraphLayer" type="CanvasLayer" parent="."]
+
+[node name="start" type="Control" parent="GraphLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 122.0
+offset_top = 320.0
+offset_right = 162.0
+offset_bottom = 360.0
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="PanelScreen" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RunButton" type="Button" parent="UILayer/PanelScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_top = 28.0
+offset_right = -37.0
+offset_bottom = 59.0
+grow_horizontal = 0
+text = "Run
+"
+
+[node name="CreateNodeContextMenu" parent="UILayer/PanelScreen" instance=ExtResource("8_xwlbf")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="VariablesPanel" type="Panel" parent="UILayer/PanelScreen"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PanelScreen/VariablesPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Variables"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateVariableContainer" type="HBoxContainer" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_addButton", "_variableNameLineEdit", "_variableTypeOptionButton")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("8_5g7cp")
+_addButton = NodePath("Button")
+_variableNameLineEdit = NodePath("LineEdit")
+_variableTypeOptionButton = NodePath("OptionButton")
+
+[node name="LineEdit" type="LineEdit" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/CreateVariableContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+placeholder_text = "Variable name"
+
+[node name="OptionButton" type="OptionButton" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/CreateVariableContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "String"
+popup/item_1/text = "Int"
+popup/item_1/id = 1
+popup/item_2/text = "Bool"
+popup/item_2/id = 2
+
+[node name="Button" type="Button" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/CreateVariableContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+text = "Add"
+
+[node name="VariablesContainer" type="VBoxContainer" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_exampleVariableView")]
+layout_mode = 2
+size_flags_vertical = 0
+script = ExtResource("9_bnsft")
+_variableViewScene = ExtResource("10_0kg8d")
+_exampleVariableView = NodePath("Example")
+
+[node name="Example" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/VariablesContainer" instance=ExtResource("10_0kg8d")]
+layout_mode = 2

@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://chr6x5o8r55h8"]
+
+[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/VariableView.cs" id="1_uqi0h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tawno"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[node name="VariableView" type="Panel" node_paths=PackedStringArray("_nameLabel", "_typeLabel", "_removeButton")]
+custom_minimum_size = Vector2(0, 30)
+theme_override_styles/panel = SubResource("StyleBoxFlat_tawno")
+script = ExtResource("1_uqi0h")
+_nameLabel = NodePath("Name")
+_typeLabel = NodePath("Type")
+_removeButton = NodePath("Button")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 40.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "Name"
+
+[node name="Type" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -11.5
+offset_right = -100.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Type"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Delete"

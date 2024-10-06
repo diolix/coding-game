@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://doqdbg872y5fg"]
+
+[ext_resource type="Script" path="res://Scripts/Graph/View/Node/NodeView.cs" id="1_6j0ho"]
+[ext_resource type="StyleBox" uid="uid://d1ti4gfctyxoc" path="res://NodeVisual/unselected_node.tres" id="1_e7i31"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Draggable.cs" id="2_43wla"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/HandlesInstantiator.cs" id="2_h2ren"]
+[ext_resource type="PackedScene" uid="uid://dbbflmvw75ji6" path="res://Scenes/GraphEditor/Node/handle_row.tscn" id="3_io08m"]
+[ext_resource type="StyleBox" uid="uid://d3uoenmkebtph" path="res://NodeVisual/selected_node.tres" id="3_xybm1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4t7ql"]
+bg_color = Color(0.111197, 0.111197, 0.111197, 1)
+
+[node name="NodeView" type="PanelContainer" node_paths=PackedStringArray("_nameLabel", "_handlesInstantiator")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -40.5
+offset_right = 110.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(111, 42.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_e7i31")
+script = ExtResource("1_6j0ho")
+_selectedBackGround = ExtResource("3_xybm1")
+_unselectedBackGround = ExtResource("1_e7i31")
+_nameLabel = NodePath("VBoxContainer/NodeName")
+_handlesInstantiator = NodePath("VBoxContainer/MarginContainer/Handles")
+
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("_target")]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_43wla")
+_target = NodePath("..")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NodeName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Node name"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Handles" type="VBoxContainer" parent="VBoxContainer/MarginContainer" node_paths=PackedStringArray("_nodeView", "_rowExample")]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_h2ren")
+_nodeView = NodePath("../../..")
+_rowScene = ExtResource("3_io08m")
+_rowExample = NodePath("HandleRowExample")
+
+[node name="HandleRowExample" parent="VBoxContainer/MarginContainer/Handles" instance=ExtResource("3_io08m")]
+layout_mode = 2
+
+[node name="Footer" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4t7ql")

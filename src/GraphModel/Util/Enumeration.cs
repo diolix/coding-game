@@ -53,7 +53,7 @@ namespace CodingGame.Script.Util
             return matchingItem;
         }
 
-        public static T FromDisplayName<T>(string displayName) where T : Enumeration
+        public static T? FromDisplayName<T>(string displayName) where T : Enumeration
         {
             var matchingItem = Parse<T, string>(displayName, "display name", item => item.Name == displayName);
             return matchingItem;
