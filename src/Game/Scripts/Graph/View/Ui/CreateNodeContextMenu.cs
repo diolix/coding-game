@@ -13,12 +13,19 @@ public partial class CreateNodeContextMenu : Control
 	[Export] private VBoxContainer _vBoxContainer;
 	private VariableNodeFactory _variableNodeFactory = new();
 	private PrintNodeFactory _printNodeFactory = new DevPrintNodeFactory();
+	private ConstantNodeFactory _constantNodeFactory = new();
+	private ControlFlowNodeFactory _controlFlowNodeFactory = new();
 	public event Action<INode> OnNodeSelected;
 	private readonly Dictionary<IVariable, Button[]> _getAndSetVariables = new();
 	
 	public override void _Ready()
 	{
-		
+		AddStandardNode(_printNodeFactory.CreatePrint);
+		AddStandardNode(_printNodeFactory.CreatePrintHelloWorld);
+		AddStandardNode(_constantNodeFactory.CreatePureFalseContant);
+		AddStandardNode(_constantNodeFactory.CreatePureTrueContant);
+		AddStandardNode(_constantNodeFactory.CreatePureHelloWorldContant);
+		AddStandardNode(_controlFlowNodeFactory.CreateIf);
 	}
 
 	private void AddStandardNode(Func<INode> createNodeFunc)

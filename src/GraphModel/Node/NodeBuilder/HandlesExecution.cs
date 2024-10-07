@@ -8,13 +8,12 @@ public class HandlesExecution
 {
     private InputManager _inputManager;
     private OutputManager _outputManager;
-    private Action _onLastExecution;
+    public event Action OnLastExecution;
     
-    public HandlesExecution(InputManager inputManager, OutputManager outputManager, Action onLastExecution)
+    public HandlesExecution(InputManager inputManager, OutputManager outputManager)
     {
         _inputManager = inputManager;
         _outputManager = outputManager;
-        _onLastExecution = onLastExecution;
     }
     public Optional<object> GetInputValue(int index) => _inputManager.SafeGetInputValue(index);
     public Optional<string> GetStringInputValue(int index) => GetInputValue<string>(index);
@@ -31,7 +30,7 @@ public class HandlesExecution
     
     public void SafeExecute(int index)
     {
-        if (!_outputManager.SafeExecuteFlowOutput(index)) _onLastExecution?.Invoke();
+        if (!_outputManager.SafeExecuteFlowOutput(index)) OnLastExecution?.Invoke();
     }
     
     public void SetOutputValue(int outputIndex, object value)

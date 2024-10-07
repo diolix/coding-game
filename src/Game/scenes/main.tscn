@@ -1,16 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7pvmyyy05c2l"]
+[gd_scene load_steps=12 format=3 uid="uid://ubr0880h70uy"]
 
 [ext_resource type="Script" path="res://Scripts/Graph/Controller/NodeController.cs" id="1_id4pi"]
-[ext_resource type="PackedScene" uid="uid://doqdbg872y5fg" path="res://Scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
+[ext_resource type="PackedScene" uid="uid://doqdbg872y5fg" path="res://scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
 [ext_resource type="Script" path="res://Scripts/Graph/Controller/EdgeController.cs" id="1_udpt4"]
 [ext_resource type="Resource" uid="uid://55v33bwh6r4y" path="res://Resource/handle_event_bus.tres" id="2_0mgyh"]
-[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://Scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
+[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
 [ext_resource type="Script" path="res://Scripts/Graph/Controller/VariableController.cs" id="7_5r6to"]
-[ext_resource type="PackedScene" uid="uid://bsjl28l4yno5b" path="res://Scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
+[ext_resource type="PackedScene" uid="uid://bsjl28l4yno5b" path="res://scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
 [ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/CreateVariableView.cs" id="8_5g7cp"]
-[ext_resource type="PackedScene" uid="uid://dep4u7a1ylngm" path="res://Scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
+[ext_resource type="PackedScene" uid="uid://dep4u7a1ylngm" path="res://scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
 [ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/VariablesContainerView.cs" id="9_bnsft"]
-[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://Scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
+[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
 
 [node name="Main" type="Node2D"]
 

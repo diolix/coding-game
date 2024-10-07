@@ -23,4 +23,15 @@ public class FlowTests : BaseNodeTests
         
         Assert.IsTrue(hasBeenExecuted);
     }
+    
+    [Test]
+    public void OnLastExecution()
+    {
+        var start = _primitiveNodeFactory.CreateStart();
+        bool onLastExecutionHasBeenCalled = false;
+        start.OnLastExecution += () => onLastExecutionHasBeenCalled = true;
+        start.Execute();
+        
+        Assert.IsTrue(onLastExecutionHasBeenCalled);
+    }
 }
