@@ -1,6 +1,6 @@
 using GraphModel.Edge;
 using GraphModel.Handle;
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
 
 namespace GraphModelTest.Test;
 

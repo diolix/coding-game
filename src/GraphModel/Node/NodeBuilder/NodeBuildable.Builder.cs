@@ -10,13 +10,13 @@ public partial class NodeBuildable
         private string _name;
         private bool _isPure;
         private Action<HandlesExecution> _execution;
-        private NewHandlesBuilder _inputsHandlesConstructor;
-        private NewHandlesBuilder _outputsHandlesConstructor;
+        private HandlesBuilder _inputsHandlesConstructor;
+        private HandlesBuilder _outputsHandlesConstructor;
         
         public Builder()
         {
-            _inputsHandlesConstructor = new NewHandlesBuilder();
-            _outputsHandlesConstructor = new NewHandlesBuilder();
+            _inputsHandlesConstructor = new HandlesBuilder();
+            _outputsHandlesConstructor = new HandlesBuilder();
         }
 
         public Builder AddOutputFlow(string label)

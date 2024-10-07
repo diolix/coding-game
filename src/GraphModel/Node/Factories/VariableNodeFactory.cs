@@ -1,5 +1,4 @@
 using CodingGame.Script.Graph.Model.Variable;
-using GraphModel.Node.BaseNodes;
 
 namespace GraphModel.Node.NodeBuilder.Factories;
 

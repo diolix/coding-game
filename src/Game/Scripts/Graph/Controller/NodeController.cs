@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using CodingGame.Script.Graph.Model.Node.Nodes;
+using CodingGame.Scripts.Graph.View.Controller;
 using CodingGame.Scripts.Graph.View.Node;
 using CodingGame.Scripts.Graph.View.Ui;
 using Godot;
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
+using GraphModel.Node.NodeBuilder.Factories;
 
-namespace CodingGame.Scripts.Graph.View.Controller;
+namespace CodingGame.Scripts.Graph.Controller;
 
 public partial class NodeController : Godot.Node
 {
@@ -18,11 +19,11 @@ public partial class NodeController : Godot.Node
 	private readonly IList<INode> _nodes = new List<INode>();
 
 	private NodeView _selectedNode;
+	private PrimitiveNodeFactory _primitiveNodeFactory = new();
 	
 	public override void _Ready()
 	{
-		var start = new Start();
-		start.Configure();
+		var start = _primitiveNodeFactory.CreateStart();
 		InstantiateNodeView(start, _startNodePosition.GlobalPosition);
 		_startButton.Pressed += () => start.Execute();
 		_createNodeContextMenu.OnNodeSelected += (node) =>

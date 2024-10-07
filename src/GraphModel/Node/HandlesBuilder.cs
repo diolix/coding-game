@@ -1,17 +1,16 @@
 ﻿using GraphModel.Handle;
 using GraphModel.NewHandle;
-using GraphModel.Node.BaseNodes;
 using GraphModel.Util;
 
 namespace GraphModel.Node;
 
-public class NewHandlesBuilder
+public class HandlesBuilder
 {
     private IList<NewHandleValueModel.HandleValueBuilder?> _valueHandlesBuilder;
     private IList<NewHandleFlowModel.HandleFlowBuilder?> _flowHandlesBuilder;
     private int _index;
     
-    public NewHandlesBuilder()
+    public HandlesBuilder()
     {
         _valueHandlesBuilder = new List<NewHandleValueModel.HandleValueBuilder?>();
         _flowHandlesBuilder = new List<NewHandleFlowModel.HandleFlowBuilder?>();

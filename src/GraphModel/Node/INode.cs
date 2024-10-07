@@ -1,7 +1,7 @@
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
-namespace GraphModel.Node.BaseNodes;
+namespace GraphModel.Node;
 
 public interface INode
 {
@@ -9,7 +9,6 @@ public interface INode
     public bool IsPure { get; }
     public void Execute();
     public event Action OnLastExecution;
-    public void Configure();
     public IOutputManager Output { get; }
     public IInputManager Input { get; }
 }

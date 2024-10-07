@@ -1,5 +1,5 @@
 ﻿using GraphModel.Handle;
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
 using GraphModel.Util;
 
 namespace GraphModel.NewHandle;

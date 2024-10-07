@@ -1,5 +1,4 @@
-﻿using GraphModel.Node.BaseNodes;
-using GraphModel.Node.Input;
+﻿using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
 namespace GraphModel.Node.NodeBuilder;
@@ -16,6 +15,5 @@ public partial class NodeBuildable : INode
     
     private NodeBuildable(){}
     
-    public void Configure() { }
     public void Execute() => _execution(_handlesExecution);
 }

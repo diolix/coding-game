@@ -1,6 +1,4 @@
-﻿using GraphModel.Node.BaseNodes;
-
-namespace GraphModel.Node.NodeBuilder.Factories;
+﻿namespace GraphModel.Node.NodeBuilder.Factories;
 
 public class PrimitiveNodeFactory
 {

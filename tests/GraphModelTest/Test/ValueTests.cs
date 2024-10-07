@@ -1,4 +1,4 @@
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
 using GraphModel.Node.NodeBuilder;
 using GraphModel.Node.NodeBuilder.Factories;
 using GraphModelTest.Mocks;

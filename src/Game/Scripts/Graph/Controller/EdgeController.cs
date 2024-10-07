@@ -4,7 +4,7 @@ using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
 
 namespace CodingGame.Scripts.Graph.View.Controller;
 

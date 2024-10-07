@@ -1,7 +1,7 @@
 using System;
 using CodingGame.Scripts.Graph.View.Controller.Handle;
 using Godot;
-using GraphModel.Node.BaseNodes;
+using GraphModel.Node;
 
 namespace CodingGame.Scripts.Graph.View.Node;
 
