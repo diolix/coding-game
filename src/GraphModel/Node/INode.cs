@@ -8,7 +8,8 @@ public interface INode
     public string Name { get; }
     public bool IsPure { get; }
     public void Execute();
-    public event Action OnLastExecution;
+    public event Action? OnStartExecution;
+    public event Action? OnFinishedExecution;
     public IOutputManager Output { get; }
     public IInputManager Input { get; }
 }

@@ -8,7 +8,7 @@ using Godot;
 using GraphModel;
 using GraphModel.Variable;
 
-namespace CodingGame.Scripts.Graph.View.Controller;
+namespace CodingGame.Scripts.Graph.Controller;
 
 public partial class VariableController : Godot.Node
 {

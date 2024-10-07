@@ -72,7 +72,6 @@ public partial class NodeBuildable
             node.Output = outputManager;
             node.Input = inputManager;
             node._handlesExecution = new HandlesExecution(inputManager, outputManager);
-            node._handlesExecution.OnLastExecution += () => node.OnLastExecution?.Invoke();
             node._execution = _execution;
             return node;
         }

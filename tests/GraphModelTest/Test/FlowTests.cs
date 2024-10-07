@@ -1,4 +1,3 @@
-using GraphModel.Node.NodeBuilder;
 using GraphModelTest.Mocks;
 using PrimitiveNodeFactory = GraphModel.Node.NodeBuilder.Factories.PrimitiveNodeFactory;
 
@@ -24,13 +23,13 @@ public class FlowTests : BaseNodeTests
     }
     
     [Test]
-    public void OnLastExecution()
+    public void OnFinishedExecution()
     {
         var start = _primitiveNodeFactory.CreateStart();
-        bool onLastExecutionHasBeenCalled = false;
-        start.OnLastExecution += () => onLastExecutionHasBeenCalled = true;
+        bool onFinishedExecutionHasBeenCalled = false;
+        start.OnFinishedExecution += () => onFinishedExecutionHasBeenCalled = true;
         start.Execute();
         
-        Assert.IsTrue(onLastExecutionHasBeenCalled);
+        Assert.IsTrue(onFinishedExecutionHasBeenCalled);
     }
 }

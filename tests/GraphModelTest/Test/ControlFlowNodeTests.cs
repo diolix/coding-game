@@ -38,4 +38,35 @@ public class ControlFlowNodeTests : BaseNodeTests
         
         Assert.IsTrue(spyHasBeenExecuted);
     }
+
+    [Test]
+    public void TestWhileNode()
+    {
+        var whileNode = _controlFlowNodeTests.CreateWhile();
+        var trueConstant = _constantNodeFactory.CreatePureTrueContant();
+        var falseConstant = _constantNodeFactory.CreatePureFalseContant();
+        
+        bool exitNodeExecuted = false;
+        var mockExitNode = _mockNodeFactory.CreateImpureInputFlowSpyNode(_ => exitNodeExecuted = true);
+        
+        var trueConstantWhileEdge = AddEdge(trueConstant, 0, whileNode, 1);
+        
+        var bodyExecutedCount = 0;
+        var mockBodyNode = _mockNodeFactory.CreateImpureInputFlowSpyNode(_ =>
+        {
+            if (bodyExecutedCount++ == 5)
+            {
+                trueConstant.Output.RemoveEdge(trueConstantWhileEdge);
+                AddEdge(falseConstant, 0, whileNode, 1);
+            }
+        });
+        
+        AddEdge(whileNode, 1, mockBodyNode, 0);
+        AddEdge(whileNode, 0, mockExitNode, 0);
+        
+        whileNode.Execute();
+        
+        Assert.IsTrue(exitNodeExecuted);
+        Assert.That(bodyExecutedCount, Is.EqualTo(6));
+    }
 }

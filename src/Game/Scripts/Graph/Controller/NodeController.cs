@@ -26,10 +26,10 @@ public partial class NodeController : Godot.Node
 		var start = _primitiveNodeFactory.CreateStart();
 		InstantiateNodeView(start, _startNodePosition.GlobalPosition);
 		_startButton.Pressed += () => start.Execute();
+		start.OnFinishedExecution += HandleLastExecution;
 		_createNodeContextMenu.OnNodeSelected += (node) =>
 		{
 			_nodes.Add(node);
-			node.OnLastExecution += HandleLastExecution;
 			InstantiateNodeView(node, _createNodeContextMenu.GetGlobalMousePosition());
 		};
 	}

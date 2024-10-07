@@ -5,15 +5,21 @@ namespace GraphModel.Node.NodeBuilder;
 
 public partial class NodeBuildable : INode
 {
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
     public bool IsPure { get; private set; }
-    public event Action OnLastExecution;
-    public IOutputManager Output { get; private set; }
-    public IInputManager Input { get; private set; }
-    private HandlesExecution _handlesExecution;
-    private Action<HandlesExecution> _execution;
+    public event Action? OnStartExecution;
+    public event Action? OnFinishedExecution;
+    public IOutputManager Output { get; private set; } = null!;
+    public IInputManager Input { get; private set; } = null!;
+    private HandlesExecution _handlesExecution = null!;
+    private Action<HandlesExecution> _execution = null!;
     
-    private NodeBuildable(){}
+    private protected NodeBuildable(){}
     
-    public void Execute() => _execution(_handlesExecution);
+    public void Execute()
+    {
+        OnStartExecution?.Invoke();
+        _execution(_handlesExecution);
+        OnFinishedExecution?.Invoke();
+    }
 }

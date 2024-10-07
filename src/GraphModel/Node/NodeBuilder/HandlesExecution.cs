@@ -8,7 +8,6 @@ public class HandlesExecution
 {
     private InputManager _inputManager;
     private OutputManager _outputManager;
-    public event Action OnLastExecution;
     
     public HandlesExecution(InputManager inputManager, OutputManager outputManager)
     {
@@ -30,7 +29,7 @@ public class HandlesExecution
     
     public void SafeExecute(int index)
     {
-        if (!_outputManager.SafeExecuteFlowOutput(index)) OnLastExecution?.Invoke();
+        _outputManager.SafeExecuteFlowOutput(index);
     }
     
     public void SetOutputValue(int outputIndex, object value)
