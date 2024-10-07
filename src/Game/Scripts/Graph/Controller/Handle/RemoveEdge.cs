@@ -1,11 +1,11 @@
 using Godot;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.View.Controller.Handle;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
-public partial class RemoveEdge : ColorRect, IHandleEventController
+public partial class RemoveEdge : ColorRect, IHandleModelDependant
 {
-    [Export] private Scripts.Graph.View.Controller.Handle.HandleEventBus _handleEventBus;
+    [Export] private HandleEventBus _handleEventBus;
     public IHandle Model { private get; set; }
 
     public override void _GuiInput(InputEvent @event)

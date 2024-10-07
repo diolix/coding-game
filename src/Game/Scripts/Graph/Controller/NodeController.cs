@@ -19,11 +19,11 @@ public partial class NodeController : Godot.Node
 	private readonly IList<INode> _nodes = new List<INode>();
 
 	private NodeView _selectedNode;
-	private PrimitiveNodeFactory _primitiveNodeFactory = new();
+	private LevelNodeFactory _levelNodeFactory = new();
 	
 	public override void _Ready()
 	{
-		var start = _primitiveNodeFactory.CreateStart();
+		var start = _levelNodeFactory.CreateStart();
 		InstantiateNodeView(start, _startNodePosition.GlobalPosition);
 		_startButton.Pressed += () => start.Execute();
 		start.OnFinishedExecution += HandleLastExecution;

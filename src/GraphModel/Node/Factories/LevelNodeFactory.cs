@@ -1,6 +1,6 @@
 ﻿namespace GraphModel.Node.NodeBuilder.Factories;
 
-public class PrimitiveNodeFactory
+public class LevelNodeFactory
 {
     public INode CreateStart() => new NodeBuildable.Builder()
         .SetName("Start")

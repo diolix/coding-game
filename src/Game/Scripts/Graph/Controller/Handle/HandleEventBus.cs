@@ -2,7 +2,7 @@ using System;
 using Godot;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.View.Controller.Handle;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
 [GlobalClass]
 public partial class HandleEventBus : Resource

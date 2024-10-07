@@ -2,7 +2,7 @@ using CodingGame.Scripts.Graph.View.Node;
 using Godot;
 using GraphModel.Node;
 
-namespace CodingGame.Scripts.Graph.View.Controller.Handle;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
 public partial class HandlesInstantiator : Godot.Node
 {

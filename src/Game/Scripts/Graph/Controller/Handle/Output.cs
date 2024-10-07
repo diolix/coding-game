@@ -1,12 +1,12 @@
 using Godot;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.View.Controller.Handle;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
-public partial class Output : Godot.Node, IHandleEventController
+public partial class Output : Godot.Node, IHandleModelDependant
 {
     [Export] private Script.Graph.View.Draggable _draggable;
-    [Export] private HandleEventBus _handleEventBus;
+    [Export] private Graph.Controller.Handle.HandleEventBus _handleEventBus;
     [Export] private Control _handleIcon;
     public IHandle Model { private get; set; }
 

@@ -1,17 +1,17 @@
+using GraphModel.Node.NodeBuilder.Factories;
 using GraphModelTest.Mocks;
-using PrimitiveNodeFactory = GraphModel.Node.NodeBuilder.Factories.PrimitiveNodeFactory;
 
 namespace GraphModelTest.Test;
 
 public class FlowTests : BaseNodeTests
 {
-    private readonly PrimitiveNodeFactory _primitiveNodeFactory = new();
+    private readonly LevelNodeFactory _levelNodeFactory = new();
     private readonly MockNodeFactory _mockNodeFactory = new();
     
     [Test]
     public void BasicFlow()
     {
-        var start = _primitiveNodeFactory.CreateStart();
+        var start = _levelNodeFactory.CreateStart();
         
         bool hasBeenExecuted = false;
         var spy = _mockNodeFactory.CreateImpureInputFlowSpyNode(_ => hasBeenExecuted = true);
@@ -25,7 +25,7 @@ public class FlowTests : BaseNodeTests
     [Test]
     public void OnFinishedExecution()
     {
-        var start = _primitiveNodeFactory.CreateStart();
+        var start = _levelNodeFactory.CreateStart();
         bool onFinishedExecutionHasBeenCalled = false;
         start.OnFinishedExecution += () => onFinishedExecutionHasBeenCalled = true;
         start.Execute();

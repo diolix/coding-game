@@ -5,6 +5,7 @@ using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
 using GraphModel.Node;
+using HandleEventBus = CodingGame.Scripts.Graph.Controller.Handle.HandleEventBus;
 
 namespace CodingGame.Scripts.Graph.View.Controller;
 

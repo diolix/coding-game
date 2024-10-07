@@ -1,6 +1,8 @@
-using CodingGame.Scripts.Graph.View.Controller.Handle;
+using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
+using GraphModel;
 using GraphModel.Handle;
+using GraphModel.NewHandle;
 
 namespace CodingGame.Scripts.Graph.View.Node.Handle;
 
@@ -9,6 +11,12 @@ public partial class HandleView : Control
     [Export] private Label _label;
     [Export] private ColorRect _icon;
     [Export] private Godot.Node[] _handleEventControllers;
+    
+    [Export] private Control _stringInput;
+    [Export] private Control _intInput;
+    [Export] private Control _boolInput;
+    
+    private IHandle _model;
 
     public override void _Ready()
     {
@@ -17,12 +25,31 @@ public partial class HandleView : Control
     }
 
     public void SetUp(IHandle model) {
+        _model = model;
         _icon.Visible = true;
         _label.Text = model.Label;
         _icon.Color = Color.FromHtml(model.Color.ToHex());
         foreach (var handleEventController in _handleEventControllers)
         {
-            ((IHandleEventController)handleEventController).Model = model;
+            ((IHandleModelDependant)handleEventController).Model = model;
         }
+    }
+
+    private void ShowInput()
+    {
+        if (_model is not IHandleValue handleValue) return;
+        if (handleValue.Type.Equals(ValueType.String))
+            _stringInput.Show();
+        else if (handleValue.Type.Equals(ValueType.Int))
+            _intInput.Show();
+        else if (handleValue.Type.Equals(ValueType.Bool))
+            _boolInput.Show();
+    }
+
+    private void HideInput()
+    {
+        _intInput.Hide();
+        _stringInput.Hide();
+        _boolInput.Hide();
     }
 }
