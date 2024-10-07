@@ -13,7 +13,11 @@ public class VariableNodeFactory
         .AddInputValue("new value", variable.ValueType)
 
         .AddOutputFlow("")
-        .SetExecution(execution => variable.SafeSetValue(execution.GetInputValue(1).Value))
+        .SetExecution(execution =>
+        {
+            variable.SafeSetValue(execution.GetInputValue(1).Value);
+            execution.SafeExecute(0);
+        })
         .Build();
     
     public INode CreateGetVariable(IVariable variable) => new NodeBuildable.Builder()
