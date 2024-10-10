@@ -1,6 +1,4 @@
-﻿using GraphModel.Handle;
-
-namespace GraphModel.NewHandle;
+﻿namespace GraphModel.Handle.Value;
 
 public interface IHandleValue : IHandle
 {

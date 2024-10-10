@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CodingGame.Scripts.Graph.View.Controller;
 using CodingGame.Scripts.Graph.View.Node;
 using CodingGame.Scripts.Graph.View.Ui;
 using Godot;
@@ -8,7 +7,7 @@ using GraphModel.Node.NodeBuilder.Factories;
 
 namespace CodingGame.Scripts.Graph.Controller;
 
-public partial class NodeController : Godot.Node
+public partial class NodeController : Node
 {
 	[Export] private Control _startNodePosition;
 	[Export] private PackedScene _nodeViewScene;

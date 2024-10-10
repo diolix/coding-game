@@ -1,26 +1,26 @@
 ﻿using GraphModel.Handle;
-using GraphModel.NewHandle;
-using GraphModel.Util;
+using GraphModel.Handle.Flow;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node;
 
 public class HandlesBuilder
 {
-    private IList<NewHandleValueModel.HandleValueBuilder?> _valueHandlesBuilder;
-    private IList<NewHandleFlowModel.HandleFlowBuilder?> _flowHandlesBuilder;
+    private IList<BaseHandleValueModel.HandleValueBuilder?> _valueHandlesBuilder;
+    private IList<BaseHandleFlowModel.HandleFlowBuilder?> _flowHandlesBuilder;
     private int _index;
     
     public HandlesBuilder()
     {
-        _valueHandlesBuilder = new List<NewHandleValueModel.HandleValueBuilder?>();
-        _flowHandlesBuilder = new List<NewHandleFlowModel.HandleFlowBuilder?>();
+        _valueHandlesBuilder = new List<BaseHandleValueModel.HandleValueBuilder?>();
+        _flowHandlesBuilder = new List<BaseHandleFlowModel.HandleFlowBuilder?>();
         _index = 0;
     }
 
     public void AddFlow(string label)
     {
         _valueHandlesBuilder.Add(null);
-        var test = new NewHandleFlowModel.HandleFlowBuilder()
+        var test = new BaseHandleFlowModel.HandleFlowBuilder()
             .SetLabel(label)
             .SetIndex(_index++);
         _flowHandlesBuilder.Add(test);
@@ -29,7 +29,7 @@ public class HandlesBuilder
     public void AddValue(string label, ValueType type)
     {
         _flowHandlesBuilder.Add(null);
-        var test = new NewHandleValueModel.HandleValueBuilder()
+        var test = new BaseHandleValueModel.HandleValueBuilder()
             .SetLabel(label)
             .SetIndex(_index++)
             .SetType(type);

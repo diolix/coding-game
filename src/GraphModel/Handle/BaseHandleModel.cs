@@ -1,21 +1,41 @@
-﻿using GraphModel.Handle;
+﻿using GraphModel.Edge;
 using GraphModel.Node;
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle;
+namespace GraphModel.Handle;
 
-public abstract class NewHandleModel : IHandle
+public abstract class BaseHandleModel : IHandle
 {
+    private Action _onExecute;
     public string Label { get; }
+    Action IHandle.OnExecute => _onExecute;
+
     public int Index { get; }
     public INode Node { get; }
+    public event Action OnExecute;
+    public void Execute(){}
     public abstract ColorHex Color { get; }
     public bool IsCompatible(IHandle handle)
     {
         return true;
     }
 
-    public NewHandleModel(string label, int index, INode node)
+    public void AddEdge(IEdge edge)
+    {
+        return;
+    }
+
+    public void RemoveEdge(IEdge edge)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetInputValue(object value)
+    {
+        throw new NotImplementedException();
+    }
+
+    public BaseHandleModel(string label, int index, INode node)
     {
         Label = label;
         Index = index;
@@ -47,6 +67,6 @@ public abstract class NewHandleModel : IHandle
             return This;
         }
 
-        public abstract NewHandleModel Build();
+        public abstract BaseHandleModel Build();
     }
 }

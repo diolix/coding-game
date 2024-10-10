@@ -1,13 +1,14 @@
-﻿using GraphModel.Node;
+﻿using GraphModel.NewHandle;
+using GraphModel.Node;
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle;
+namespace GraphModel.Handle.Value;
 
-public class NewHandleValueModel : NewHandleModel, IHandleValue
+public class BaseHandleValueModel : BaseHandleModel, IHandleValue
 {
     public override ColorHex Color { get;}
     public ValueType Type { get; }
-    private NewHandleValueModel(string label, int index, INode node, ValueType type) : base(label, index, node)
+    private BaseHandleValueModel(string label, int index, INode node, ValueType type) : base(label, index, node)
     {
         Type = type;
         Color = type.GetColor();
@@ -23,9 +24,9 @@ public class NewHandleValueModel : NewHandleModel, IHandleValue
             return this;
         }
 
-        public override NewHandleModel Build()
+        public override BaseHandleModel Build()
         {
-            return new NewHandleValueModel(Label, Index, Node, _type);
+            return new BaseHandleValueModel(Label, Index, Node, _type);
         }
     }
 }

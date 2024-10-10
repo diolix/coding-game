@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using CodingGame.Scripts.Graph.View.Controller.Handle;
 using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
+using GraphModel.NewHandle;
 using GraphModel.Node;
 using HandleEventBus = CodingGame.Scripts.Graph.Controller.Handle.HandleEventBus;
 
-namespace CodingGame.Scripts.Graph.View.Controller;
+namespace CodingGame.Scripts.Graph.Controller;
 
-public partial class EdgeController : Godot.Node
+public partial class EdgeController : Node
 {
     [Export] private HandleEventBus _handleEventBus;
     [Export] private PackedScene _controlLineScene;

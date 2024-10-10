@@ -1,6 +1,7 @@
 using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
 using GraphModel.Handle;
+using GraphModel.NewHandle;
 using HandleView = CodingGame.Scripts.Graph.View.Node.Handle.HandleView;
 
 namespace CodingGame.Scripts.Graph.View.Node;

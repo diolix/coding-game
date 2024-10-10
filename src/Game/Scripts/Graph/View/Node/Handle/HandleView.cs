@@ -2,7 +2,7 @@ using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
 using GraphModel;
 using GraphModel.Handle;
-using GraphModel.NewHandle;
+using GraphModel.Handle.Value;
 
 namespace CodingGame.Scripts.Graph.View.Node.Handle;
 
