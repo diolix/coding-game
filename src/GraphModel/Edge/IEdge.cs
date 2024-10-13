@@ -1,5 +1,4 @@
 using GraphModel.Handle;
-using GraphModel.NewHandle;
 
 namespace GraphModel.Edge;
 public interface IEdge

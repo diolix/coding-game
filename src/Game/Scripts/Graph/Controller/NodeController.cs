@@ -37,7 +37,7 @@ public partial class NodeController : Node
 	{
 		foreach (var node in _nodes)
 		{
-			node.Input.Reset();
+			node.Input.ResetValues();
 		}
 		_variableController.Reset();
 	}

@@ -1,5 +1,6 @@
 using GraphModel.Node.NodeBuilder.Factories;
 using GraphModelTest.Mocks;
+using GraphModelTest.Test.EndToEnd;
 
 namespace GraphModelTest.Test;
 

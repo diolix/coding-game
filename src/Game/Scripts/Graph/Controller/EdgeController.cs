@@ -3,7 +3,6 @@ using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
-using GraphModel.NewHandle;
 using GraphModel.Node;
 using HandleEventBus = CodingGame.Scripts.Graph.Controller.Handle.HandleEventBus;
 

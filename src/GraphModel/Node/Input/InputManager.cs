@@ -1,6 +1,5 @@
 using CodingGame.Script.Util;
 using GraphModel.Handle;
-using GraphModel.NewHandle;
 
 namespace GraphModel.Node.Input;
 
@@ -53,7 +52,7 @@ public class InputManager : IInputManager
         return true;
     }
 
-    public void Reset()
+    public void ResetValues()
     {
         foreach (var inputValue in _inputValues)
         {

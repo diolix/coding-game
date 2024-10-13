@@ -1,9 +1,8 @@
 using GraphModel.Edge;
 using GraphModel.Handle;
-using GraphModel.NewHandle;
 using GraphModel.Node;
 
-namespace GraphModelTest.Test;
+namespace GraphModelTest.Test.EndToEnd;
 
 public abstract class BaseNodeTests
 {

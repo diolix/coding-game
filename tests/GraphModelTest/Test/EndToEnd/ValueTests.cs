@@ -2,6 +2,7 @@ using GraphModel.Node;
 using GraphModel.Node.NodeBuilder;
 using GraphModel.Node.NodeBuilder.Factories;
 using GraphModelTest.Mocks;
+using GraphModelTest.Test.EndToEnd;
 using ValueType = GraphModel.ValueType;
 
 namespace GraphModelTest.Test;

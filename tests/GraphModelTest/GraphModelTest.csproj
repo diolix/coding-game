@@ -26,4 +26,8 @@
       <ProjectReference Include="..\..\src\GraphModel\GraphModel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Test\Handle\" />
+    </ItemGroup>
+
 </Project>
