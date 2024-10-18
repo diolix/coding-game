@@ -41,7 +41,6 @@ public class HandlesBuilder
     {
         var res = new List<IHandle>();
         
-        var highestCount = Math.Max(_valueHandlesBuilder.Count, _flowHandlesBuilder.Count);
         for (int i = 0; i < _index; i++)
         {
             if(_valueHandlesBuilder[i] != null)

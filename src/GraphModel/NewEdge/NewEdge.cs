@@ -9,17 +9,11 @@ public class NewEdge
 
     internal NewEdge(INewHandle from, INewHandle to)
     {
-        if (!From.IsCompatible(to))
+        if (!from.IsCompatible(to))
             throw new Exception("Incompatible handles");
         
         From = from;
         To = to;
-    }
-    
-    public void RemoveFromHandles()
-    {
-        From.RemoveEdge(this);
-        To.RemoveEdge(this);
     }
     
     public bool Contain(INewHandle handle)

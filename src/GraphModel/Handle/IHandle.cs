@@ -12,8 +12,4 @@ public interface IHandle
     public int Index { get; }
     public ColorHex Color { get; }
     public bool IsCompatible(IHandle handle);
-    public void AddEdge(IEdge edge);
-    public void RemoveEdge(IEdge edge);
-    public void SetInputValue(object value);
-    public void Execute();
 }

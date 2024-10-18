@@ -1,19 +1,24 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Interfaces;
+using GraphModel.NewHandle.Flow;
 
 namespace GraphModel.NewEdge;
 
 public class FlowEdge : NewEdge
 {
-    public static NewEdge Create(IInputNewHandle from, IOutputNewHandle to)
+    private readonly InputFlowHandle _to;
+    public static FlowEdge Create(OutputFlowHandle from, InputFlowHandle to)
     {
-        var edge = new NewEdge(from, to);
-        from.AddEdge(edge);
-        to.AddEdge(edge);
+        var edge = new FlowEdge(from, to);
+        from.FlowEdge = edge;
         return edge;
     }
-    
-    internal FlowEdge(IInputNewHandle from, IOutputNewHandle to) : base(from, to)
+
+    private FlowEdge(OutputFlowHandle from, InputFlowHandle to) : base(from, to)
     {
+        _to = to;
+    }
+
+    public void ExecuteInputFlow()
+    {
+        _to.Execute();
     }
 }
