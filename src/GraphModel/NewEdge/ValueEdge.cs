@@ -1,5 +1,5 @@
 using CodingGame.Script.Util;
-using GraphModel.NewHandle.Value.Impure;
+using GraphModel.NewHandle.Value;
 using GraphModel.Util;
 
 namespace GraphModel.NewEdge;
@@ -7,14 +7,14 @@ namespace GraphModel.NewEdge;
 public class ValueEdge : INewEdge
 {
     public ColorHex Color => _from.Color;
-    private readonly ImpureOutputValueHandle _from;
-    public static ValueEdge Create(ImpureOutputValueHandle from, ImpureInputValueHandle to)
+    private readonly BaseOutputValueHandle _from;
+    public static ValueEdge Create(BaseOutputValueHandle from, InputValueHandle to)
     {
         var edge = new ValueEdge(from);
         to.Edge = edge;
         return edge;
     }
-    private ValueEdge(ImpureOutputValueHandle from)
+    private ValueEdge(BaseOutputValueHandle from)
     {
         _from = from;
     }

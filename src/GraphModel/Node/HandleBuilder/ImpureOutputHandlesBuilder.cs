@@ -1,14 +1,14 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value.Impure;
+using GraphModel.NewHandle.Value;
 
 namespace GraphModel.Node.HandleBuilder;
 
-public class NewOutputHandlesBuilder
+public class ImpureOutputHandlesBuilder
 {
-    private IList<INewHandle> _outputHandles;
+    private readonly IList<INewHandle> _outputHandles;
 
-    public NewOutputHandlesBuilder()
+    public ImpureOutputHandlesBuilder()
     {
         _outputHandles = new List<INewHandle>();
     }

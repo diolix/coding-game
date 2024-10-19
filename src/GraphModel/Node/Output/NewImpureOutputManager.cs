@@ -1,20 +1,19 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
 using GraphModel.NewHandle.Value;
-using GraphModel.NewHandle.Value.Impure;
 
 namespace GraphModel.Node.Output;
 
-public class NewOutputManager
+public class NewImpureOutputManager
 {
     private readonly IEnumerable<INewHandle> _handles;
     public IEnumerable<INewHandle> Handles => _handles;
     
-    private IEnumerable<OutputFlowHandle> _outputFlowHandles;
+    private IEnumerable<OutputFlowHandle> _outputFlowHandles = null!;
     
-    private IEnumerable<ImpureOutputValueHandle> _outputValueHandles; 
+    private IEnumerable<ImpureOutputValueHandle> _outputValueHandles = null!; 
     
-    public NewOutputManager(IEnumerable<INewHandle> handles)
+    public NewImpureOutputManager(IEnumerable<INewHandle> handles)
     {
         _handles = handles;
         InitializeOutputFlowHandles();
@@ -23,15 +22,15 @@ public class NewOutputManager
 
     private void InitializeOutputFlowHandles()
     {
-        _outputFlowHandles = _handles.Where(handle => handle is OutputFlowHandle).Cast<OutputFlowHandle>();
+        _outputFlowHandles = _handles.OfType<OutputFlowHandle>();
     }
 
     private void InitializeOutputValueHandles()
     {
-        _outputValueHandles = _handles.Where(handle => handle is ImpureOutputValueHandle).Cast<ImpureOutputValueHandle>();
+        _outputValueHandles = _handles.OfType<ImpureOutputValueHandle>();
     }
 
-    public void ExecuteFlowOutput(string label)
+    public void Execute(string label)
     {
         _outputFlowHandles.First(handle => handle.Label == label).SentExecutionFlow();
     }

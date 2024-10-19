@@ -1,7 +1,7 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value.Impure;
-using ExecutionContext = GraphModel.NewHandle.Flow.ExecutionContext;
+using GraphModel.NewHandle.Value;
+using ExecutionContext = GraphModel.NewHandle.ExecutionContext;
 
 namespace GraphModel.Node.HandleBuilder;
 
@@ -26,7 +26,7 @@ public class NewInputHandlesBuilder
     
     public void AddInputValueHandle(string label, ValueType type)
     {
-        var handle = new ImpureInputValueHandle(label, type);
+        var handle = new InputValueHandle(label, type);
         _inputHandles.Add(handle);
     }
 }

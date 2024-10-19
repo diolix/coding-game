@@ -1,8 +1,8 @@
-namespace GraphModel.NewHandle.Flow;
+namespace GraphModel.NewHandle;
 
 public class ExecutionContext
 {
-    public event Action OnExecute;
+    public event Action? OnExecute;
     public void Execute()
     {
         OnExecute?.Invoke();

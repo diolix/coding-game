@@ -2,19 +2,15 @@ using CodingGame.Script.Util;
 using GraphModel.NewEdge;
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle.Value.Impure;
+namespace GraphModel.NewHandle.Value;
 
-public class ImpureInputValueHandle : BaseNewHandle
+public class InputValueHandle(string label, ValueType valueType) : BaseNewHandle(label)
 {
-    public ValueType ValueType { get; }
-    public ValueEdge Edge { private get; set; }
+    public ValueType ValueType { get; } = valueType;
+    public ValueEdge? Edge { private get; set; }
 
     public override ColorHex Color => ValueType.GetColor();
 
-    public ImpureInputValueHandle(string label, ValueType valueType) : base(label)
-    {
-        ValueType = valueType;
-    }
     public override bool IsCompatible(INewHandle handle)
     {
         return handle is ImpureOutputValueHandle outputValueHandle && 
@@ -23,6 +19,6 @@ public class ImpureInputValueHandle : BaseNewHandle
 
     public Optional<object> GetValue()
     {
-        return Edge.GetOutputValue();
+        return Edge is null ? new Optional<object>() : Edge.GetOutputValue();
     }
 }

@@ -6,9 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="NewHandle\Value\Pure\" />
-      <Folder Include="Node\NodeBuilder\NewNode\Pure\" />
-    </ItemGroup>
-
 </Project>

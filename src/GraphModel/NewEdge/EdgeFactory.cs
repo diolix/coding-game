@@ -1,6 +1,6 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value.Impure;
+using GraphModel.NewHandle.Value;
 
 namespace GraphModel.NewEdge;
 
@@ -11,7 +11,7 @@ public class EdgeFactory
         if (!from.IsCompatible(to))
             throw new ArgumentException("Handles must be compatible");
 
-        if (from is ImpureOutputValueHandle input && to is ImpureInputValueHandle output)
+        if (from is BaseOutputValueHandle input && to is InputValueHandle output)
             return ValueEdge.Create(input, output);
         
         if (from is OutputFlowHandle fromFlow && to is InputFlowHandle toFlow)

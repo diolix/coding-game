@@ -2,22 +2,22 @@ using GraphModel.NewHandle;
 
 namespace GraphModel.Node.NodeBuilder.NewNode;
 
-public partial class NewNodeBuildable : INewNode
+public abstract partial class BaseNodeBuildable : INewNode
 {
     public string Name { get; private set; } = string.Empty;
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
     public IList<INewHandle> InputHandles { get; private set; } = null!;
-    public IList<INewHandle> OutputHandles { get; private set; } = null!;
-    private NewHandlesExecution _handlesExecution = null!;
-    private Action<NewHandlesExecution> _execution = null!;
+    public IList<INewHandle> OutputHandles { get; protected set; } = null!;
     
-    private protected NewNodeBuildable(){}
-    
+    protected BaseNodeBuildable(){}
+
     public void Execute()
     {
         OnStartExecution?.Invoke();
-        _execution(_handlesExecution);
+        ExecuteWithHandlesContext();
         OnFinishedExecution?.Invoke();
     }
+    
+    protected abstract void ExecuteWithHandlesContext();
 }

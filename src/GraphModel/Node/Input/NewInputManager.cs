@@ -1,6 +1,6 @@
 using CodingGame.Script.Util;
 using GraphModel.NewHandle;
-using GraphModel.NewHandle.Value.Impure;
+using GraphModel.NewHandle.Value;
 
 namespace GraphModel.Node.Input;
 
@@ -9,7 +9,7 @@ public class NewInputManager
     private readonly IEnumerable<INewHandle> _handles;
     public IEnumerable<INewHandle> Handles => _handles;
     
-    private IEnumerable<ImpureInputValueHandle> _inputValues;
+    private IEnumerable<InputValueHandle> _inputValues = null!;
     
     public NewInputManager(IEnumerable<INewHandle> handles)
     {
@@ -19,7 +19,7 @@ public class NewInputManager
 
     private void InitializeInputValues()
     {
-        _inputValues = _handles.Where(handle => handle is ImpureInputValueHandle).Cast<ImpureInputValueHandle>();
+        _inputValues = _handles.OfType<InputValueHandle>();
     }
     
     public Optional<object> GetValue(string label)
