@@ -16,4 +16,17 @@ public class ControlFlowNodeFactory
                 outputManager.Execute("true");
             else outputManager.Execute("false");
         }).Build();
+    
+    public INewNode CreateWhile() => new ImpureNodeBuildable.Builder()
+        .SetName("while")
+        .AddInputFlow("")
+        .AddInputValue("condition", ValueType.Bool)
+        .AddOutputFlow("exit")
+        .AddOutputFlow("body")
+        .SetExecution((outputManager, inputManager) =>
+        {
+            while(inputManager.GetBoolValue("condition"))
+                outputManager.Execute("body");
+            outputManager.Execute("exit");
+        }).Build();
 }

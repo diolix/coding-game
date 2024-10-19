@@ -50,4 +50,13 @@ public class MockNodeFactory
             .SetExecution(callback)
             .Build();
     }
+    
+    public INewNode CreateNewBoolOutputValueNodeMock(PureNodeBuildable.Execution callback)
+    {
+        return new PureNodeBuildable.Builder()
+            .SetName("Mock")
+            .AddOutputValue("", ValueType.Bool)
+            .SetExecution(callback)
+            .Build();
+    }
 }
