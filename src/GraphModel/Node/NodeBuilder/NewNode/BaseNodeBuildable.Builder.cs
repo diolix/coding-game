@@ -35,7 +35,7 @@ public abstract partial class BaseNodeBuildable
         
         protected N BaseBuild<N>(N node) where N : BaseNodeBuildable
         {
-            node.InputHandles = InputsHandlesConstructor.InputHandles.ToList();
+            node.Inputs = InputsHandlesConstructor.InputHandles.ToList();
 
             if (_name == null)
                 throw new Exception("Name is required");

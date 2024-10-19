@@ -13,7 +13,7 @@ public class InputValueHandle(string label, ValueType valueType) : BaseNewHandle
 
     public override bool IsCompatible(INewHandle handle)
     {
-        return handle is ImpureOutputValueHandle outputValueHandle && 
+        return handle is ImpureOutputValueHandle outputValueHandle &&
                outputValueHandle.ValueType.Equals(ValueType);
     }
 
@@ -21,4 +21,5 @@ public class InputValueHandle(string label, ValueType valueType) : BaseNewHandle
     {
         return Edge is null ? new Optional<object>() : Edge.GetOutputValue();
     }
+
 }

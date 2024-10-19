@@ -8,31 +8,31 @@ public class PureNodeBuildable : BaseNodeBuildable
 {
     private NewInputManager _inputManager = null!;
     private NewPureOutputManager _outputManager = null!;
-    private PureNodeExecution _execution = null!;
+    private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
         _execution(_inputManager, _outputManager);
     }
     
-    public delegate void PureNodeExecution(NewInputManager inputManager, NewPureOutputManager outputManager);
+    public delegate void Execution(NewInputManager inputManager, NewPureOutputManager outputManager);
     
-    public class PureNodeBuilder : Builder<PureNodeBuilder>
+    public class Builder : Builder<Builder>
     {
-        private PureNodeExecution? _execution;
+        private Execution? _execution;
         private PureOutputHandlesBuilder _outputHandlesBuilder;
 
-        public PureNodeBuilder()
+        public Builder()
         {
             _outputHandlesBuilder = new PureOutputHandlesBuilder(ExecutionContext);
         }
         
-        public PureNodeBuilder AddOutputValue(string label, ValueType type)
+        public Builder AddOutputValue(string label, ValueType type)
         {
             _outputHandlesBuilder.AddOutputValueHandle(label, type);
             return this;
         }
         
-        public PureNodeBuilder SetExecution(PureNodeExecution? execution)
+        public Builder SetExecution(Execution? execution)
         {
             _execution = execution;
             return this;
@@ -41,9 +41,9 @@ public class PureNodeBuildable : BaseNodeBuildable
         public override INewNode Build()
         {
             var node = BaseBuild(new PureNodeBuildable());
-            node.OutputHandles = _outputHandlesBuilder.OutputHandles.ToList();
-            node._inputManager = new NewInputManager(node.InputHandles);
-            node._outputManager = new NewPureOutputManager(node.OutputHandles);
+            node.Outputs = _outputHandlesBuilder.OutputHandles.ToList();
+            node._inputManager = new NewInputManager(node.Inputs);
+            node._outputManager = new NewPureOutputManager(node.Outputs);
             
             if (_execution == null)
                 throw new Exception("Execution is required");

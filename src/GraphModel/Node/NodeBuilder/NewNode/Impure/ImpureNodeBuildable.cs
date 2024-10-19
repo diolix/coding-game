@@ -7,11 +7,11 @@ public partial class ImpureNodeBuildable : BaseNodeBuildable
 {
     private NewImpureOutputManager _outputManager = null!;
     private NewInputManager _inputManager = null!;
-    private ImpureExecution _execution = null!;
+    private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
         _execution(_outputManager, _inputManager);
     }
     
-    public delegate void ImpureExecution(NewImpureOutputManager outputManager, NewInputManager inputManager);
+    public delegate void Execution(NewImpureOutputManager outputManager, NewInputManager inputManager);
 }

@@ -1,6 +1,7 @@
 using GraphModel.Node;
 using GraphModel.Node.NodeBuilder;
 using GraphModel.Node.NodeBuilder.NewNode.Impure;
+using GraphModel.Node.NodeBuilder.NewNode.Pure;
 using ValueType = GraphModel.ValueType;
 
 namespace GraphModelTest.Mocks;
@@ -32,11 +33,20 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INewNode CreateNewNodeMockNode(ImpureNodeBuildable.ImpureExecution callback)
+    public INewNode CreateNewFlowNodeMock(ImpureNodeBuildable.Execution callback)
     {
-        return new ImpureNodeBuildable.ImpureNodeBuilder()
-            .SetName("Spy")
+        return new ImpureNodeBuildable.Builder()
+            .SetName("Mock")
             .AddInputFlow("")
+            .SetExecution(callback)
+            .Build();
+    }
+    
+    public INewNode CreateNewStringValueNodeMock(PureNodeBuildable.Execution callback)
+    {
+        return new PureNodeBuildable.Builder()
+            .SetName("Mock")
+            .AddInputValue("", ValueType.String)
             .SetExecution(callback)
             .Build();
     }

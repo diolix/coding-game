@@ -6,35 +6,35 @@ namespace GraphModel.Node.NodeBuilder.NewNode.Impure;
 
 public partial class ImpureNodeBuildable
 {
-    public class ImpureNodeBuilder : Builder<ImpureNodeBuilder>
+    public class Builder : Builder<Builder>
     {
-        private ImpureExecution? _execution;
+        private Execution? _execution;
         private ImpureOutputHandlesBuilder _outputHandlesBuilder;
 
-        public ImpureNodeBuilder()
+        public Builder()
         {
             _outputHandlesBuilder = new ImpureOutputHandlesBuilder();
         }
         
-        public ImpureNodeBuilder AddOutputValue(string label, ValueType type)
+        public Builder AddOutputValue(string label, ValueType type)
         {
             _outputHandlesBuilder.AddOutputValueHandle(label, type);
             return this;
         }
         
-        public ImpureNodeBuilder AddOutputFlow(string label)
+        public Builder AddOutputFlow(string label)
         {
             _outputHandlesBuilder.AddOutputFlowHandle(label);
             return this;
         }
 
-        public ImpureNodeBuilder AddInputFlow(string label)
+        public Builder AddInputFlow(string label)
         {
             InputsHandlesConstructor.AddInputFlowHandle(label);
             return this;
         }
 
-        public ImpureNodeBuilder SetExecution(ImpureExecution? execution)
+        public Builder SetExecution(Execution? execution)
         {
             _execution = execution;
             return this;
@@ -43,9 +43,9 @@ public partial class ImpureNodeBuildable
         public override INewNode Build()
         {
             var node = BaseBuild(new ImpureNodeBuildable());
-            node.OutputHandles = _outputHandlesBuilder.OutputHandles.ToList();
-            node._outputManager = new NewImpureOutputManager(node.OutputHandles);
-            node._inputManager = new NewInputManager(node.InputHandles);
+            node.Outputs = _outputHandlesBuilder.OutputHandles.ToList();
+            node._outputManager = new NewImpureOutputManager(node.Outputs);
+            node._inputManager = new NewInputManager(node.Inputs);
             
             if (_execution == null)
                 throw new Exception("Execution is required");

@@ -1,11 +1,17 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
 using GraphModel.NewHandle.Value;
+using GraphModel.Node;
 
 namespace GraphModel.NewEdge;
 
 public class EdgeFactory
 {
+    public INewEdge CreateEdge(INewNode from, string labelFrom, INewNode to, string labelTo)
+    {
+        return CreateEdge(from.GetOutputHandle(labelFrom), to.GetInputHandle(labelTo));
+    }
+    
     public INewEdge CreateEdge(INewHandle from, INewHandle to)
     {
         if (!from.IsCompatible(to))

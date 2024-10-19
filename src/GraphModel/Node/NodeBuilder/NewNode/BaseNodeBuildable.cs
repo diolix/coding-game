@@ -7,10 +7,11 @@ public abstract partial class BaseNodeBuildable : INewNode
     public string Name { get; private set; } = string.Empty;
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
-    public IList<INewHandle> InputHandles { get; private set; } = null!;
-    public IList<INewHandle> OutputHandles { get; protected set; } = null!;
-    
-    protected BaseNodeBuildable(){}
+    public IEnumerable<INewHandle> Inputs { get; private set; } = null!;
+    public IEnumerable<INewHandle> Outputs { get; protected set; } = null!;
+    public INewHandle GetInputHandle(string label) => Inputs.First(handle => handle.Label == label);
+
+    public INewHandle GetOutputHandle(string label) => Outputs.First(handle => handle.Label == label);
 
     public void Execute()
     {
