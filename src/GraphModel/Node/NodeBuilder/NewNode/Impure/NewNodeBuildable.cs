@@ -7,8 +7,8 @@ public partial class NewNodeBuildable : INewNode
     public string Name { get; private set; } = string.Empty;
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
-    public IEnumerable<INewHandle> InputHandles { get; private set; } = null!;
-    public IEnumerable<INewHandle> OutputHandles { get; private set; } = null!;
+    public IList<INewHandle> InputHandles { get; private set; } = null!;
+    public IList<INewHandle> OutputHandles { get; private set; } = null!;
     private NewHandlesExecution _handlesExecution = null!;
     private Action<NewHandlesExecution> _execution = null!;
     

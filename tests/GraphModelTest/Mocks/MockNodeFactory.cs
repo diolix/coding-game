@@ -1,5 +1,6 @@
 using GraphModel.Node;
 using GraphModel.Node.NodeBuilder;
+using GraphModel.Node.NodeBuilder.NewNode;
 using ValueType = GraphModel.ValueType;
 
 namespace GraphModelTest.Mocks;
@@ -28,6 +29,15 @@ public class MockNodeFactory
                 callback(execution);
                 execution.SafeExecute(0);
             })
+            .Build();
+    }
+    
+    public INewNode CreateNewNodeMockNode(Action<NewHandlesExecution> callback)
+    {
+        return new NewNodeBuildable.Builder()
+            .SetName("Spy")
+            .AddInputFlow("")
+            .SetExecution(callback)
             .Build();
     }
 }

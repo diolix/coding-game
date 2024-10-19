@@ -1,17 +1,20 @@
 using CodingGame.Script.Util;
 using GraphModel.NewHandle.Value.Impure;
+using GraphModel.Util;
 
 namespace GraphModel.NewEdge;
 
-public class ValueEdge : NewEdge
+public class ValueEdge : INewEdge
 {
-    private ImpureOutputValueHandle _from;
-    public static ValueEdge Create(ImpureOutputValueHandle from, ImpureOutputValueHandle to)
+    public ColorHex Color => _from.Color;
+    private readonly ImpureOutputValueHandle _from;
+    public static ValueEdge Create(ImpureOutputValueHandle from, ImpureInputValueHandle to)
     {
-        var edge = new ValueEdge(from, to);
+        var edge = new ValueEdge(from);
+        to.Edge = edge;
         return edge;
     }
-    internal ValueEdge(ImpureOutputValueHandle from, ImpureOutputValueHandle to) : base(from, to)
+    private ValueEdge(ImpureOutputValueHandle from)
     {
         _from = from;
     }

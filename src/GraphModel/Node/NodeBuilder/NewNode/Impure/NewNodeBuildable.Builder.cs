@@ -64,6 +64,9 @@ public partial class NewNodeBuildable
             var inputManager = new NewInputManager(_inputsHandlesConstructor.InputHandles);
             var outputManager = new NewOutputManager(_outputsHandlesConstructor.OutputHandles);
 
+            node.InputHandles = inputManager.Handles.ToList();
+            node.OutputHandles = outputManager.Handles.ToList();
+            
             if (_name == null)
                 throw new Exception("Name is required");
             

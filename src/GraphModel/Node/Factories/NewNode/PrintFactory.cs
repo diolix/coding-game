@@ -4,7 +4,7 @@ namespace GraphModel.Node.Factories.NewNode;
 
 public class PrintFactory
 {
-    public INewNode PrintHelloWorld() => new NewNodeBuildable.Builder()
+    public INewNode CreatePrintHelloWorld() => new NewNodeBuildable.Builder()
         .SetName("PrintHelloWorld")
         .AddInputFlow("")
         .AddOutputFlow("")

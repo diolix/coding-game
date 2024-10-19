@@ -7,14 +7,15 @@ namespace GraphModel.Node.HandleBuilder;
 
 public class NewInputHandlesBuilder
 {
-    private ExecutionContext _executionContext;
+    private readonly ExecutionContext _executionContext;
     
-    private IList<INewHandle> _inputHandles;
+    private readonly IList<INewHandle> _inputHandles;
     public IEnumerable<INewHandle> InputHandles => _inputHandles;
     
     public NewInputHandlesBuilder(ExecutionContext executionContext)
     {
         _executionContext = executionContext;
+        _inputHandles = new List<INewHandle>();
     }
 
     public void AddInputFlowHandle(string label)

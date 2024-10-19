@@ -8,6 +8,6 @@ public interface INewNode
     public void Execute();
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
-    public IEnumerable<INewHandle> InputHandles { get; }
-    public IEnumerable<INewHandle> OutputHandles { get; }
+    public IList<INewHandle> InputHandles { get; }
+    public IList<INewHandle> OutputHandles { get; }
 }

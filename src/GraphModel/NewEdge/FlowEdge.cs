@@ -1,18 +1,20 @@
 using GraphModel.NewHandle.Flow;
+using GraphModel.Util;
 
 namespace GraphModel.NewEdge;
 
-public class FlowEdge : NewEdge
+public class FlowEdge : INewEdge
 {
+    public ColorHex Color => _to.Color;
     private readonly InputFlowHandle _to;
     public static FlowEdge Create(OutputFlowHandle from, InputFlowHandle to)
     {
-        var edge = new FlowEdge(from, to);
+        var edge = new FlowEdge(to);
         from.FlowEdge = edge;
         return edge;
     }
 
-    private FlowEdge(OutputFlowHandle from, InputFlowHandle to) : base(from, to)
+    private FlowEdge(InputFlowHandle to)
     {
         _to = to;
     }
