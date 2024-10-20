@@ -1,6 +1,7 @@
 using CodingGame.Script.Graph.Model.Variable;
+using GraphModel.Node.NodeBuilder;
 
-namespace GraphModel.Node.NodeBuilder.Factories;
+namespace GraphModel.Node.Factories;
 
 public class VariableNodeFactory
 {

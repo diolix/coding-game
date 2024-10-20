@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodingGame.Script.Graph.Model.Variable;
 using Godot;
 using GraphModel.Node;
+using GraphModel.Node.Factories;
 using GraphModel.Node.NodeBuilder.Factories;
 using GraphModel.Node.NodeBuilder.Factories.Print;
 
