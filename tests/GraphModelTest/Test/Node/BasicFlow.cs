@@ -1,7 +1,7 @@
 using GraphModel.Node.Factories.NewNode;
 using static NUnit.Framework.Assert;
 
-namespace GraphModelTest.Test.NewNode;
+namespace GraphModelTest.Test.Node;
 
 public class BasicFlow : BaseNodeTest
 {
@@ -24,7 +24,7 @@ public class BasicFlow : BaseNodeTest
     [Test]
     public void BasicPureNodeTest()
     {
-        var helloWorldConstant = _constantFactory.CreateHelloWorldConstant();
+        var helloWorldConstant = _constantFactory.CreatePureHelloWorldConstant();
         var print = _printFactory.CreatePrint();
         EdgeFactory.CreateEdge(helloWorldConstant, "", print, "value");
         

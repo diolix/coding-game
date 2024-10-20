@@ -7,9 +7,6 @@
     <RootNamespace>CodingGame</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Scripts\Graph\Controller\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GraphModel\GraphModel.csproj" />
   </ItemGroup>
 </Project>

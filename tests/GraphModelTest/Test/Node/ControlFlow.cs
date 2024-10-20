@@ -1,11 +1,11 @@
 using ControlFlowNodeFactory = GraphModel.Node.Factories.NewNode.ControlFlowNodeFactory;
 
-namespace GraphModelTest.Test.NewNode;
+namespace GraphModelTest.Test.Node;
 
 public class ControlFlow : BaseNodeTest
 {
-    private ControlFlowNodeFactory _controlFlowFactory = new();
-    private GraphModel.Node.Factories.NewNode.ConstantFactory _constantNodeFactory = new();
+    private readonly ControlFlowNodeFactory _controlFlowFactory = new();
+    private readonly GraphModel.Node.Factories.NewNode.ConstantFactory _constantNodeFactory = new();
 
     [Test]
     public void IfConditionTrue()
@@ -51,7 +51,7 @@ public class ControlFlow : BaseNodeTest
             bodyExecutedCount++;
         });
 
-        var conditionNode = MockNodeFactory.CreateNewBoolOutputValueNodeMock((_, outputManager) =>
+        var conditionNode = MockNodeFactory.CreateNewBoolOutputValueNodeMock((outputManager, _) =>
             outputManager.CacheValue("", bodyExecutedCount < 5));
 
         EdgeFactory.CreateEdge(conditionNode, "", whileNode, "condition");

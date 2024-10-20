@@ -11,10 +11,10 @@ public class PureNodeBuildable : BaseNodeBuildable
     private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
-        _execution(_inputManager, _outputManager);
+        _execution(_outputManager, _inputManager);
     }
     
-    public delegate void Execution(NewInputManager inputManager, NewPureOutputManager outputManager);
+    public delegate void Execution(NewPureOutputManager outputManager, NewInputManager inputManager);
     
     public class Builder : Builder<Builder>
     {

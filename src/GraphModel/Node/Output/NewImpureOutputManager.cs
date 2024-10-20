@@ -35,7 +35,7 @@ public class NewImpureOutputManager
         _outputFlowHandles.First(handle => handle.Label == label).SentExecutionFlow();
     }
     
-    public void CacheOutputValue(string label, object value)
+    public void CacheValue(string label, object value)
     {
         _outputValueHandles.First(handle => handle.Label == label).SetCachedValue(value);
     }

@@ -1,8 +1,7 @@
 using GraphModel.NewEdge;
-using GraphModel.Node;
 using GraphModelTest.Mocks;
 
-namespace GraphModelTest.Test.NewNode;
+namespace GraphModelTest.Test.Node;
 
 public class BaseNodeTest
 {
