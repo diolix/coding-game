@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dep4u7a1ylngm"]
+[gd_scene load_steps=2 format=3 uid="uid://b4y8vnv0gftl"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/CreateNodeContextMenu.cs" id="1_tt62l"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/NewCreateNodeContextMenu.cs" id="1_g5y3c"]
 
 [node name="CreateNodeContextMenu" type="PanelContainer" node_paths=PackedStringArray("_vBoxContainer")]
 offset_left = 471.0
 offset_top = 176.0
 offset_right = 481.0
 offset_bottom = 186.0
-script = ExtResource("1_tt62l")
+script = ExtResource("1_g5y3c")
 _vBoxContainer = NodePath("MarginContainer/VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

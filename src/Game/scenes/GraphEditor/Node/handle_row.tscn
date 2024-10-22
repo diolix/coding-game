@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbbflmvw75ji6"]
+[gd_scene load_steps=11 format=3 uid="uid://b46w1vx555h24"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/View/Node/RowHandles.cs" id="1_1khrq"]
-[ext_resource type="Script" path="res://Scripts/Graph/View/Node/Handle/HandleView.cs" id="2_yh00a"]
-[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/handle.tscn" id="3_up74e"]
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/Input.cs" id="4_ejcxx"]
-[ext_resource type="Script" path="res://Scripts/Graph/View/Draggable.cs" id="4_jcst4"]
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/RemoveEdge.cs" id="4_xqy0o"]
-[ext_resource type="Resource" uid="uid://55v33bwh6r4y" path="res://Resource/handle_event_bus.tres" id="5_4jyf5"]
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/Output.cs" id="5_cy6jr"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Node/NewRowHandles.cs" id="1_tmjqf"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Node/Handle/NewHandleView.cs" id="2_0egh0"]
+[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/handle.tscn" id="3_4sbgd"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/New/NewRemoveEdge.cs" id="4_6skgv"]
+[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="5_csd5n"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/New/NewInput.cs" id="6_oiacp"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/New/NewOutput.cs" id="7_yj6y2"]
+[ext_resource type="Script" path="res://Scripts/Graph/View/Draggable.cs" id="8_tywty"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mey1"]
 height = 25.0
@@ -19,7 +19,7 @@ radius = 5.0
 custom_minimum_size = Vector2(210, 30)
 mouse_filter = 2
 theme_override_constants/separation = 10
-script = ExtResource("1_1khrq")
+script = ExtResource("1_tmjqf")
 _inputHandle = NodePath("InputHandle")
 _outputHandle = NodePath("OutputHandle")
 
@@ -27,23 +27,23 @@ _outputHandle = NodePath("OutputHandle")
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 mouse_filter = 2
-script = ExtResource("2_yh00a")
+script = ExtResource("2_0egh0")
 _label = NodePath("Label")
 _icon = NodePath("Handle")
 _handleEventControllers = [NodePath("Handle/InputAnchor"), NodePath("Handle")]
 
-[node name="Handle" parent="InputHandle" instance=ExtResource("3_up74e")]
+[node name="Handle" parent="InputHandle" instance=ExtResource("3_4sbgd")]
 layout_mode = 1
 pivot_offset = Vector2(5, 5)
-script = ExtResource("4_xqy0o")
-_handleEventBus = ExtResource("5_4jyf5")
+script = ExtResource("4_6skgv")
+_handleEventBus = ExtResource("5_csd5n")
 
 [node name="InputAnchor" type="Area2D" parent="InputHandle/Handle" node_paths=PackedStringArray("_handleIcon")]
 position = Vector2(0, 5)
 collision_layer = 0
 monitorable = false
-script = ExtResource("4_ejcxx")
-_handleEventBus = ExtResource("5_4jyf5")
+script = ExtResource("6_oiacp")
+_newHandleEventBus = ExtResource("5_csd5n")
 _handleIcon = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InputHandle/Handle/InputAnchor"]
@@ -63,12 +63,12 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 2
-script = ExtResource("2_yh00a")
+script = ExtResource("2_0egh0")
 _label = NodePath("Label")
 _icon = NodePath("Handle")
-_handleEventControllers = [NodePath("Handle/OutputEventController"), NodePath("Handle")]
+_handleEventControllers = [NodePath("Handle"), NodePath("Handle/OutputEventController")]
 
-[node name="Handle" parent="OutputHandle" instance=ExtResource("3_up74e")]
+[node name="Handle" parent="OutputHandle" instance=ExtResource("3_4sbgd")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -77,13 +77,13 @@ offset_left = 10.0
 offset_right = 20.0
 grow_horizontal = 0
 pivot_offset = Vector2(5, 5)
-script = ExtResource("4_xqy0o")
-_handleEventBus = ExtResource("5_4jyf5")
+script = ExtResource("4_6skgv")
+_handleEventBus = ExtResource("5_csd5n")
 
 [node name="OutputEventController" type="Node" parent="OutputHandle/Handle" node_paths=PackedStringArray("_draggable", "_handleIcon")]
-script = ExtResource("5_cy6jr")
+script = ExtResource("7_yj6y2")
 _draggable = NodePath("../OutputDrag")
-_handleEventBus = ExtResource("5_4jyf5")
+_newHandleEventBus = ExtResource("5_csd5n")
 _handleIcon = NodePath("..")
 
 [node name="OutputDrag" type="Control" parent="OutputHandle/Handle" node_paths=PackedStringArray("_target")]
@@ -95,7 +95,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(5, 5)
 mouse_filter = 1
-script = ExtResource("4_jcst4")
+script = ExtResource("8_tywty")
 _target = NodePath(".")
 
 [node name="Area2D" type="Area2D" parent="OutputHandle/Handle/OutputDrag"]

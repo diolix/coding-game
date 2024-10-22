@@ -1,21 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://ubr0880h70uy"]
+[gd_scene load_steps=12 format=3 uid="uid://0rw0ctuaas2q"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/NodeController.cs" id="1_id4pi"]
-[ext_resource type="PackedScene" uid="uid://doqdbg872y5fg" path="res://scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/EdgeController.cs" id="1_udpt4"]
-[ext_resource type="Resource" uid="uid://55v33bwh6r4y" path="res://Resource/handle_event_bus.tres" id="2_0mgyh"]
-[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
+[ext_resource type="PackedScene" uid="uid://d24y6f85m6ud4" path="res://Scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/New/NewNodeController.cs" id="1_wg2mq"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/New/NewEdgeController.cs" id="3_17n21"]
+[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://Scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
+[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="4_ncg6r"]
 [ext_resource type="Script" path="res://Scripts/Graph/Controller/VariableController.cs" id="7_5r6to"]
-[ext_resource type="PackedScene" uid="uid://bsjl28l4yno5b" path="res://scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
+[ext_resource type="PackedScene" uid="uid://dv7y4aa444l5x" path="res://Scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
 [ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/CreateVariableView.cs" id="8_5g7cp"]
-[ext_resource type="PackedScene" uid="uid://dep4u7a1ylngm" path="res://scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
+[ext_resource type="PackedScene" uid="uid://b4y8vnv0gftl" path="res://Scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
 [ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/VariablesContainerView.cs" id="9_bnsft"]
-[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
+[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://Scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
 
 [node name="Main" type="Node2D"]
 
 [node name="NodeController" type="Node" parent="." node_paths=PackedStringArray("_startNodePosition", "_createNodeContextMenu", "_startButton", "_edgeController", "_variableController")]
-script = ExtResource("1_id4pi")
+script = ExtResource("1_wg2mq")
 _startNodePosition = NodePath("../GraphLayer/start")
 _nodeViewScene = ExtResource("1_ja4pk")
 _createNodeContextMenu = NodePath("../UILayer/PanelScreen/CreateNodeContextMenu")
@@ -24,8 +24,8 @@ _edgeController = NodePath("../EdgeController")
 _variableController = NodePath("../VariableController")
 
 [node name="EdgeController" type="Node" parent="."]
-script = ExtResource("1_udpt4")
-_handleEventBus = ExtResource("2_0mgyh")
+script = ExtResource("3_17n21")
+_handleEventBus = ExtResource("4_ncg6r")
 _controlLineScene = ExtResource("3_gu1o8")
 _edgeScene = ExtResource("7_ifjd8")
 
@@ -40,9 +40,9 @@ _createNodeContextMenu = NodePath("../UILayer/PanelScreen/CreateNodeContextMenu"
 [node name="start" type="Control" parent="GraphLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 122.0
+offset_left = 680.0
 offset_top = 320.0
-offset_right = 162.0
+offset_right = 720.0
 offset_bottom = 360.0
 
 [node name="UILayer" type="CanvasLayer" parent="."]
@@ -69,14 +69,6 @@ offset_bottom = 59.0
 grow_horizontal = 0
 text = "Run
 "
-
-[node name="CreateNodeContextMenu" parent="UILayer/PanelScreen" instance=ExtResource("8_xwlbf")]
-visible = false
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 10.0
-offset_bottom = 10.0
 
 [node name="VariablesPanel" type="Panel" parent="UILayer/PanelScreen"]
 layout_mode = 1
@@ -147,3 +139,11 @@ _exampleVariableView = NodePath("Example")
 
 [node name="Example" parent="UILayer/PanelScreen/VariablesPanel/MarginContainer/VBoxContainer/VariablesContainer" instance=ExtResource("10_0kg8d")]
 layout_mode = 2
+
+[node name="CreateNodeContextMenu" parent="UILayer/PanelScreen" instance=ExtResource("8_xwlbf")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 10.0
+offset_bottom = 10.0

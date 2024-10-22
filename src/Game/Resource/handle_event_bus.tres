@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="HandleEventBus" load_steps=2 format=3 uid="uid://55v33bwh6r4y"]
+[gd_resource type="Resource" script_class="NewHandleEventBus" load_steps=2 format=3 uid="uid://ddybjejxbgfo"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/HandleEventBus.cs" id="1_gwkni"]
+[ext_resource type="Script" path="res://Scripts/Graph/Controller/Handle/New/NewHandleEventBus.cs" id="1_w65r2"]
 
 [resource]
-script = ExtResource("1_gwkni")
+script = ExtResource("1_w65r2")
