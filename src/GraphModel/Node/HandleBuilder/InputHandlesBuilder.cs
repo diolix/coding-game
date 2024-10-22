@@ -1,14 +1,14 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Flow;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.HandleBuilder;
 
-public class NewInputHandlesBuilder
+public class InputHandlesBuilder
 {
     private readonly IList<HandleStringUnion> _inputHandles;
     
-    public NewInputHandlesBuilder()
+    public InputHandlesBuilder()
     {
         _inputHandles = new List<HandleStringUnion>();
     }
@@ -24,7 +24,7 @@ public class NewInputHandlesBuilder
         _inputHandles.Add(new HandleStringUnion.Handle(handle));
     }
     
-    public IEnumerable<INewHandle> Build(INewNode node) => _inputHandles.Select(handleStringUnion => handleStringUnion switch
+    public IEnumerable<IHandle> Build(INewNode node) => _inputHandles.Select(handleStringUnion => handleStringUnion switch
     {
         HandleStringUnion.String stringHandle => new InputFlowHandle(stringHandle.Value, node),
         HandleStringUnion.Handle handle => handle.Value,
@@ -41,8 +41,8 @@ public class NewInputHandlesBuilder
     
         internal sealed class Handle : HandleStringUnion
         {
-            public INewHandle Value { get; }
-            public Handle(INewHandle value) => Value = value;
+            public IHandle Value { get; }
+            public Handle(IHandle value) => Value = value;
         }
     }
 }

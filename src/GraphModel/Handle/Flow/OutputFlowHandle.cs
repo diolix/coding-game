@@ -1,12 +1,12 @@
-using GraphModel.NewEdge;
+using GraphModel.Edge;
 
-namespace GraphModel.NewHandle.Flow;
+namespace GraphModel.Handle.Flow;
 
 public class OutputFlowHandle(string label) : BaseFlowHandle(label)
 {
     public FlowEdge? FlowEdge { private get; set; }
 
-    public override bool IsCompatible(INewHandle handle) => handle is InputFlowHandle;
+    public override bool IsCompatible(IHandle handle) => handle is InputFlowHandle;
 
     public void SentExecutionFlow()
     {

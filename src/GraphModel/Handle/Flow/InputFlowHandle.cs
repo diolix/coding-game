@@ -1,6 +1,6 @@
 using GraphModel.Node;
 
-namespace GraphModel.NewHandle.Flow;
+namespace GraphModel.Handle.Flow;
 
 public class InputFlowHandle : BaseFlowHandle
 {
@@ -9,7 +9,7 @@ public class InputFlowHandle : BaseFlowHandle
     {
         _node = node;
     }
-    public override bool IsCompatible(INewHandle handle)
+    public override bool IsCompatible(IHandle handle)
     {
         return handle is OutputFlowHandle;
     }

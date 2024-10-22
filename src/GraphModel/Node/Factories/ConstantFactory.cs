@@ -1,7 +1,7 @@
 using GraphModel.Node.NodeBuilder.NewNode.Impure;
 using GraphModel.Node.NodeBuilder.NewNode.Pure;
 
-namespace GraphModel.Node.Factories.NewNode;
+namespace GraphModel.Node.Factories;
 
 public class ConstantFactory
 {

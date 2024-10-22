@@ -44,8 +44,8 @@ public partial class ImpureNodeBuildable
         {
             var node = BaseBuild(new ImpureNodeBuildable());
             node.Outputs = _outputHandlesBuilder.OutputHandles.ToList();
-            node._outputManager = new NewImpureOutputManager(node.Outputs);
-            node._inputManager = new NewInputManager(node.Inputs);
+            node._outputManager = new ImpureOutputManager(node.Outputs);
+            node._inputManager = new InputManager(node.Inputs);
             
             if (_execution == null)
                 throw new Exception("Execution is required");

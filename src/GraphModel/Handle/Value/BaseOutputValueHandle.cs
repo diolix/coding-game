@@ -1,9 +1,9 @@
 using CodingGame.Script.Util;
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle.Value;
+namespace GraphModel.Handle.Value;
 
-public abstract class BaseOutputValueHandle : BaseNewHandle
+public abstract class BaseOutputValueHandle : BaseHandle
 {
     public ValueType ValueType { get; }
     protected Optional<object> CachedValue;
@@ -16,7 +16,7 @@ public abstract class BaseOutputValueHandle : BaseNewHandle
 
     public override ColorHex Color { get; }
 
-    public override bool IsCompatible(INewHandle handle) => handle is InputValueHandle inputValueHandle &&
+    public override bool IsCompatible(IHandle handle) => handle is InputValueHandle inputValueHandle &&
                                                             inputValueHandle.ValueType.Equals(ValueType);
     
     public void SetCachedValue(object value){

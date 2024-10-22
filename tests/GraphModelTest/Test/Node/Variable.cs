@@ -1,6 +1,6 @@
 using GraphModel.Variable;
-using VariableNodeFactory = GraphModel.Node.Factories.NewNode.VariableNodeFactory;
-using ConstantNodeFactory = GraphModel.Node.Factories.NewNode.ConstantFactory;
+using VariableNodeFactory = GraphModel.Node.Factories.VariableNodeFactory;
+using ConstantNodeFactory = GraphModel.Node.Factories.ConstantFactory;
 
 namespace GraphModelTest.Test.Node;
 

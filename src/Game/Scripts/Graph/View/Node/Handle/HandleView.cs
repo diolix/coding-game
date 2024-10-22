@@ -1,6 +1,6 @@
-using CodingGame.Scripts.Graph.Controller.Handle.New;
+using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
-using GraphModel.NewHandle;
+using GraphModel.Handle;
 
 namespace CodingGame.Scripts.Graph.View.Node.Handle;
 
@@ -10,7 +10,7 @@ public partial class HandleView : Control
     [Export] private ColorRect _icon;
     [Export] private Godot.Node[] _handleEventControllers;
     
-    private INewHandle _model;
+    private IHandle _model;
 
     public override void _Ready()
     {
@@ -18,7 +18,7 @@ public partial class HandleView : Control
         _icon.Visible = false;
     }
 
-    public void SetUp(INewHandle model) {
+    public void SetUp(IHandle model) {
         _model = model;
         _icon.Visible = true;
         _label.Text = model.Label;

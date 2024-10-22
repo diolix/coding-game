@@ -1,11 +1,11 @@
 using CodingGame.Script.Util;
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Value;
 using GraphModel.Util;
 
-namespace GraphModel.NewEdge;
+namespace GraphModel.Edge;
 
-public class ValueEdge : INewEdge
+public class ValueEdge : IEdge
 {
     public ColorHex Color => _from.Color;
     private readonly BaseOutputValueHandle _from;
@@ -23,7 +23,7 @@ public class ValueEdge : INewEdge
     }
     
     public void Remove() => _to.Edge = null;
-    public bool Contains(INewHandle handle) => handle == _from || handle == _to;
+    public bool Contains(IHandle handle) => handle == _from || handle == _to;
 
     public Optional<object> GetOutputValue() => _from.GetCachedValue();
 }

@@ -1,5 +1,5 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.HandleBuilder;
 
@@ -17,7 +17,7 @@ public class PureOutputHandlesBuilder
         _pairStringValueTypes.Add(new PairStringValueType(label, type));
     }
 
-    public IEnumerable<INewHandle> Build(INewNode node) => _pairStringValueTypes.Select(pairStringValueType =>
+    public IEnumerable<IHandle> Build(INewNode node) => _pairStringValueTypes.Select(pairStringValueType =>
         new PureOutputValueHandle(pairStringValueType.StringValue, pairStringValueType.ValueTypeValue, node)).ToArray();
 
     private class PairStringValueType

@@ -1,38 +1,32 @@
-namespace GraphModel.Node.NodeBuilder.Factories;
+using GraphModel.Node.NodeBuilder.NewNode.Impure;
+
+namespace GraphModel.Node.Factories;
 
 public class ControlFlowNodeFactory
 {
-    public INode CreateIf() => new NodeBuildable.Builder()
+    public INewNode CreateIf() => new ImpureNodeBuildable.Builder()
         .SetName("if")
-        .SetIsPure(false)
-
         .AddInputFlow("")
-        .AddInputValue("Condition", ValueType.Bool)
-
+        .AddInputValue("condition", ValueType.Bool)
         .AddOutputFlow("true")
         .AddOutputFlow("false")
-
-        .SetExecution(execution =>
+        .SetExecution((outputManager, inputManager) =>
         {
-            if(execution.GetBoolInputValue(1).Value)
-                execution.SafeExecute(0);
-            else execution.SafeExecute(1);
+            if(inputManager.GetBoolValue("condition"))
+                outputManager.Execute("true");
+            else outputManager.Execute("false");
         }).Build();
     
-    public INode CreateWhile() => new NodeBuildable.Builder()
+    public INewNode CreateWhile() => new ImpureNodeBuildable.Builder()
         .SetName("while")
-        .SetIsPure(false)
-
         .AddInputFlow("")
-        .AddInputValue("Condition", ValueType.Bool)
-
+        .AddInputValue("condition", ValueType.Bool)
         .AddOutputFlow("exit")
         .AddOutputFlow("body")
-
-        .SetExecution(execution =>
+        .SetExecution((outputManager, inputManager) =>
         {
-            while(execution.GetBoolInputValue(1).Value)
-                execution.SafeExecute(1);
-            execution.SafeExecute(0);
+            while(inputManager.GetBoolValue("condition"))
+                outputManager.Execute("body");
+            outputManager.Execute("exit");
         }).Build();
 }

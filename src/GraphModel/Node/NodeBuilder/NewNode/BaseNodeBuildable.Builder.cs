@@ -7,12 +7,12 @@ public abstract partial class BaseNodeBuildable
     public abstract class Builder<T> where T : Builder<T>
     {
         private string? _name;
-        protected readonly NewInputHandlesBuilder InputsHandlesConstructor;
+        protected readonly InputHandlesBuilder InputsHandlesConstructor;
         private T _thisAsT;
 
         public Builder()
         {
-            InputsHandlesConstructor = new NewInputHandlesBuilder();
+            InputsHandlesConstructor = new InputHandlesBuilder();
             _thisAsT = (this as T)!;
         }
 

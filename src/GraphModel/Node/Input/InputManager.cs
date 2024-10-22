@@ -1,71 +1,63 @@
 using CodingGame.Script.Util;
 using GraphModel.Handle;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.Input;
 
-public class InputManager : IInputManager
+public class InputManager
 {
-    private readonly InputValue[] _inputValues;
-    private readonly IList<IHandle> _handles;
-    
-    public InputManager(IList<IHandle> handles)
+    private readonly IEnumerable<IHandle> _handles;
+
+    private IEnumerable<InputValueHandle> _inputValues = null!;
+
+    public InputManager(IEnumerable<IHandle> handles)
     {
         _handles = handles;
-        _inputValues = InputValue.CreateInputValues(handles.Count);
+        InitializeInputValues();
     }
 
-    public IList<IHandle> Handles => _handles;
-
-    public bool Set(int inputIndex, object value)
+    private void InitializeInputValues()
     {
-        if (_inputValues.Length < inputIndex)
+        _inputValues = _handles.OfType<InputValueHandle>();
+    }
+
+    public Optional<object> GetValue(string label)
+    {
+        return _inputValues.First(handle => handle.Label == label).GetValue();
+    }
+
+    public bool GetBoolValue(string label) => GetValue<bool>(label, ValueType.Bool);
+    public int GetIntValue(string label) => GetValue<int>(label, ValueType.Int);
+    public string GetStringValue(string label) => GetValue<string>(label, ValueType.String);
+
+
+    private T GetValue<T>(string label, ValueType valueType)
+    {
+        var inputHandle = _inputValues.First(handle => handle.Label == label);
+
+        if (inputHandle is null)
         {
-            Console.Error.WriteLine("Input value index out of range.");
-            return false;
+            throw new Exception($"Input value with label {label} not found");
         }
 
-        _inputValues[inputIndex].SetValue(value);
-        return true;
-    }
-    
-    public bool SetPureNode(int inputIndex, INode value)
-    {
-        if (_inputValues.Length < inputIndex)
+        if (inputHandle is not InputValueHandle inputValueHandle)
         {
-            Console.Error.WriteLine("Input value index out of range.");
-            return false;
+            throw new Exception($"Input value with label {label} is not a value");
         }
 
-        _inputValues[inputIndex].SetPureNode(value);
-        return true;
+        if (!inputValueHandle.ValueType.Equals(valueType))
+        {
+            throw new Exception($"Input value with label {label} is not a {valueType}");
+        }
+
+        if (!inputValueHandle.GetValue().HasValue())
+        {
+            throw new InputValueWithNoValueException(label);
+        }
+
+        return inputValueHandle.GetValue().Cast<T>().Value;
     }
 
-    public bool ResetPureNode(int inputIndex)
-    {
-        if (_inputValues.Length < inputIndex)
-        {
-            Console.Error.WriteLine("Input value index out of range.");
-            return false;
-        }
-        
-        _inputValues[inputIndex].ResetPureNode();
-        return true;
-    }
-
-    public void ResetValues()
-    {
-        foreach (var inputValue in _inputValues)
-        {
-            inputValue.ResetValue();
-        }
-    }
-    
-    public Optional<object> SafeGetInputValue(int index)
-    {
-        Optional<object> res = new();
-        if (_inputValues.Length < index || _inputValues[index] == null)
-            return res;
-        
-        return new (_inputValues[index].GetValue());
-    }
+    public class InputValueWithNoValueException(string label)
+        : Exception($"Input value with label {label} has no value");
 }

@@ -5,13 +5,13 @@ namespace GraphModel.Node.NodeBuilder.NewNode.Impure;
 
 public partial class ImpureNodeBuildable : BaseNodeBuildable
 {
-    private NewImpureOutputManager _outputManager = null!;
-    private NewInputManager _inputManager = null!;
+    private ImpureOutputManager _outputManager = null!;
+    private InputManager _inputManager = null!;
     private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
         _execution(_outputManager, _inputManager);
     }
     
-    public delegate void Execution(NewImpureOutputManager outputManager, NewInputManager inputManager);
+    public delegate void Execution(ImpureOutputManager outputManager, InputManager inputManager);
 }

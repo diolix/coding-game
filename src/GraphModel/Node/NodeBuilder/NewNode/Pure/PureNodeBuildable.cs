@@ -6,15 +6,15 @@ namespace GraphModel.Node.NodeBuilder.NewNode.Pure;
 
 public class PureNodeBuildable : BaseNodeBuildable
 {
-    private NewInputManager _inputManager = null!;
-    private NewPureOutputManager _outputManager = null!;
+    private InputManager _inputManager = null!;
+    private PureOutputManager _outputManager = null!;
     private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
         _execution(_outputManager, _inputManager);
     }
     
-    public delegate void Execution(NewPureOutputManager outputManager, NewInputManager inputManager);
+    public delegate void Execution(PureOutputManager outputManager, InputManager inputManager);
     
     public class Builder : Builder<Builder>
     {
@@ -45,8 +45,8 @@ public class PureNodeBuildable : BaseNodeBuildable
             var outputsBuilt = _outputHandlesBuilder.Build(node);
             node.Outputs = outputsBuilt;
             
-            node._inputManager = new NewInputManager(node.Inputs);
-            node._outputManager = new NewPureOutputManager(node.Outputs);
+            node._inputManager = new InputManager(node.Inputs);
+            node._outputManager = new PureOutputManager(node.Outputs);
             
             if (_execution == null)
                 throw new Exception("Execution is required");

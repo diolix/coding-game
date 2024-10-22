@@ -1,4 +1,4 @@
-using GraphModel.NewHandle;
+using GraphModel.Handle;
 
 namespace GraphModel.Node.NodeBuilder.NewNode;
 
@@ -7,11 +7,11 @@ public abstract partial class BaseNodeBuildable : INewNode
     public string Name { get; private set; } = string.Empty;
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
-    public IEnumerable<INewHandle> Inputs { get; private set; } = null!;
-    public IEnumerable<INewHandle> Outputs { get; protected set; } = null!;
-    public INewHandle GetInputHandle(string label) => Inputs.First(handle => handle.Label == label);
+    public IEnumerable<IHandle> Inputs { get; private set; } = null!;
+    public IEnumerable<IHandle> Outputs { get; protected set; } = null!;
+    public IHandle GetInputHandle(string label) => Inputs.First(handle => handle.Label == label);
 
-    public INewHandle GetOutputHandle(string label) => Outputs.First(handle => handle.Label == label);
+    public IHandle GetOutputHandle(string label) => Outputs.First(handle => handle.Label == label);
 
     public void Execute()
     {

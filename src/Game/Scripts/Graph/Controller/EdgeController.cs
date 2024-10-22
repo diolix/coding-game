@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using CodingGame.Scripts.Graph.Controller.Handle;
-using CodingGame.Scripts.Graph.Controller.Handle.New;
 using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
-using GraphModel.NewEdge;
-using GraphModel.NewHandle;
+using GraphModel.Edge;
+using GraphModel.Handle;
 using GraphModel.Node;
+using HandleEventBus = CodingGame.Scripts.Graph.Controller.Handle.HandleEventBus;
 
-namespace CodingGame.Scripts.Graph.Controller.New;
+namespace CodingGame.Scripts.Graph.Controller;
 
 public partial class EdgeController : Node
 {
@@ -72,7 +71,7 @@ public partial class EdgeController : Node
         _edgeViews.Add(edgeView);
     }
     
-    private void HandleDeleteEdgeAtHandle(INewHandle handle)
+    private void HandleDeleteEdgeAtHandle(IHandle handle)
     {
         for (int i = _edgeViews.Count - 1; i >= 0; i--)
         {

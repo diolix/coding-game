@@ -1,4 +1,4 @@
-using GraphModel.NewHandle;
+using GraphModel.Handle;
 
 namespace GraphModel.Node;
 
@@ -8,8 +8,8 @@ public interface INewNode
     public void Execute();
     public event Action? OnStartExecution;
     public event Action? OnFinishedExecution;
-    public IEnumerable<INewHandle> Inputs { get; }
-    public IEnumerable<INewHandle> Outputs { get; }
-    public INewHandle GetInputHandle(string label);
-    public INewHandle GetOutputHandle(string label);
+    public IEnumerable<IHandle> Inputs { get; }
+    public IEnumerable<IHandle> Outputs { get; }
+    public IHandle GetInputHandle(string label);
+    public IHandle GetOutputHandle(string label);
 }

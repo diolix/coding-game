@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace CodingGame.Script.Graph.View;
+namespace CodingGame.Scripts.Graph.View;
 
 public partial class Draggable : Control
 {

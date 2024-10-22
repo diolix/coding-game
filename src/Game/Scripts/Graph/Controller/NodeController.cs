@@ -2,9 +2,9 @@ using CodingGame.Scripts.Graph.View.Node;
 using CodingGame.Scripts.Graph.View.Ui;
 using Godot;
 using GraphModel.Node;
-using GraphModel.Node.Factories.NewNode;
+using GraphModel.Node.Factories;
 
-namespace CodingGame.Scripts.Graph.Controller.New;
+namespace CodingGame.Scripts.Graph.Controller;
 
 public partial class NodeController : Node
 {
@@ -12,7 +12,7 @@ public partial class NodeController : Node
     [Export] private PackedScene _nodeViewScene;
     [Export] private CreateNodeContextMenu _createNodeContextMenu;
     [Export] private Button _startButton;
-    [Export] private EdgeController _edgeController;
+    [Export] private Controller.EdgeController _edgeController;
     [Export] private VariableController _variableController;
 
     private NodeView _selectedNode;

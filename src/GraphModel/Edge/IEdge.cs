@@ -1,8 +1,11 @@
 using GraphModel.Handle;
+using GraphModel.Util;
 
 namespace GraphModel.Edge;
+
 public interface IEdge
-{ 
-    IHandle To { get; }
-    IHandle From { get; }
+{
+    ColorHex Color { get; }
+    void Remove();
+    bool Contains(IHandle handle);
 }

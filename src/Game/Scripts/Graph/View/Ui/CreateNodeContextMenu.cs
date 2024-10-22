@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodingGame.Script.Graph.Model.Variable;
 using Godot;
 using GraphModel.Node;
-using GraphModel.Node.Factories.NewNode;
+using GraphModel.Node.Factories;
 
 namespace CodingGame.Scripts.Graph.View.Ui;
 

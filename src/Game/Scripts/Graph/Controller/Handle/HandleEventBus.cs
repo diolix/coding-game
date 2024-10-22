@@ -1,9 +1,8 @@
 using System;
 using Godot;
 using GraphModel.Handle;
-using GraphModel.NewHandle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle.New;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
 [GlobalClass]
 public partial class HandleEventBus : Resource
@@ -11,7 +10,7 @@ public partial class HandleEventBus : Resource
     public class HandlePosition
     {
         public Control Position;
-        public INewHandle Model;
+        public IHandle Model;
 
         public override bool Equals(object obj)
         {
@@ -29,5 +28,5 @@ public partial class HandleEventBus : Resource
     public Action<HandlePosition> OnOutputDragEnded;
     public Action<HandlePosition> OnOutputEnteredInput;
     public Action<HandlePosition> OnOutputExitedInput;
-    public Action<INewHandle> OnDeleteEdgeAtHandle;
+    public Action<IHandle> OnDeleteEdgeAtHandle;
 }

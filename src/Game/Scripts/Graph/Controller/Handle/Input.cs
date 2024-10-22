@@ -1,13 +1,13 @@
 using Godot;
-using GraphModel.NewHandle;
+using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle.New;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
 public partial class Input : Area2D, IHandleModelDependant
 {
-    [Export] private HandleEventBus _handleEventBus;
+    [Export] private Handle.HandleEventBus _handleEventBus;
     [Export] private Control _handleIcon;
-    public INewHandle Model { private get; set; }
+    public IHandle Model { private get; set; }
 
     public override void _Ready()
     {

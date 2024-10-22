@@ -1,19 +1,18 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Flow;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.Output;
 
-public class NewImpureOutputManager
+public class ImpureOutputManager
 {
-    private readonly IEnumerable<INewHandle> _handles;
-    public IEnumerable<INewHandle> Handles => _handles;
+    private readonly IEnumerable<IHandle> _handles;
     
     private IEnumerable<OutputFlowHandle> _outputFlowHandles = null!;
     
     private IEnumerable<ImpureOutputValueHandle> _outputValueHandles = null!; 
     
-    public NewImpureOutputManager(IEnumerable<INewHandle> handles)
+    public ImpureOutputManager(IEnumerable<IHandle> handles)
     {
         _handles = handles;
         InitializeOutputFlowHandles();

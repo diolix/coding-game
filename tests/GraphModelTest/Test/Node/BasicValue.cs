@@ -1,4 +1,4 @@
-using GraphModel.Node.Factories.NewNode;
+using GraphModel.Node.Factories;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;

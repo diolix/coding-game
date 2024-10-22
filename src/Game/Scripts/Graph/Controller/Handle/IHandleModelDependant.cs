@@ -1,8 +1,8 @@
-using GraphModel.NewHandle;
+using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle.New;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
 public interface IHandleModelDependant
 {
-    public INewHandle Model { set; }
+    public IHandle Model { set; }
 }

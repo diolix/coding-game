@@ -1,16 +1,15 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.Output;
 
-public class NewPureOutputManager
+public class PureOutputManager
 {
-    private readonly IEnumerable<INewHandle> _handles;
-    public IEnumerable<INewHandle> Handles => _handles;
+    private readonly IEnumerable<IHandle> _handles;
     
     private IEnumerable<PureOutputValueHandle> _outputValueHandles = null!; 
     
-    public NewPureOutputManager(IEnumerable<INewHandle> handles)
+    public PureOutputManager(IEnumerable<IHandle> handles)
     {
         _handles = handles;
         InitializeOutputValueHandles();

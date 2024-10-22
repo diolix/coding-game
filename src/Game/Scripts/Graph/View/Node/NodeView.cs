@@ -1,7 +1,7 @@
 using System;
-using CodingGame.Scripts.Graph.Controller.Handle.New;
 using Godot;
 using GraphModel.Node;
+using HandlesInstantiator = CodingGame.Scripts.Graph.Controller.Handle.HandlesInstantiator;
 
 namespace CodingGame.Scripts.Graph.View.Node;
 
@@ -10,7 +10,7 @@ public partial class NodeView  : Control
     [Export] private StyleBoxFlat _selectedBackGround;
     [Export] private StyleBoxFlat _unselectedBackGround;
     [Export] private Label _nameLabel;
-    [Export] private NewHandlesInstantiator _handlesInstantiator;
+    [Export] private HandlesInstantiator _handlesInstantiator;
     public event Action<bool> OnSelectChanged; 
     public INewNode Model { get; private set; }
     private bool _selected;

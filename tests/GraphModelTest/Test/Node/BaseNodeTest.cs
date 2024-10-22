@@ -1,4 +1,4 @@
-using GraphModel.NewEdge;
+using GraphModel.Edge;
 using GraphModelTest.Mocks;
 
 namespace GraphModelTest.Test.Node;

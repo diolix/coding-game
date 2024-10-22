@@ -1,11 +1,12 @@
-﻿namespace GraphModel.Node.NodeBuilder.Factories;
+using GraphModel.Node.NodeBuilder.NewNode.Impure;
+
+namespace GraphModel.Node.Factories;
 
 public class LevelNodeFactory
 {
-    public INode CreateStart() => new NodeBuildable.Builder()
+    public INewNode CreateStart() => new ImpureNodeBuildable.Builder()
         .SetName("Start")
-        .SetIsPure(true)
-        .SetExecution(handlesExecution => handlesExecution.SafeExecute(0))
         .AddOutputFlow("")
+        .SetExecution((output, _) => output.Execute(""))
         .Build();
 }

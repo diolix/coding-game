@@ -1,6 +1,6 @@
 using Godot;
-using GraphModel.NewEdge;
-using GraphModel.NewHandle;
+using GraphModel.Edge;
+using GraphModel.Handle;
 
 namespace CodingGame.Scripts.Graph.View.Edge;
 
@@ -8,8 +8,8 @@ public partial class EdgeView : Godot.Node
 {
     [Export] private ControlLine _controlLine;
 
-    private INewEdge _model;
-    public INewEdge Model
+    private IEdge _model;
+    public IEdge Model
     {
         get => _model;
         set
@@ -24,7 +24,7 @@ public partial class EdgeView : Godot.Node
         _controlLine.Set(from, to);
     }
 
-    public bool Contains(INewHandle handle) => _model.Contains(handle);
+    public bool Contains(IHandle handle) => _model.Contains(handle);
 
     public void Remove()
     {

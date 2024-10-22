@@ -1,19 +1,19 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Flow;
-using GraphModel.NewHandle.Value;
+using GraphModel.Handle;
+using GraphModel.Handle.Flow;
+using GraphModel.Handle.Value;
 
 namespace GraphModel.Node.HandleBuilder;
 
 public class ImpureOutputHandlesBuilder
 {
-    private readonly IList<INewHandle> _outputHandles;
+    private readonly IList<IHandle> _outputHandles;
 
     public ImpureOutputHandlesBuilder()
     {
-        _outputHandles = new List<INewHandle>();
+        _outputHandles = new List<IHandle>();
     }
 
-    public IEnumerable<INewHandle> OutputHandles => _outputHandles;
+    public IEnumerable<IHandle> OutputHandles => _outputHandles;
     
     public void AddOutputFlowHandle(string label)
     {

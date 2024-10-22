@@ -1,6 +1,6 @@
 using CodingGame.Script.Util;
 
-namespace GraphModel.NewHandle.Value;
+namespace GraphModel.Handle.Value;
 
 public class ImpureOutputValueHandle : BaseOutputValueHandle
 {

@@ -1,31 +1,26 @@
 using CodingGame.Script.Graph.Model.Variable;
-using GraphModel.Node.NodeBuilder;
+using GraphModel.Node.NodeBuilder.NewNode.Impure;
+using GraphModel.Node.NodeBuilder.NewNode.Pure;
 
 namespace GraphModel.Node.Factories;
 
 public class VariableNodeFactory
 {
-    public INode CreateSetVariable(IVariable variable) => new NodeBuildable.Builder()
+    public INewNode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
         .SetName($"Set {variable.Name}")
-        .SetIsPure(false)
-
         .AddInputFlow("")
         .AddInputValue("new value", variable.ValueType)
-
         .AddOutputFlow("")
-        .SetExecution(execution =>
+        .SetExecution((outputManager, inputManager) =>
         {
-            variable.SafeSetValue(execution.GetInputValue(1).Value);
-            execution.SafeExecute(0);
+            variable.SafeSetValue(inputManager.GetValue("new value").Value);
+            outputManager.Execute("");
         })
         .Build();
     
-    public INode CreateGetVariable(IVariable variable) => new NodeBuildable.Builder()
+    public INewNode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
         .SetName($"Get {variable.Name}")
-        .SetIsPure(true)
-        
         .AddOutputValue("value", variable.ValueType)
-        
-        .SetExecution(execution => execution.SetOutputValue(0, variable.GetValue()))
+        .SetExecution((outputManager, inputManager) => outputManager.CacheValue("value", variable.GetValue()))
         .Build();
 }

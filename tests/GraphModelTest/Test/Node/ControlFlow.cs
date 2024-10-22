@@ -1,11 +1,12 @@
-using ControlFlowNodeFactory = GraphModel.Node.Factories.NewNode.ControlFlowNodeFactory;
+using GraphModel.Node.Factories;
+using ControlFlowNodeFactory = GraphModel.Node.Factories.ControlFlowNodeFactory;
 
 namespace GraphModelTest.Test.Node;
 
 public class ControlFlow : BaseNodeTest
 {
     private readonly ControlFlowNodeFactory _controlFlowFactory = new();
-    private readonly GraphModel.Node.Factories.NewNode.ConstantFactory _constantNodeFactory = new();
+    private readonly ConstantFactory _constantNodeFactory = new();
 
     [Test]
     public void IfConditionTrue()

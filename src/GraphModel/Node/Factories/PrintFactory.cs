@@ -1,6 +1,6 @@
 using GraphModel.Node.NodeBuilder.NewNode.Impure;
 
-namespace GraphModel.Node.Factories.NewNode;
+namespace GraphModel.Node.Factories;
 
 public class PrintFactory
 {

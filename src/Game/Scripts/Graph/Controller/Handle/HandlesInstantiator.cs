@@ -3,9 +3,9 @@ using CodingGame.Scripts.Util;
 using Godot;
 using GraphModel.Node;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle.New;
+namespace CodingGame.Scripts.Graph.Controller.Handle;
 
-public partial class NewHandlesInstantiator : Node
+public partial class HandlesInstantiator : Node
 {
     [Export] private NodeView _nodeView;
     [Export] private PackedScene _handlesRowScene;

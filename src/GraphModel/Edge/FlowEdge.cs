@@ -1,10 +1,10 @@
-using GraphModel.NewHandle;
-using GraphModel.NewHandle.Flow;
+using GraphModel.Handle;
+using GraphModel.Handle.Flow;
 using GraphModel.Util;
 
-namespace GraphModel.NewEdge;
+namespace GraphModel.Edge;
 
-public class FlowEdge : INewEdge
+public class FlowEdge : IEdge
 {
     public ColorHex Color => _to.Color;
 
@@ -25,5 +25,5 @@ public class FlowEdge : INewEdge
 
     public void ExecuteInputFlow() => _to.Execute();
     public void Remove() => _from.FlowEdge = null;
-    public bool Contains(INewHandle handle) => handle == _from || handle == _to;
+    public bool Contains(IHandle handle) => handle == _from || handle == _to;
 }

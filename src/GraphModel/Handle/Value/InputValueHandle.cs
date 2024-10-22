@@ -1,17 +1,17 @@
 using CodingGame.Script.Util;
-using GraphModel.NewEdge;
+using GraphModel.Edge;
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle.Value;
+namespace GraphModel.Handle.Value;
 
-public class InputValueHandle(string label, ValueType valueType) : BaseNewHandle(label)
+public class InputValueHandle(string label, ValueType valueType) : BaseHandle(label)
 {
     public ValueType ValueType { get; } = valueType;
     public ValueEdge? Edge { private get; set; }
 
     public override ColorHex Color => ValueType.GetColor();
 
-    public override bool IsCompatible(INewHandle handle)
+    public override bool IsCompatible(IHandle handle)
     {
         return handle is BaseOutputValueHandle outputValueHandle &&
                outputValueHandle.ValueType.Equals(ValueType);

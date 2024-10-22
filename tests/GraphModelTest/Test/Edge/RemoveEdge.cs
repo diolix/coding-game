@@ -1,5 +1,5 @@
-using GraphModel.NewEdge;
-using GraphModel.Node.Factories.NewNode;
+using GraphModel.Edge;
+using GraphModel.Node.Factories;
 using GraphModel.Node.Input;
 using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
@@ -35,6 +35,6 @@ public class RemoveEdge
         var edge = _edgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();
         
-        Throws<NewInputManager.InputValueWithNoValueException>(() => mockNode.Execute());
+        Throws<InputManager.InputValueWithNoValueException>(() => mockNode.Execute());
     }
 }

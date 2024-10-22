@@ -1,8 +1,8 @@
 using GraphModel.Util;
 
-namespace GraphModel.NewHandle.Flow;
+namespace GraphModel.Handle.Flow;
 
-public abstract class BaseFlowHandle : BaseNewHandle
+public abstract class BaseFlowHandle : BaseHandle
 {
     protected BaseFlowHandle(string label) : base(label)
     {

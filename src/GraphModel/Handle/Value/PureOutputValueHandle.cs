@@ -1,7 +1,7 @@
 using CodingGame.Script.Util;
 using GraphModel.Node;
 
-namespace GraphModel.NewHandle.Value;
+namespace GraphModel.Handle.Value;
 
 public class PureOutputValueHandle : BaseOutputValueHandle
 {
