@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv7y4aa444l5x"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/View/Edge/NewEdgeView.cs" id="1_gtt4k"]
-[ext_resource type="Script" path="res://Scripts/Graph/View/Edge/ControlLine.cs" id="2_vkyi7"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Edge/EdgeView.cs" id="1_gtt4k"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Edge/ControlLine.cs" id="2_vkyi7"]
 
 [node name="EdgeView" type="Node2D" node_paths=PackedStringArray("_controlLine")]
 script = ExtResource("1_gtt4k")

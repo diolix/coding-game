@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://chr6x5o8r55h8"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/Variable/VariableView.cs" id="1_uqi0h"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Ui/Variable/VariableView.cs" id="1_uqi0h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tawno"]
 bg_color = Color(0.43134, 0.43134, 0.43134, 1)

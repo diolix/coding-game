@@ -1,5 +1,6 @@
 using CodingGame.Script.Graph.Model.Variable;
 using CodingGame.Script.Util;
+using GraphModel.Util;
 
 namespace GraphModel.Variable;
 

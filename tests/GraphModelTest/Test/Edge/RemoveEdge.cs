@@ -1,25 +1,21 @@
-using GraphModel.Edge;
 using GraphModel.Node.Factories;
 using GraphModel.Node.Input;
-using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Edge;
 
-public class RemoveEdge
+public class RemoveEdge : BaseEdgeTest
 {
     private readonly PrintFactory _printFactory = new PrintFactory();
-    private readonly MockNodeFactory _mockNodeFactory = new MockNodeFactory();
-    private readonly EdgeFactory _edgeFactory = new EdgeFactory();
     
     [Test]
     public void FlowEdgeRemove()
     {
         var printHelloWorld = _printFactory.CreatePrintHelloWorld();
         bool mockExecuted = false;
-        var mockedNode = _mockNodeFactory.CreateNewFlowNodeMock((_,_) => { mockExecuted = true; });
+        var mockedNode = MockNodeFactory.CreateNewFlowNodeMock((_,_) => { mockExecuted = true; });
 
-        var edge = _edgeFactory.CreateEdge(printHelloWorld, "", mockedNode, "");
+        var edge = EdgeFactory.CreateEdge(printHelloWorld, "", mockedNode, "");
         edge.Remove();
         printHelloWorld.Execute();
         
@@ -30,9 +26,9 @@ public class RemoveEdge
     public void ValueEdgeRemove()
     {
         var helloWorldConstant = new ConstantFactory().CreatePureHelloWorldConstant();
-        var mockNode = _mockNodeFactory.CreateNewStringValueInputNodeMock((_, input) => input.GetStringValue(""));
+        var mockNode = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) => input.GetStringValue(""));
         
-        var edge = _edgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
+        var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();
         
         Throws<InputManager.InputValueWithNoValueException>(() => mockNode.Execute());

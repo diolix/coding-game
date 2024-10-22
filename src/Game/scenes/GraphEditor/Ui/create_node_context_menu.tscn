@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4y8vnv0gftl"]
 
-[ext_resource type="Script" path="res://Scripts/Graph/View/Ui/NewCreateNodeContextMenu.cs" id="1_g5y3c"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Ui/CreateNodeContextMenu.cs" id="1_g5y3c"]
 
 [node name="CreateNodeContextMenu" type="PanelContainer" node_paths=PackedStringArray("_vBoxContainer")]
 offset_left = 471.0
