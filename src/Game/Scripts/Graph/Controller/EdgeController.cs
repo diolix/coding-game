@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
+using CodingGame.Scripts.Graph.Controller.Handle;
+using CodingGame.Scripts.Graph.Controller.Handle.New;
 using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
-using GraphModel.Edge;
-using GraphModel.Handle;
+using GraphModel.NewEdge;
+using GraphModel.NewHandle;
 using GraphModel.Node;
-using HandleEventBus = CodingGame.Scripts.Graph.Controller.Handle.HandleEventBus;
 
-namespace CodingGame.Scripts.Graph.Controller;
+namespace CodingGame.Scripts.Graph.Controller.New;
 
 public partial class EdgeController : Node
 {
@@ -18,6 +20,7 @@ public partial class EdgeController : Node
     private HandleEventBus.HandlePosition _currentInputHandlePosition;
     private ControlLine _edgePreview;
     private List<EdgeView> _edgeViews = new();
+    private EdgeFactory _edgeFactory = new();
 
     public override void _Ready()
     {
@@ -26,48 +29,6 @@ public partial class EdgeController : Node
         _handleEventBus.OnOutputEnteredInput += HandleOutputEnteredInput;
         _handleEventBus.OnOutputExitedInput += HandleOutputExitedInput;
         _handleEventBus.OnDeleteEdgeAtHandle += HandleDeleteEdgeAtHandle;
-    }
-
-    private void HandleDeleteEdgeAtHandle(IHandle handle)
-    {
-        for (int i = _edgeViews.Count - 1; i >= 0; i--)
-        {
-            var edgeView = _edgeViews[i];
-            if (edgeView.Model.From != handle && edgeView.Model.To != handle) continue;
-            _edgeViews[i].QueueFree();
-            RemoveEdgeFromOutputHandle(_edgeViews[i].Model);
-            _edgeViews.RemoveAt(i);
-        }
-    }
-
-    private void CreateEdge()
-    {
-        var instantiatedEdgeScene = _edgeScene.Instantiate();
-        var model = new EdgeModel(_currentOutputHandlePosition.Model,
-            _currentInputHandlePosition.Model);
-        _currentOutputHandlePosition.Model.Node.Output.AddEdge(model);
-        
-        AddChild(instantiatedEdgeScene);
-        EdgeView edgeView = (EdgeView)instantiatedEdgeScene;
-        edgeView.Model = model;
-        edgeView.SetPosition(_currentOutputHandlePosition.Position, _currentInputHandlePosition.Position);
-        _edgeViews.Add(edgeView);
-    }
-
-    private void RemoveEdgeFromOutputHandle(IEdge edge)
-    {
-        edge.From.Node.Output.RemoveEdge(edge);
-    }
-
-    public void RemoveEdges(INode selectedNode)
-    {
-        for (int i = _edgeViews.Count - 1; i >= 0; i--)
-        {
-            if (_edgeViews[i].Model.From.Node != selectedNode && _edgeViews[i].Model.To.Node != selectedNode) continue;
-            _edgeViews[i].QueueFree();
-            RemoveEdgeFromOutputHandle(_edgeViews[i].Model);
-            _edgeViews.RemoveAt(i);
-        }
     }
 
     private void HandleOutputExitedInput(HandleEventBus.HandlePosition handlePosition)
@@ -84,7 +45,7 @@ public partial class EdgeController : Node
     {
         if (_currentInputHandlePosition != null && _currentOutputHandlePosition != null &&
             _currentInputHandlePosition.Model.IsCompatible(_currentOutputHandlePosition.Model))
-        	CreateEdge();
+            CreateEdge();
         _currentInputHandlePosition = null;
         _edgePreview.QueueFree();
         _edgePreview = null;
@@ -98,5 +59,31 @@ public partial class EdgeController : Node
         _edgePreview = (ControlLine)instantiatedControlLine;
         _edgePreview.DefaultColor = Color.FromHtml(handlePosition.Model.Color.ToHex());
         _edgePreview.Set(handlePosition.Position, draggable);
+    }
+
+    private void CreateEdge()
+    {
+        var instantiatedEdgeScene = _edgeScene.Instantiate();
+        var model = _edgeFactory.CreateEdge(_currentOutputHandlePosition.Model, _currentInputHandlePosition.Model);
+        AddChild(instantiatedEdgeScene);
+        EdgeView edgeView = (EdgeView)instantiatedEdgeScene;
+        edgeView.Model = model;
+        edgeView.SetPosition(_currentOutputHandlePosition.Position, _currentInputHandlePosition.Position);
+        _edgeViews.Add(edgeView);
+    }
+    
+    private void HandleDeleteEdgeAtHandle(INewHandle handle)
+    {
+        for (int i = _edgeViews.Count - 1; i >= 0; i--)
+        {
+            if (!_edgeViews[i].Contains(handle)) continue;
+            _edgeViews[i].Remove();
+            _edgeViews.RemoveAt(i);
+        }
+    }
+    
+    public void RemoveEdges(INewNode selectedNode)
+    {
+        selectedNode.Inputs.Concat(selectedNode.Outputs).ToList().ForEach(HandleDeleteEdgeAtHandle);
     }
 }

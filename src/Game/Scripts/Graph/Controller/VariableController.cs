@@ -14,7 +14,7 @@ public partial class VariableController : Node
 {
     [Export] private CreateVariableView _createVariableContainer;
     [Export] private VariablesContainerView _variablesContainerView;
-    [Export] private NewCreateNodeContextMenu _createNodeContextMenu;
+    [Export] private CreateNodeContextMenu _createNodeContextMenu;
     private VariableFactory _variableFactory = new();
     private readonly IList<IVariable> _variableModels = new List<IVariable>();
 

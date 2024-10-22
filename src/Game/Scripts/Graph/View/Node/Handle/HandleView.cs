@@ -1,8 +1,6 @@
-using CodingGame.Scripts.Graph.Controller.Handle;
+using CodingGame.Scripts.Graph.Controller.Handle.New;
 using Godot;
-using GraphModel;
-using GraphModel.Handle;
-using GraphModel.Handle.Value;
+using GraphModel.NewHandle;
 
 namespace CodingGame.Scripts.Graph.View.Node.Handle;
 
@@ -12,11 +10,7 @@ public partial class HandleView : Control
     [Export] private ColorRect _icon;
     [Export] private Godot.Node[] _handleEventControllers;
     
-    [Export] private Control _stringInput;
-    [Export] private Control _intInput;
-    [Export] private Control _boolInput;
-    
-    private IHandle _model;
+    private INewHandle _model;
 
     public override void _Ready()
     {
@@ -24,7 +18,7 @@ public partial class HandleView : Control
         _icon.Visible = false;
     }
 
-    public void SetUp(IHandle model) {
+    public void SetUp(INewHandle model) {
         _model = model;
         _icon.Visible = true;
         _label.Text = model.Label;
@@ -35,21 +29,21 @@ public partial class HandleView : Control
         }
     }
 
-    private void ShowInput()
-    {
-        if (_model is not IHandleValue handleValue) return;
-        if (handleValue.Type.Equals(ValueType.String))
-            _stringInput.Show();
-        else if (handleValue.Type.Equals(ValueType.Int))
-            _intInput.Show();
-        else if (handleValue.Type.Equals(ValueType.Bool))
-            _boolInput.Show();
-    }
+    // private void ShowInput()
+    // {
+    //     if (_model is not IHandleValue handleValue) return;
+    //     if (handleValue.Type.Equals(ValueType.String))
+    //         _stringInput.Show();
+    //     else if (handleValue.Type.Equals(ValueType.Int))
+    //         _intInput.Show();
+    //     else if (handleValue.Type.Equals(ValueType.Bool))
+    //         _boolInput.Show();
+    // }
 
-    private void HideInput()
-    {
-        _intInput.Hide();
-        _stringInput.Hide();
-        _boolInput.Hide();
-    }
+    // private void HideInput()
+    // {
+    //     _intInput.Hide();
+    //     _stringInput.Hide();
+    //     _boolInput.Hide();
+    // }
 }

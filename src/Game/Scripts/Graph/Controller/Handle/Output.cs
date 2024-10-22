@@ -1,14 +1,14 @@
 using Godot;
-using GraphModel.Handle;
+using GraphModel.NewHandle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle;
+namespace CodingGame.Scripts.Graph.Controller.Handle.New;
 
-public partial class Output : Godot.Node, IHandleModelDependant
+public partial class Output : Node, IHandleModelDependant
 {
     [Export] private Script.Graph.View.Draggable _draggable;
-    [Export] private Graph.Controller.Handle.HandleEventBus _handleEventBus;
+    [Export] private HandleEventBus _handleEventBus;
     [Export] private Control _handleIcon;
-    public IHandle Model { private get; set; }
+    public INewHandle Model { private get; set; }
 
     private Vector2 _draggableInitialPosition;
 
