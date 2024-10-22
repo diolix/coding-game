@@ -23,7 +23,7 @@ public class PureNodeBuildable : BaseNodeBuildable
 
         public Builder()
         {
-            _outputHandlesBuilder = new PureOutputHandlesBuilder(ExecutionContext);
+            _outputHandlesBuilder = new PureOutputHandlesBuilder();
         }
         
         public Builder AddOutputValue(string label, ValueType type)
@@ -41,7 +41,10 @@ public class PureNodeBuildable : BaseNodeBuildable
         public override INewNode Build()
         {
             var node = BaseBuild(new PureNodeBuildable());
-            node.Outputs = _outputHandlesBuilder.OutputHandles.ToList();
+            // very important to build outputs first and store them in a variable
+            var outputsBuilt = _outputHandlesBuilder.Build(node);
+            node.Outputs = outputsBuilt;
+            
             node._inputManager = new NewInputManager(node.Inputs);
             node._outputManager = new NewPureOutputManager(node.Outputs);
             

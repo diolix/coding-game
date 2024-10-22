@@ -1,18 +1,19 @@
 using CodingGame.Script.Util;
+using GraphModel.Node;
 
 namespace GraphModel.NewHandle.Value;
 
 public class PureOutputValueHandle : BaseOutputValueHandle
 {
-    private readonly ExecutionContext _executionContext;
-    public PureOutputValueHandle(string label, ValueType valueType, ExecutionContext executionContext) : base(label, valueType)
+    private readonly INewNode _node;
+    public PureOutputValueHandle(string label, ValueType valueType, INewNode node) : base(label, valueType)
     {
-        _executionContext = executionContext;
+        _node = node;
     }
 
     public override Optional<object> GetCachedValue()
     {
-        _executionContext.Execute();
+        _node.Execute();
         return CachedValue;
     }
 }

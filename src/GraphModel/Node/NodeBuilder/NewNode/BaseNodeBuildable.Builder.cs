@@ -1,5 +1,4 @@
 using GraphModel.Node.HandleBuilder;
-using ExecutionContext = GraphModel.NewHandle.ExecutionContext;
 
 namespace GraphModel.Node.NodeBuilder.NewNode;
 
@@ -9,13 +8,11 @@ public abstract partial class BaseNodeBuildable
     {
         private string? _name;
         protected readonly NewInputHandlesBuilder InputsHandlesConstructor;
-        protected readonly ExecutionContext ExecutionContext;
         private T _thisAsT;
 
         public Builder()
         {
-            ExecutionContext = new ExecutionContext();
-            InputsHandlesConstructor = new NewInputHandlesBuilder(ExecutionContext);
+            InputsHandlesConstructor = new NewInputHandlesBuilder();
             _thisAsT = (this as T)!;
         }
 
@@ -35,15 +32,14 @@ public abstract partial class BaseNodeBuildable
         
         protected N BaseBuild<N>(N node) where N : BaseNodeBuildable
         {
-            node.Inputs = InputsHandlesConstructor.InputHandles.ToList();
+            // very important to build inputs first and store them in a variable
+            var inputsBuilt = InputsHandlesConstructor.Build(node);
+            node.Inputs = inputsBuilt;
 
             if (_name == null)
                 throw new Exception("Name is required");
 
             node.Name = _name;
-
-            ExecutionContext.OnExecute += node.Execute;
-
             return node;
         }
     }

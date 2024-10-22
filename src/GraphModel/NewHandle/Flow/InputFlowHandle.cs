@@ -1,14 +1,13 @@
-using GraphModel.NewEdge;
-using GraphModel.Util;
+using GraphModel.Node;
 
 namespace GraphModel.NewHandle.Flow;
 
 public class InputFlowHandle : BaseFlowHandle
 {
-    private ExecutionContext _executionContext;
-    public InputFlowHandle(string label, ExecutionContext executionContext) : base(label)
+    private INewNode _node;
+    public InputFlowHandle(string label, INewNode node) : base(label)
     {
-        _executionContext = executionContext;
+        _node = node;
     }
     public override bool IsCompatible(INewHandle handle)
     {
@@ -17,6 +16,6 @@ public class InputFlowHandle : BaseFlowHandle
     
     public void Execute()
     {
-        _executionContext.Execute();
+        _node.Execute();
     }
 }

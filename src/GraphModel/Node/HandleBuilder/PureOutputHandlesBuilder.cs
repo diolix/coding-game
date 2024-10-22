@@ -1,25 +1,34 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Value;
-using ExecutionContext = GraphModel.NewHandle.ExecutionContext;
 
 namespace GraphModel.Node.HandleBuilder;
 
 public class PureOutputHandlesBuilder
 {
-    private readonly IList<INewHandle> _outputHandles;
-    private readonly ExecutionContext _executionContext;
+    private readonly IList<PairStringValueType> _pairStringValueTypes;
 
-    public PureOutputHandlesBuilder(ExecutionContext executionContext)
+    public PureOutputHandlesBuilder()
     {
-        _outputHandles = new List<INewHandle>();
-        _executionContext = executionContext;
+        _pairStringValueTypes = new List<PairStringValueType>();
     }
 
-    public IEnumerable<INewHandle> OutputHandles => _outputHandles;
-    
     public void AddOutputValueHandle(string label, ValueType type)
     {
-        var handle = new PureOutputValueHandle(label, type, _executionContext);
-        _outputHandles.Add(handle);
+        _pairStringValueTypes.Add(new PairStringValueType(label, type));
+    }
+
+    public IEnumerable<INewHandle> Build(INewNode node) => _pairStringValueTypes.Select(pairStringValueType =>
+        new PureOutputValueHandle(pairStringValueType.StringValue, pairStringValueType.ValueTypeValue, node)).ToArray();
+
+    private class PairStringValueType
+    {
+        public string StringValue { get; }
+        public ValueType ValueTypeValue { get; }
+
+        public PairStringValueType(string stringValue, ValueType valueTypeValue)
+        {
+            StringValue = stringValue;
+            ValueTypeValue = valueTypeValue;
+        }
     }
 }

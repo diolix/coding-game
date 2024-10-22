@@ -19,6 +19,8 @@ public abstract class BaseOutputValueHandle : BaseNewHandle
     public override bool IsCompatible(INewHandle handle) => handle is InputValueHandle inputValueHandle &&
                                                             inputValueHandle.ValueType.Equals(ValueType);
     
-    public void SetCachedValue(object value) => CachedValue = new Optional<object>(value);
+    public void SetCachedValue(object value){
+        CachedValue = new Optional<object>(value);
+    }
     public abstract Optional<object> GetCachedValue();
 }

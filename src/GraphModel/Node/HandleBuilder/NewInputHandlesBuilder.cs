@@ -1,32 +1,48 @@
 using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
 using GraphModel.NewHandle.Value;
-using ExecutionContext = GraphModel.NewHandle.ExecutionContext;
 
 namespace GraphModel.Node.HandleBuilder;
 
 public class NewInputHandlesBuilder
 {
-    private readonly ExecutionContext _executionContext;
+    private readonly IList<HandleStringUnion> _inputHandles;
     
-    private readonly IList<INewHandle> _inputHandles;
-    public IEnumerable<INewHandle> InputHandles => _inputHandles;
-    
-    public NewInputHandlesBuilder(ExecutionContext executionContext)
+    public NewInputHandlesBuilder()
     {
-        _executionContext = executionContext;
-        _inputHandles = new List<INewHandle>();
+        _inputHandles = new List<HandleStringUnion>();
     }
 
     public void AddInputFlowHandle(string label)
     {
-        var handle = new InputFlowHandle(label, _executionContext);
-        _inputHandles.Add(handle);
+        _inputHandles.Add(new HandleStringUnion.String(label));
     }
     
     public void AddInputValueHandle(string label, ValueType type)
     {
         var handle = new InputValueHandle(label, type);
-        _inputHandles.Add(handle);
+        _inputHandles.Add(new HandleStringUnion.Handle(handle));
+    }
+    
+    public IEnumerable<INewHandle> Build(INewNode node) => _inputHandles.Select(handleStringUnion => handleStringUnion switch
+    {
+        HandleStringUnion.String stringHandle => new InputFlowHandle(stringHandle.Value, node),
+        HandleStringUnion.Handle handle => handle.Value,
+        _ => throw new ArgumentOutOfRangeException()
+    }).ToArray();
+    
+    private abstract class HandleStringUnion
+    {
+        internal sealed class String : HandleStringUnion
+        {
+            public string Value { get; }
+            public String(string value) => Value = value;
+        }
+    
+        internal sealed class Handle : HandleStringUnion
+        {
+            public INewHandle Value { get; }
+            public Handle(INewHandle value) => Value = value;
+        }
     }
 }
