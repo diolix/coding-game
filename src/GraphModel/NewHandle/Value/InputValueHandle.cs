@@ -13,7 +13,7 @@ public class InputValueHandle(string label, ValueType valueType) : BaseNewHandle
 
     public override bool IsCompatible(INewHandle handle)
     {
-        return handle is ImpureOutputValueHandle outputValueHandle &&
+        return handle is BaseOutputValueHandle outputValueHandle &&
                outputValueHandle.ValueType.Equals(ValueType);
     }
 

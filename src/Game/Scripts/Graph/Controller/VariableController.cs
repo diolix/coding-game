@@ -10,11 +10,11 @@ using GraphModel.Variable;
 
 namespace CodingGame.Scripts.Graph.Controller;
 
-public partial class VariableController : Godot.Node
+public partial class VariableController : Node
 {
     [Export] private CreateVariableView _createVariableContainer;
     [Export] private VariablesContainerView _variablesContainerView;
-    [Export] private CreateNodeContextMenu _createNodeContextMenu;
+    [Export] private NewCreateNodeContextMenu _createNodeContextMenu;
     private VariableFactory _variableFactory = new();
     private readonly IList<IVariable> _variableModels = new List<IVariable>();
 

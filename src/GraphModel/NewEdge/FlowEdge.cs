@@ -1,3 +1,4 @@
+using GraphModel.NewHandle;
 using GraphModel.NewHandle.Flow;
 using GraphModel.Util;
 
@@ -24,4 +25,5 @@ public class FlowEdge : INewEdge
 
     public void ExecuteInputFlow() => _to.Execute();
     public void Remove() => _from.FlowEdge = null;
+    public bool Contains(INewHandle handle) => handle == _from || handle == _to;
 }

@@ -10,10 +10,6 @@ public partial class NewHandleView : Control
     [Export] private ColorRect _icon;
     [Export] private Godot.Node[] _handleEventControllers;
     
-    [Export] private Control _stringInput;
-    [Export] private Control _intInput;
-    [Export] private Control _boolInput;
-    
     private INewHandle _model;
 
     public override void _Ready()
@@ -44,10 +40,10 @@ public partial class NewHandleView : Control
     //         _boolInput.Show();
     // }
 
-    private void HideInput()
-    {
-        _intInput.Hide();
-        _stringInput.Hide();
-        _boolInput.Hide();
-    }
+    // private void HideInput()
+    // {
+    //     _intInput.Hide();
+    //     _stringInput.Hide();
+    //     _boolInput.Hide();
+    // }
 }

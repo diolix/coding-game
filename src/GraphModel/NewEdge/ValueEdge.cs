@@ -1,4 +1,5 @@
 using CodingGame.Script.Util;
+using GraphModel.NewHandle;
 using GraphModel.NewHandle.Value;
 using GraphModel.Util;
 
@@ -22,6 +23,7 @@ public class ValueEdge : INewEdge
     }
     
     public void Remove() => _to.Edge = null;
+    public bool Contains(INewHandle handle) => handle == _from || handle == _to;
 
     public Optional<object> GetOutputValue() => _from.GetCachedValue();
 }

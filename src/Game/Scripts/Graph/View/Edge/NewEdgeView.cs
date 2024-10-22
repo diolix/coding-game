@@ -1,5 +1,6 @@
 using Godot;
 using GraphModel.NewEdge;
+using GraphModel.NewHandle;
 
 namespace CodingGame.Scripts.Graph.View.Edge;
 
@@ -21,5 +22,13 @@ public partial class NewEdgeView : Godot.Node
     public void SetPosition(Control from, Control to)
     {
         _controlLine.Set(from, to);
+    }
+
+    public bool Contains(INewHandle handle) => _model.Contains(handle);
+
+    public void Remove()
+    {
+        _model.Remove();
+        QueueFree();
     }
 }
