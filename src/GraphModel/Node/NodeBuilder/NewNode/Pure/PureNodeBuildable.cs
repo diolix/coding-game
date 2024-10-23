@@ -1,4 +1,5 @@
 using GraphModel.Node.HandleBuilder;
+using GraphModel.Node.HandleBuilder.Pure;
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
@@ -19,16 +20,18 @@ public class PureNodeBuildable : BaseNodeBuildable
     public class Builder : Builder<Builder>
     {
         private Execution? _execution;
-        private PureOutputHandlesBuilder _outputHandlesBuilder;
-
-        public Builder()
-        {
-            _outputHandlesBuilder = new PureOutputHandlesBuilder();
-        }
+        private readonly PureOutputHandlesBuilder _outputHandlesBuilder = new();
+        private readonly PureInputHandlesBuilder _inputHandlesBuilder = new();
         
         public Builder AddOutputValue(string label, ValueType type)
         {
-            _outputHandlesBuilder.AddOutputValueHandle(label, type);
+            _outputHandlesBuilder.AddValueHandle(label, type);
+            return this;
+        }
+        
+        public Builder AddInputValue(string label, ValueType type)
+        {
+            _inputHandlesBuilder.AddValueHandle(label, type);
             return this;
         }
         
@@ -38,12 +41,11 @@ public class PureNodeBuildable : BaseNodeBuildable
             return this;
         }
 
-        public override INewNode Build()
+        public override INode Build()
         {
             var node = BaseBuild(new PureNodeBuildable());
-            // very important to build outputs first and store them in a variable
-            var outputsBuilt = _outputHandlesBuilder.Build(node);
-            node.Outputs = outputsBuilt;
+            node.Outputs = _outputHandlesBuilder.Build(node);
+            node.Inputs = _inputHandlesBuilder.Build(node);
             
             node._inputManager = new InputManager(node.Inputs);
             node._outputManager = new PureOutputManager(node.Outputs);

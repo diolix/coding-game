@@ -13,11 +13,11 @@ public class BasicValue : BaseNodeTest
         var helloWorldConstant = _constantNodeFactory.CreateImpureHelloWorldConstant();
         
         string mockStringInputValue = string.Empty;
-        var mockInputNode = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) =>
+        var mockInputNode = MockNodeFactory.CreateStringInput((_, input) =>
             mockStringInputValue = input.GetStringValue(""));
         
         bool mockExecuted = false;
-        var mockExecutionNode = MockNodeFactory.CreateNewFlowNodeMock((_, _) =>
+        var mockExecutionNode = MockNodeFactory.CreateFlowInput((_, _) =>
             mockExecuted = true);
 
         EdgeFactory.CreateEdge(helloWorldConstant, "value", mockInputNode, "");
@@ -36,7 +36,7 @@ public class BasicValue : BaseNodeTest
         var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
         
         string inputValue = string.Empty;
-        var mockNode = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) =>
+        var mockNode = MockNodeFactory.CreateStringInput((_, input) =>
             inputValue = input.GetStringValue(""));
 
         EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
@@ -52,11 +52,11 @@ public class BasicValue : BaseNodeTest
         var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
         
         string inputValue1 = string.Empty;
-        var mockNode1 = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) =>
+        var mockNode1 = MockNodeFactory.CreateStringInput((_, input) =>
             inputValue1 = input.GetStringValue(""));
         
         string inputValue2 = string.Empty;
-        var mockNode2 = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) =>
+        var mockNode2 = MockNodeFactory.CreateStringInput((_, input) =>
             inputValue2 = input.GetStringValue(""));
         
         EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode1, "");

@@ -11,7 +11,7 @@ public partial class HandlesInstantiator : Node
     [Export] private PackedScene _handlesRowScene;
     [Export] private RowHandles _hanldesRowExample;
 
-    public void BuildHandles(INewNode node)
+    public void BuildHandles(INode node)
     {
         _hanldesRowExample.QueueFree();
 

@@ -5,7 +5,7 @@ namespace GraphModel.Node.Factories;
 
 public class ConstantFactory
 {
-    public INewNode CreatePureHelloWorldConstant() => new PureNodeBuildable.Builder()
+    public INode CreatePureHelloWorldConstant() => new PureNodeBuildable.Builder()
         .SetName("HelloWorldConstant")
         .AddOutputValue("", ValueType.String)
         .SetExecution((outputManager, _) =>
@@ -14,7 +14,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INewNode CreateImpureHelloWorldConstant() => new ImpureNodeBuildable.Builder()
+    public INode CreateImpureHelloWorldConstant() => new ImpureNodeBuildable.Builder()
         .SetName("HelloWorldConstant")
         .AddInputFlow("")
         .AddOutputFlow("")
@@ -26,7 +26,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INewNode CreateTrueConstant() => new PureNodeBuildable.Builder()
+    public INode CreateTrueConstant() => new PureNodeBuildable.Builder()
         .SetName("TrueConstant")
         .AddOutputValue("", ValueType.Bool)
         .SetExecution((outputManager, _) =>
@@ -35,7 +35,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INewNode CreateFalseConstant() => new PureNodeBuildable.Builder()
+    public INode CreateFalseConstant() => new PureNodeBuildable.Builder()
         .SetName("FalseConstant")
         .AddOutputValue("", ValueType.Bool)
         .SetExecution((outputManager, _) =>

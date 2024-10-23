@@ -1,6 +1,7 @@
 using CodingGame.Script.Util;
 using GraphModel.Handle;
 using GraphModel.Handle.Value;
+using GraphModel.Handle.Value.Output;
 using GraphModel.Util;
 
 namespace GraphModel.Edge;

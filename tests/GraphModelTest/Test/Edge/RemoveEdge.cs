@@ -13,7 +13,7 @@ public class RemoveEdge : BaseEdgeTest
     {
         var printHelloWorld = _printFactory.CreatePrintHelloWorld();
         bool mockExecuted = false;
-        var mockedNode = MockNodeFactory.CreateNewFlowNodeMock((_,_) => { mockExecuted = true; });
+        var mockedNode = MockNodeFactory.CreateFlowInput((_,_) => { mockExecuted = true; });
 
         var edge = EdgeFactory.CreateEdge(printHelloWorld, "", mockedNode, "");
         edge.Remove();
@@ -26,7 +26,7 @@ public class RemoveEdge : BaseEdgeTest
     public void ValueEdgeRemove()
     {
         var helloWorldConstant = new ConstantFactory().CreatePureHelloWorldConstant();
-        var mockNode = MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) => input.GetStringValue(""));
+        var mockNode = MockNodeFactory.CreateStringInput((_, input) => input.GetStringValue(""));
         
         var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();

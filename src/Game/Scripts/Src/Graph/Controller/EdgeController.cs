@@ -81,7 +81,7 @@ public partial class EdgeController : Node
         }
     }
     
-    public void RemoveEdges(INewNode selectedNode)
+    public void RemoveEdges(INode selectedNode)
     {
         selectedNode.Inputs.Concat(selectedNode.Outputs).ToList().ForEach(HandleDeleteEdgeAtHandle);
     }

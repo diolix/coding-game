@@ -4,7 +4,7 @@ namespace GraphModel.Node.Factories;
 
 public class ControlFlowNodeFactory
 {
-    public INewNode CreateIf() => new ImpureNodeBuildable.Builder()
+    public INode CreateIf() => new ImpureNodeBuildable.Builder()
         .SetName("if")
         .AddInputFlow("")
         .AddInputValue("condition", ValueType.Bool)
@@ -17,7 +17,7 @@ public class ControlFlowNodeFactory
             else outputManager.Execute("false");
         }).Build();
     
-    public INewNode CreateWhile() => new ImpureNodeBuildable.Builder()
+    public INode CreateWhile() => new ImpureNodeBuildable.Builder()
         .SetName("while")
         .AddInputFlow("")
         .AddInputValue("condition", ValueType.Bool)

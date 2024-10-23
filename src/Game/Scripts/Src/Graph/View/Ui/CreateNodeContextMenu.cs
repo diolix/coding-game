@@ -14,7 +14,7 @@ public partial class CreateNodeContextMenu : Control
 	private PrintFactory _printNodeFactory = new PrintFactory();
 	private ConstantFactory _constantNodeFactory = new();
 	private ControlFlowNodeFactory _controlFlowNodeFactory = new();
-	public event Action<INewNode> OnNodeSelected;
+	public event Action<INode> OnNodeSelected;
 	private readonly Dictionary<IVariable, Button[]> _getAndSetVariables = new();
 	
 	public override void _Ready()
@@ -27,7 +27,7 @@ public partial class CreateNodeContextMenu : Control
 		AddStandardNode(_controlFlowNodeFactory.CreateIf);
 	}
 
-	private void AddStandardNode(Func<INewNode> createNodeFunc)
+	private void AddStandardNode(Func<INode> createNodeFunc)
 	{
 		AddSelectableNode(createNodeFunc, new Button());
 	}
@@ -50,7 +50,7 @@ public partial class CreateNodeContextMenu : Control
 		_getAndSetVariables.Remove(variable);
 	}
 	
-	private void AddSelectableNode(Func<INewNode> createNodeFunc, Button button)
+	private void AddSelectableNode(Func<INode> createNodeFunc, Button button)
 	{
 		button.Text = createNodeFunc().Name;
 		button.Pressed += () =>

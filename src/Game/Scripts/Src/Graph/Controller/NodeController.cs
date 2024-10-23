@@ -27,7 +27,7 @@ public partial class NodeController : Node
             InstantiateNodeView(node, _createNodeContextMenu.GetGlobalMousePosition());
     }
     
-    private void InstantiateNodeView(INewNode baseNode, Vector2 position)
+    private void InstantiateNodeView(INode baseNode, Vector2 position)
     {
         var instantiatedNodeView = _nodeViewScene.Instantiate();
         AddChild(instantiatedNodeView);

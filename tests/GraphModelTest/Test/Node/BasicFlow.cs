@@ -13,7 +13,7 @@ public class BasicFlow : BaseNodeTest
     {
         var printHelloWorld = _printFactory.CreatePrintHelloWorld();
         bool mockExecuted = false;
-        var mockedNode = MockNodeFactory.CreateNewFlowNodeMock((_,_) => { mockExecuted = true; });
+        var mockedNode = MockNodeFactory.CreateFlowInput((_,_) => { mockExecuted = true; });
 
         EdgeFactory.CreateEdge(printHelloWorld, "", mockedNode, "");
         printHelloWorld.Execute();

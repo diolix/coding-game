@@ -1,7 +1,5 @@
-using CodingGame.Script.Util;
 using GraphModel.Handle;
 using GraphModel.Handle.Value;
-using GraphModel.Util;
 
 namespace GraphModel.Node.Input;
 
@@ -22,39 +20,26 @@ public class InputManager
         _inputValues = _handles.OfType<InputValueHandle>();
     }
 
-    public Optional<object> GetValue(string label)
-    {
-        return _inputValues.First(handle => handle.Label == label).GetValue();
-    }
-
     public bool GetBoolValue(string label) => GetValue<bool>(label, ValueType.Bool);
     public int GetIntValue(string label) => GetValue<int>(label, ValueType.Int);
     public string GetStringValue(string label) => GetValue<string>(label, ValueType.String);
-
-
-    private T GetValue<T>(string label, ValueType valueType)
+    
+    public T GetValue<T>(string label, ValueType valueType)
     {
         var inputHandle = _inputValues.First(handle => handle.Label == label);
 
         if (inputHandle is null)
-        {
             throw new Exception($"Input value with label {label} not found");
-        }
 
+        // ReSharper disable once ConvertTypeCheckPatternToNullCheck
         if (inputHandle is not InputValueHandle inputValueHandle)
-        {
             throw new Exception($"Input value with label {label} is not a value");
-        }
 
         if (!inputValueHandle.ValueType.Equals(valueType))
-        {
             throw new Exception($"Input value with label {label} is not a {valueType}");
-        }
 
         if (!inputValueHandle.GetValue().HasValue())
-        {
             throw new InputValueWithNoValueException(label);
-        }
 
         return inputValueHandle.GetValue().Cast<T>().Value;
     }

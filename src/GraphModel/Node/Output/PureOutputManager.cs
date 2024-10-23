@@ -1,5 +1,6 @@
 using GraphModel.Handle;
 using GraphModel.Handle.Value;
+using GraphModel.Handle.Value.Output;
 
 namespace GraphModel.Node.Output;
 

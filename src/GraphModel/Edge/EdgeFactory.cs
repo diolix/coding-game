@@ -1,13 +1,14 @@
 using GraphModel.Handle;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value;
+using GraphModel.Handle.Value.Output;
 using GraphModel.Node;
 
 namespace GraphModel.Edge;
 
 public class EdgeFactory
 {
-    public IEdge CreateEdge(INewNode from, string labelFrom, INewNode to, string labelTo)
+    public IEdge CreateEdge(INode from, string labelFrom, INode to, string labelTo)
     {
         return CreateEdge(from.GetOutputHandle(labelFrom), to.GetInputHandle(labelTo));
     }
@@ -15,7 +16,7 @@ public class EdgeFactory
     public IEdge CreateEdge(IHandle from, IHandle to)
     {
         if (!from.IsCompatible(to))
-            throw new ArgumentException("Handles must be compatible");
+            throw new HandlesNotCompatibleException(from, to);
 
         if (from is BaseOutputValueHandle input && to is InputValueHandle output)
             return ValueEdge.Create(input, output);
@@ -25,4 +26,7 @@ public class EdgeFactory
         
         throw new ArgumentException("Unsupported edge type");
     }
+
+    public class HandlesNotCompatibleException(IHandle from, IHandle to)
+        : Exception($"from: {from} and to ${to} are not comptatible");
 }

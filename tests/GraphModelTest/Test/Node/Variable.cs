@@ -1,4 +1,5 @@
 using GraphModel.Variable;
+using static NUnit.Framework.Assert;
 using VariableNodeFactory = GraphModel.Node.Factories.VariableNodeFactory;
 using ConstantNodeFactory = GraphModel.Node.Factories.ConstantFactory;
 
@@ -20,13 +21,13 @@ public class Variable : BaseNodeTest
 
         string spyInput = String.Empty;
         var mockedNode =
-            MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) => spyInput = input.GetStringValue(""));
+            MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
 
         EdgeFactory.CreateEdge(getVariable, "value", mockedNode, "");
 
         mockedNode.Execute();
 
-        Assert.That(spyInput, Is.EqualTo("Hello World"));
+        That(spyInput, Is.EqualTo("Hello World"));
     }
 
     [Test]
@@ -40,7 +41,7 @@ public class Variable : BaseNodeTest
     
         setVariableNode.Execute();
     
-        Assert.That(helloWorldVariable.GetValue(), Is.EqualTo("Hello World"));
+        That(helloWorldVariable.GetValue(), Is.EqualTo("Hello World"));
     }
     
     [Test]
@@ -53,7 +54,7 @@ public class Variable : BaseNodeTest
     
         string spyInput = String.Empty;
         var mockedNode =
-            MockNodeFactory.CreateNewStringValueInputNodeMock((_, input) => spyInput = input.GetStringValue(""));
+            MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
         
         EdgeFactory.CreateEdge(helloWorldConstant, "", setNode, "new value");
         EdgeFactory.CreateEdge(getNode, "value", mockedNode, "");
@@ -61,6 +62,6 @@ public class Variable : BaseNodeTest
         setNode.Execute();
         mockedNode.Execute();
     
-        Assert.That(spyInput, Is.EqualTo("Hello World"));
+        That(spyInput, Is.EqualTo("Hello World"));
     }
 }

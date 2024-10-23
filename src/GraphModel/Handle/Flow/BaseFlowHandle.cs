@@ -1,12 +1,9 @@
+using GraphModel.Node;
 using GraphModel.Util;
 
 namespace GraphModel.Handle.Flow;
 
-public abstract class BaseFlowHandle : BaseHandle
+public abstract class BaseFlowHandle(string label, INode node) : BaseHandle(label, node)
 {
-    protected BaseFlowHandle(string label) : base(label)
-    {
-    }
-
     public override ColorHex Color => new(System.Drawing.Color.White);
 }

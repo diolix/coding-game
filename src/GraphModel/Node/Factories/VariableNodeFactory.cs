@@ -6,21 +6,21 @@ namespace GraphModel.Node.Factories;
 
 public class VariableNodeFactory
 {
-    public INewNode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
+    public INode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
         .SetName($"Set {variable.Name}")
         .AddInputFlow("")
         .AddInputValue("new value", variable.ValueType)
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {
-            variable.SafeSetValue(inputManager.GetValue("new value").Value);
+            variable.SafeSetValue(inputManager.GetValue<object>("new value", variable.ValueType));
             outputManager.Execute("");
         })
         .Build();
     
-    public INewNode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
+    public INode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
         .SetName($"Get {variable.Name}")
         .AddOutputValue("value", variable.ValueType)
-        .SetExecution((outputManager, inputManager) => outputManager.CacheValue("value", variable.GetValue()))
+        .SetExecution((outputManager, _) => outputManager.CacheValue("value", variable.GetValue()))
         .Build();
 }

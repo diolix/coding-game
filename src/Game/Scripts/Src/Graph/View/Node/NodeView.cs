@@ -12,10 +12,10 @@ public partial class NodeView  : Control
     [Export] private Label _nameLabel;
     [Export] private HandlesInstantiator _handlesInstantiator;
     public event Action<bool> OnSelectChanged; 
-    public INewNode Model { get; private set; }
+    public INode Model { get; private set; }
     private bool _selected;
     
-    public void BuildVisual(INewNode model)
+    public void BuildVisual(INode model)
     {
         Model = model;
         _nameLabel.Text = Model.Name;

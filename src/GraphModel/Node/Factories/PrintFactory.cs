@@ -4,7 +4,7 @@ namespace GraphModel.Node.Factories;
 
 public class PrintFactory
 {
-    public INewNode CreatePrintHelloWorld() => new ImpureNodeBuildable.Builder()
+    public INode CreatePrintHelloWorld() => new ImpureNodeBuildable.Builder()
         .SetName("print hello world")
         .AddInputFlow("")
         .AddOutputFlow("")
@@ -15,14 +15,14 @@ public class PrintFactory
         })
         .Build();
     
-    public INewNode CreatePrint() => new ImpureNodeBuildable.Builder()
+    public INode CreatePrint() => new ImpureNodeBuildable.Builder()
         .SetName("print")
         .AddInputFlow("")
         .AddInputValue("value", ValueType.String)
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {
-            Console.WriteLine(inputManager.GetValue("value").Value);
+            Console.WriteLine(inputManager.GetStringValue("value"));
             outputManager.Execute("");
         })
         .Build();

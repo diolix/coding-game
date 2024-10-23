@@ -11,6 +11,6 @@ public class StupidTest
     {
         var a = 1;
         var b = 2;
-        AssertInt(a + b).IsEqual(4);
+        AssertInt(a + b).IsEqual(3);
     }
 }

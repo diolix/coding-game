@@ -9,28 +9,30 @@ public partial class ImpureNodeBuildable
     public class Builder : Builder<Builder>
     {
         private Execution? _execution;
-        private ImpureOutputHandlesBuilder _outputHandlesBuilder;
-
-        public Builder()
-        {
-            _outputHandlesBuilder = new ImpureOutputHandlesBuilder();
-        }
+        private readonly ImpureOutputHandlesBuilder _outputHandlesBuilder = new();
+        private readonly ImpureInputHandlesBuilder _impureInputHandlesBuilder = new();
         
         public Builder AddOutputValue(string label, ValueType type)
         {
-            _outputHandlesBuilder.AddOutputValueHandle(label, type);
+            _outputHandlesBuilder.AddValueHandle(label, type);
             return this;
         }
         
         public Builder AddOutputFlow(string label)
         {
-            _outputHandlesBuilder.AddOutputFlowHandle(label);
+            _outputHandlesBuilder.AddFlowHanlde(label);
             return this;
         }
 
+        public Builder AddInputValue(string label, ValueType type)
+        {
+            _impureInputHandlesBuilder.AddValueHandle(label, type);
+            return this;
+        }
+        
         public Builder AddInputFlow(string label)
         {
-            InputsHandlesConstructor.AddInputFlowHandle(label);
+            _impureInputHandlesBuilder.AddFlowHanlde(label);
             return this;
         }
 
@@ -40,10 +42,12 @@ public partial class ImpureNodeBuildable
             return this;
         }
 
-        public override INewNode Build()
+        public override INode Build()
         {
             var node = BaseBuild(new ImpureNodeBuildable());
-            node.Outputs = _outputHandlesBuilder.OutputHandles.ToList();
+            node.Outputs = _outputHandlesBuilder.Build(node);
+            node.Inputs = _impureInputHandlesBuilder.Build(node);
+            
             node._outputManager = new ImpureOutputManager(node.Outputs);
             node._inputManager = new InputManager(node.Inputs);
             

@@ -2,7 +2,7 @@ using GraphModel.Handle;
 
 namespace GraphModel.Node;
 
-public interface INewNode
+public interface INode
 {
     public string? Name { get; }
     public void Execute();
