@@ -31,6 +31,6 @@ public class RemoveEdge : BaseEdgeTest
         var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();
         
-        Throws<InputManager.InputValueWithNoValueException>(() => mockNode.Execute());
+        Throws<InputValueWithNoValueException>(() => mockNode.Execute());
     }
 }

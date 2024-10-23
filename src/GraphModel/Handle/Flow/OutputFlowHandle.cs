@@ -6,6 +6,7 @@ namespace GraphModel.Handle.Flow;
 public class OutputFlowHandle(string label, INode node) : BaseFlowHandle(label, node)
 {
     public FlowEdge? FlowEdge { private get; set; }
+    public bool HasEdge => FlowEdge != null;
 
     protected override bool IsCompatible(IHandle handle) => handle is InputFlowHandle;
 

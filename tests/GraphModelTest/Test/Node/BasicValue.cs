@@ -1,12 +1,9 @@
 using GraphModel.Node.Factories;
 using static NUnit.Framework.Assert;
-
 namespace GraphModelTest.Test.Node;
-
 public class BasicValue : BaseNodeTest
 {
-    private readonly ConstantFactory _constantNodeFactory = new();
-    
+    private ConstantFactory _constantNodeFactory = new ConstantFactory();
     [Test]
     public void BasicImpureSetValue()
     {

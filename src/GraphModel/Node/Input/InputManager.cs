@@ -43,7 +43,7 @@ public class InputManager
 
         return inputValueHandle.GetValue().Cast<T>().Value;
     }
-
-    public class InputValueWithNoValueException(string label)
-        : Exception($"Input value with label {label} has no value");
 }
+
+public class InputValueWithNoValueException(string label)
+    : Exception($"Input value with label {label} has no value");

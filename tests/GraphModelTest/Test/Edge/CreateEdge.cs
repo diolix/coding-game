@@ -8,17 +8,48 @@ public class CreateEdge : BaseEdgeTest
     [Test]
     public void ImpossibleToCreateEdgeBetweenValueAndFlow()
     {
-        var boolOutput = MockNodeFactory.CreatePureBoolOutput(null);
-        var flowInput = MockNodeFactory.CreateFlowInput(null);
-        
-        Throws<EdgeFactory.HandlesNotCompatibleException>(() => EdgeFactory.CreateEdge(boolOutput, "", flowInput, ""));
+        var boolOutput = MockNodeFactory.CreatePureBoolOutput();
+        var flowInput = MockNodeFactory.CreateFlowInput();
+
+        Throws<HandlesNotCompatibleException>(() => EdgeFactory.CreateEdge(boolOutput, "", flowInput, ""));
     }
 
     [Test]
     public void ImpossibleToCreateEdgeBetweenHandleOfSameNode()
     {
-        var flowInputOutputNode = MockNodeFactory.CreateFlowInputOutput(null);
+        var flowInputOutputNode = MockNodeFactory.CreateFlowInputOutput();
+
+        Throws<HandlesNotCompatibleException>(() =>
+            EdgeFactory.CreateEdge(flowInputOutputNode, "", flowInputOutputNode, ""));
+    }
+
+    [Test]
+    public void ImpossibleToCreateEdgeBetweenValueWithDifferentType()
+    {
+        var stringInput = MockNodeFactory.CreateStringInput();
+        var boolOutput = MockNodeFactory.CreatePureBoolOutput();
+
+        Throws<HandlesNotCompatibleException>(() =>
+            EdgeFactory.CreateEdge(boolOutput, "", stringInput, ""));
+    }
+
+    [Test]
+    public void ImpossibleToCreateMultipleEdgesToInputHandleValue()
+    {
+        var stringOutput = MockNodeFactory.CreatePureStringOutput();
+        var stringInput = MockNodeFactory.CreateStringInput();
         
-        Throws<EdgeFactory.HandlesNotCompatibleException>(() => EdgeFactory.CreateEdge(flowInputOutputNode, "", flowInputOutputNode, ""));
+        EdgeFactory.CreateEdge(stringOutput, "", stringInput, "");
+        Throws<MultipleValueEdgesToSameInputException>(() => EdgeFactory.CreateEdge(stringOutput, "", stringInput, ""));
+    }
+
+    [Test]
+    public void ImpossibleToCreateMultipleEdgesFromOutputHandleFlow()
+    {
+        var flowOutput = MockNodeFactory.CreateFlowOutput();
+        var flowInput = MockNodeFactory.CreateFlowInput();
+        
+        EdgeFactory.CreateEdge(flowOutput, "", flowInput, "");
+        Throws<MultipleFlowEdgesFromSameOutputException>(() => EdgeFactory.CreateEdge(flowOutput, "", flowInput, ""));
     }
 }

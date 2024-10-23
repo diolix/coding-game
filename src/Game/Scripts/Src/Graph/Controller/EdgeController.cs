@@ -63,7 +63,7 @@ public partial class EdgeController : Node
     private void CreateEdge()
     {
         var instantiatedEdgeScene = _edgeScene.Instantiate();
-        var model = _edgeFactory.CreateEdge(_currentOutputHandlePosition.Model, _currentInputHandlePosition.Model);
+        var model = EdgeFactory.CreateEdge(_currentOutputHandlePosition.Model, _currentInputHandlePosition.Model);
         AddChild(instantiatedEdgeScene);
         EdgeView edgeView = (EdgeView)instantiatedEdgeScene;
         edgeView.Model = model;

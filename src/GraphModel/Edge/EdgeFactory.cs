@@ -13,20 +13,19 @@ public class EdgeFactory
         return CreateEdge(from.GetOutputHandle(labelFrom), to.GetInputHandle(labelTo));
     }
     
-    public IEdge CreateEdge(IHandle from, IHandle to)
+    public static IEdge CreateEdge(IHandle from, IHandle to)
     {
         if (!from.IsCompatible(to))
             throw new HandlesNotCompatibleException(from, to);
 
-        if (from is BaseOutputValueHandle input && to is InputValueHandle output)
-            return ValueEdge.Create(input, output);
-        
-        if (from is OutputFlowHandle fromFlow && to is InputFlowHandle toFlow)
-            return FlowEdge.Create(fromFlow, toFlow);
-        
-        throw new ArgumentException("Unsupported edge type");
+        return from switch
+        {
+            BaseOutputValueHandle fromValue when to is InputValueHandle toValue => ValueEdge.Create(fromValue, toValue),
+            OutputFlowHandle fromFlow when to is InputFlowHandle toFlow => FlowEdge.Create(fromFlow, toFlow),
+            _ => throw new ArgumentException("Unsupported edge type")
+        };
     }
-
-    public class HandlesNotCompatibleException(IHandle from, IHandle to)
-        : Exception($"from: {from} and to ${to} are not comptatible");
 }
+
+public class HandlesNotCompatibleException(IHandle from, IHandle to)
+    : Exception($"from: {from} and to: ${to} are not compatible");

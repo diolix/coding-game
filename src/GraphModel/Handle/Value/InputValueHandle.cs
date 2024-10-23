@@ -9,7 +9,7 @@ public class InputValueHandle(string label, ValueType valueType, INode node) : B
 {
     public ValueType ValueType { get; } = valueType;
     public ValueEdge? Edge { private get; set; }
-
+    public bool HasEdge => Edge != null;
     public override ColorHex Color => ValueType.GetColor();
 
     protected override bool IsCompatible(IHandle handle)
