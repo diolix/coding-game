@@ -6,7 +6,7 @@ namespace GraphModel.Handle.Value.Output;
 public class PureOutputValueHandle(string label, ValueType valueType, INode node)
     : BaseOutputValueHandle(label, valueType, node)
 {
-    public override Optional<object> GetCachedValue()
+    public override Optional<object> GetValue()
     {
         Node.Execute();
         return CachedValue;

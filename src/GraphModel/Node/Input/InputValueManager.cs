@@ -1,15 +1,16 @@
 using GraphModel.Handle;
 using GraphModel.Handle.Value;
+using GraphModel.Handle.Value.Input;
 
 namespace GraphModel.Node.Input;
 
-public class InputManager
+public class InputValueManager
 {
-    private readonly IEnumerable<IHandle> _handles;
+    private readonly IEnumerable<InputValueHandle> _handles;
 
     private IEnumerable<InputValueHandle> _inputValues = null!;
 
-    public InputManager(IEnumerable<IHandle> handles)
+    public InputValueManager(IEnumerable<InputValueHandle> handles)
     {
         _handles = handles;
         InitializeInputValues();
@@ -17,7 +18,7 @@ public class InputManager
 
     private void InitializeInputValues()
     {
-        _inputValues = _handles.OfType<InputValueHandle>();
+        _inputValues = _handles;
     }
 
     public bool GetBoolValue(string label) => SafeGetValue<bool>(label, ValueType.Bool);

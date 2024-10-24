@@ -1,4 +1,6 @@
-namespace GraphModel.Node.NodeBuilder.NewNode;
+using GraphModel.Node.HandleBuilder.Value;
+
+namespace GraphModel.Node.NodeBuilder;
 
 public abstract partial class BaseNodeBuildable
 {
@@ -6,6 +8,7 @@ public abstract partial class BaseNodeBuildable
     {
         private string? _name;
         private readonly T _thisAsT;
+        private InputValueHandleBuilder _inputValueHandleBuilder = new();
 
         public Builder()
         {
@@ -18,6 +21,18 @@ public abstract partial class BaseNodeBuildable
             return _thisAsT;
         }
 
+        public virtual T AddInputValue(string label, ValueType valueType)
+        {
+            _inputValueHandleBuilder.AddValueHandle(label, valueType);
+            return _thisAsT;
+        }
+        
+        public virtual T AddInputValueWithField(string label, ValueType valueType)
+        {
+            _inputValueHandleBuilder.AddInputHandleWithField(label, valueType);
+            return _thisAsT;
+        }
+        
         public abstract INode Build();
         
         protected N BaseBuild<N>(N node) where N : BaseNodeBuildable
@@ -26,6 +41,7 @@ public abstract partial class BaseNodeBuildable
                 throw new Exception("Name is required");
 
             node.Name = _name;
+            node.Inputs = _inputValueHandleBuilder.Build(node).ToList();
             return node;
         }
     }

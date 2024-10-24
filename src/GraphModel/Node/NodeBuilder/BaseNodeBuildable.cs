@@ -1,6 +1,6 @@
 using GraphModel.Handle;
 
-namespace GraphModel.Node.NodeBuilder.NewNode;
+namespace GraphModel.Node.NodeBuilder;
 
 public abstract partial class BaseNodeBuildable : INode
 {

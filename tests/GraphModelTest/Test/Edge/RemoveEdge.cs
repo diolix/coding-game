@@ -3,6 +3,7 @@ using GraphModel.Node.Factories;
 using GraphModel.Node.Input;
 using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
+using ValueType = GraphModel.ValueType;
 
 namespace GraphModelTest.Test.Edge;
 
@@ -28,7 +29,7 @@ public class RemoveEdge : BaseEdgeTest
     public void ValueEdgeRemove()
     {
         var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
-        var mockNode = MockNodeFactory.CreateStringInput((_, input) => input.GetStringValue(""));
+        var mockNode = MockNodeFactory.CreateStringInput((_, input) => input.GetValue<string>("", ValueType.String));
         
         var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();

@@ -1,4 +1,4 @@
-using GraphModel.Node.NodeBuilder.NewNode.Pure;
+using GraphModel.Node.NodeBuilder.Pure;
 
 namespace GraphModel.Node.Factories;
 

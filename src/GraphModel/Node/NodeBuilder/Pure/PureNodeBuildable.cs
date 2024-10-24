@@ -1,37 +1,30 @@
-using GraphModel.Node.HandleBuilder;
-using GraphModel.Node.HandleBuilder.Pure;
+using GraphModel.Handle.Value.Input;
+using GraphModel.Node.HandleBuilder.Value;
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
-namespace GraphModel.Node.NodeBuilder.NewNode.Pure;
+namespace GraphModel.Node.NodeBuilder.Pure;
 
 public class PureNodeBuildable : BaseNodeBuildable
 {
-    private InputManager _inputManager = null!;
+    private InputValueManager _inputValueManager = null!;
     private PureOutputManager _outputManager = null!;
     private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
-        _execution(_outputManager, _inputManager);
+        _execution(_outputManager, _inputValueManager);
     }
     
-    public delegate void Execution(PureOutputManager outputManager, InputManager inputManager);
+    public delegate void Execution(PureOutputManager outputManager, InputValueManager inputValueManager);
     
     public class Builder : Builder<Builder>
     {
         private Execution? _execution;
-        private readonly PureOutputHandlesBuilder _outputHandlesBuilder = new();
-        private readonly PureInputHandlesBuilder _inputHandlesBuilder = new();
+        private readonly PureOutputValueHandleBuilder _outputHandlesBuilder = new();
         
         public Builder AddOutputValue(string label, ValueType type)
         {
             _outputHandlesBuilder.AddValueHandle(label, type);
-            return this;
-        }
-        
-        public Builder AddInputValue(string label, ValueType type)
-        {
-            _inputHandlesBuilder.AddValueHandle(label, type);
             return this;
         }
         
@@ -45,9 +38,8 @@ public class PureNodeBuildable : BaseNodeBuildable
         {
             var node = BaseBuild(new PureNodeBuildable());
             node.Outputs = _outputHandlesBuilder.Build(node);
-            node.Inputs = _inputHandlesBuilder.Build(node);
             
-            node._inputManager = new InputManager(node.Inputs);
+            node._inputValueManager = new InputValueManager(node.Inputs.OfType<InputValueHandle>());
             node._outputManager = new PureOutputManager(node.Outputs);
             
             if (_execution == null)

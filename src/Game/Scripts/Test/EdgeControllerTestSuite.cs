@@ -9,6 +9,7 @@ using GraphModel;
 using GraphModel.Edge;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value;
+using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
 using GraphModel.Node;
 using Moq;

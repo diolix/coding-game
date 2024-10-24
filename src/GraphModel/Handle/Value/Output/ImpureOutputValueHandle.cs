@@ -6,5 +6,5 @@ namespace GraphModel.Handle.Value.Output;
 public class ImpureOutputValueHandle(string label, ValueType valueType, INode node)
     : BaseOutputValueHandle(label, valueType, node)
 {
-    public override Optional<object> GetCachedValue() => CachedValue;
+    public override Optional<object> GetValue() => CachedValue;
 }

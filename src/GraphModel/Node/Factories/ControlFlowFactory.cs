@@ -1,4 +1,4 @@
-using GraphModel.Node.NodeBuilder.NewNode.Impure;
+using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
 namespace GraphModel.Node.Factories;
 

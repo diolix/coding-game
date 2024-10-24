@@ -1,17 +1,17 @@
 using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
-namespace GraphModel.Node.NodeBuilder.NewNode.Impure;
+namespace GraphModel.Node.NodeBuilder.Impure;
 
 public partial class ImpureNodeBuildable : BaseNodeBuildable
 {
     private ImpureOutputManager _outputManager = null!;
-    private InputManager _inputManager = null!;
+    private InputValueManager _inputValueManager = null!;
     private Execution _execution = null!;
     protected override void ExecuteWithHandlesContext()
     {
-        _execution(_outputManager, _inputManager);
+        _execution(_outputManager, _inputValueManager);
     }
     
-    public delegate void Execution(ImpureOutputManager outputManager, InputManager inputManager);
+    public delegate void Execution(ImpureOutputManager outputManager, InputValueManager inputValueManager);
 }
