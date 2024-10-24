@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using CodingGame.Script.Graph.Model.Variable;
 using Godot;
 using GraphModel.Node;
 using GraphModel.Node.Factories;
+using GraphModel.Variable;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.ControlFlowFactory;
 

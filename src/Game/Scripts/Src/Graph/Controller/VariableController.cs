@@ -1,7 +1,6 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
-using CodingGame.Script.Graph.Model.Variable;
 using CodingGame.Script.Util;
 using CodingGame.Scripts.Graph.View.Ui.Variable;
 using Godot;

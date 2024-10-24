@@ -1,6 +1,6 @@
 using System;
-using CodingGame.Script.Graph.Model.Variable;
 using Godot;
+using GraphModel.Variable;
 
 namespace CodingGame.Scripts.Graph.View.Ui.Variable;
 

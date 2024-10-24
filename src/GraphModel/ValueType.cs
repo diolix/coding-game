@@ -21,6 +21,8 @@ public class ValueType : Enumeration
             throw new ArgumentException(
                 $"The type {type.Name} is not coherent with the value type {Name}");
     }
+
+    public void CoherentTypeAndValueType(object? obj) => CoherentTypeAndValueType(obj?.GetType() ?? typeof(object));
     
     private ValueType(int id, string name, Color color, Type type) : base(id, name)
     {

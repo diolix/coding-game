@@ -1,14 +1,10 @@
-using CodingGame.Script.Util;
-using GraphModel.Util;
-using ValueType = GraphModel.ValueType;
-
-namespace CodingGame.Script.Graph.Model.Variable;
+namespace GraphModel.Variable;
 
 public interface IVariable 
 {
     string Name { get; }
     ValueType ValueType { get; }
-    Optional<TypeWanted> SafeGetValueOfType<TypeWanted>();
+    TypeWanted? SafeGetValueOfType<TypeWanted>();
     object GetValue();
     bool SafeSetValue(object value);
     void Reset();

@@ -1,5 +1,3 @@
-using GraphModel.Handle;
-using GraphModel.Handle.Value;
 using GraphModel.Handle.Value.Input;
 
 namespace GraphModel.Node.Input;
@@ -38,10 +36,10 @@ public class InputValueManager
         if (!inputValueHandle.ValueType.Equals(valueType))
             throw new Exception($"Input value with label {label} is not a {valueType}");
 
-        if (!inputValueHandle.GetValue().HasValue())
+        if (inputValueHandle.GetValue() is not T valueCasted)
             throw new InputValueWithNoValueException(inputValueHandle);
 
-        return inputValueHandle.GetValue().Cast<T>().Value;
+        return valueCasted;
     }
     
     public T SafeGetValue<T>(string label, ValueType valueType)

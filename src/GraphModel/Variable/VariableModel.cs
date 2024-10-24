@@ -1,7 +1,3 @@
-using CodingGame.Script.Graph.Model.Variable;
-using CodingGame.Script.Util;
-using GraphModel.Util;
-
 namespace GraphModel.Variable;
 
 public class VariableModel<RealType> : IVariable
@@ -9,26 +5,23 @@ public class VariableModel<RealType> : IVariable
     public string Name { get; }
     public ValueType ValueType { get; }
     private RealType _value;
-    private RealType _initialValue;
-    public object GetValue() => _value;
+    private readonly RealType _initialValue;
+    public object GetValue() => _value ?? throw new InvalidOperationException();
 
     public VariableModel(string name, ValueType valueType, RealType value)
     {
-        valueType.CoherentTypeAndValueType(value.GetType());
+        valueType.CoherentTypeAndValueType(value);
         Name = name;
         ValueType = valueType;
         _value = value;
         _initialValue = value;
     }
 
-    public Optional<TypeWanted> SafeGetValueOfType<TypeWanted>()
+    public TypeWanted? SafeGetValueOfType<TypeWanted>()
     {
         if (typeof(RealType) == typeof(TypeWanted))
-        {
-            return new Optional<TypeWanted>((TypeWanted)Convert.ChangeType(_value, typeof(TypeWanted)));
-        }
-
-        return new Optional<TypeWanted>();
+            return (TypeWanted)(object)_value!;
+        return default;
     }
     
     public bool SafeSetValue(object value)
@@ -45,8 +38,5 @@ public class VariableModel<RealType> : IVariable
         }
     }
 
-    public void Reset()
-    {
-        _value = _initialValue;
-    }
+    public void Reset() => _value = _initialValue;
 }

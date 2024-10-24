@@ -15,9 +15,7 @@ public class InputValueHandle(string label, ValueType valueType, INode node) : B
                outputValueHandle.ValueType.Equals(ValueType);
     }
 
-    public override Optional<object> GetValue()
-    {
-        return Edge is null ? new Optional<object>() : Edge.GetOutputValue();
-    }
+    public override object? GetValue() => Edge?.GetOutputValue();
+    
 
 }

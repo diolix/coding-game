@@ -1,5 +1,3 @@
-using CodingGame.Script.Graph.Model.Variable;
-
 namespace GraphModel.Variable;
 
 public static class VariableFactory

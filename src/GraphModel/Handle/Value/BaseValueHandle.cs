@@ -7,5 +7,5 @@ public abstract class BaseValueHandle(string label, ValueType valueType, INode n
 {
     public ValueType ValueType { get; } = valueType;
     public override ColorHex Color => ValueType.GetColor();
-    public abstract Optional<object> GetValue();
+    public abstract object? GetValue();
 }

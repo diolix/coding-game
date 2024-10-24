@@ -28,8 +28,7 @@ public class ValueEdge : IEdge
 
     public void Remove() => _to.Edge = null;
     public bool Contains(IHandle handle) => handle == _from || handle == _to;
-
-    public Optional<object> GetOutputValue() => _from.GetValue();
+    public object? GetOutputValue() => _from.GetValue();
 }
 
 public class MultipleValueEdgesToSameInputException(BaseOutputValueHandle from, InputValueHandle to)

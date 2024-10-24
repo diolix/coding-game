@@ -1,5 +1,5 @@
-using CodingGame.Script.Graph.Model.Variable;
 using GraphModel.Node.NodeBuilder.Pure;
+using GraphModel.Variable;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
 namespace GraphModel.Node.Factories;
