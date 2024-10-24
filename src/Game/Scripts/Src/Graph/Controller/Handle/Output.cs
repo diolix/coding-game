@@ -21,6 +21,9 @@ public partial class Output : Node, IHandleModelDependant
             _handleEventBus.InvokeOutputDragStarted(new() { Position = _handleIcon, Model = Model }, _draggable);
 
         _draggable.OnDragEnd += () =>
+        {
             _handleEventBus.InvokeOutputDragEnded(new() { Model = Model, Position = _handleIcon });
+            _draggable.Position = _draggableInitialPosition;
+        };
     }
 }

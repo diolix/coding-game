@@ -13,7 +13,7 @@ public static class VariableNodeFactory
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {
-            variable.SafeSetValue(inputManager.GetValue<object>("new value", variable.ValueType));
+            variable.SafeSetValue(inputManager.SafeGetValue<object>("new value", variable.ValueType));
             outputManager.Execute("");
         })
         .Build();

@@ -20,10 +20,9 @@ public class InputManager
         _inputValues = _handles.OfType<InputValueHandle>();
     }
 
-    public bool GetBoolValue(string label) => GetValue<bool>(label, ValueType.Bool);
-    public int GetIntValue(string label) => GetValue<int>(label, ValueType.Int);
-    public string GetStringValue(string label) => GetValue<string>(label, ValueType.String);
-    
+    public bool GetBoolValue(string label) => SafeGetValue<bool>(label, ValueType.Bool);
+    public int GetIntValue(string label) => SafeGetValue<int>(label, ValueType.Int);
+    public string GetStringValue(string label) => SafeGetValue<string>(label, ValueType.String);
     public T GetValue<T>(string label, ValueType valueType)
     {
         var inputHandle = _inputValues.First(handle => handle.Label == label);
@@ -39,11 +38,27 @@ public class InputManager
             throw new Exception($"Input value with label {label} is not a {valueType}");
 
         if (!inputValueHandle.GetValue().HasValue())
-            throw new InputValueWithNoValueException(label);
+            throw new InputValueWithNoValueException(inputValueHandle);
 
         return inputValueHandle.GetValue().Cast<T>().Value;
     }
+    
+    public T SafeGetValue<T>(string label, ValueType valueType)
+    {
+        try
+        {
+            return GetValue<T>(label, valueType);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return default!;
+        }
+    }
 }
 
-public class InputValueWithNoValueException(string label)
-    : Exception($"Input value with label {label} has no value");
+public class InputValueWithNoValueException(InputValueHandle inputValueHandle)
+    : Exception($"Input value with label : {inputValueHandle.Label} has no value")
+{
+    public InputValueHandle InputValueHandle { get; } = inputValueHandle;
+}
