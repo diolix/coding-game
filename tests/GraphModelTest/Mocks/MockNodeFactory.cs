@@ -7,7 +7,7 @@ namespace GraphModelTest.Mocks;
 
 public class MockNodeFactory
 {
-    public INode CreateFlowInput(ImpureNodeBuildable.Execution? callback = null)
+    public static INode CreateFlowInput(ImpureNodeBuildable.Execution? callback = null)
     {
         return new ImpureNodeBuildable.Builder()
             .SetName("MockFlowInput")
@@ -16,7 +16,7 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INode CreateFlowOutput(ImpureNodeBuildable.Execution? callback = null)
+    public static INode CreateFlowOutput(ImpureNodeBuildable.Execution? callback = null)
     {
         return new ImpureNodeBuildable.Builder()
             .SetName("MockFlowInput")
@@ -25,7 +25,7 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INode CreateFlowInputOutput(ImpureNodeBuildable.Execution? callback = null)
+    public static INode CreateFlowInputOutput(ImpureNodeBuildable.Execution? callback = null)
     {
         return new ImpureNodeBuildable.Builder()
             .SetName("MockFlowInputOutput")
@@ -34,19 +34,8 @@ public class MockNodeFactory
             .SetExecution(callback ?? ((_, _) => {}))
             .Build();
     }
-    
-    public INode CreateImpureStringOutput(ImpureNodeBuildable.Execution? callback = null)
-    {
-        return new ImpureNodeBuildable.Builder()
-            .SetName("MockStringOutput")
-            .AddInputFlow("")
-            .AddOutputFlow("")
-            .AddOutputValue("", ValueType.String)
-            .SetExecution(callback ?? ((_, _) => {}))
-            .Build();
-    }
-    
-    public INode CreateStringInput(PureNodeBuildable.Execution? callback = null)
+
+    public static INode CreateStringInput(PureNodeBuildable.Execution? callback = null)
     {
         return new PureNodeBuildable.Builder()
             .SetName("MockStringInput")
@@ -55,7 +44,7 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INode CreatePureStringOutput(PureNodeBuildable.Execution? callback = null)
+    public static INode CreatePureStringOutput(PureNodeBuildable.Execution? callback = null)
     {
         return new PureNodeBuildable.Builder()
             .SetName("MockStringOutput")
@@ -64,11 +53,20 @@ public class MockNodeFactory
             .Build();
     }
     
-    public INode CreatePureBoolOutput(PureNodeBuildable.Execution? callback = null)
+    public static INode CreatePureBoolOutput(PureNodeBuildable.Execution? callback = null)
     {
         return new PureNodeBuildable.Builder()
             .SetName("MockBoolOutput")
             .AddOutputValue("", ValueType.Bool)
+            .SetExecution(callback ?? ((_, _) => {}))
+            .Build();
+    }
+    
+    public static INode CreateBoolInput(PureNodeBuildable.Execution? callback = null)
+    {
+        return new PureNodeBuildable.Builder()
+            .SetName("MockBoolInput")
+            .AddInputValue("", ValueType.Bool)
             .SetExecution(callback ?? ((_, _) => {}))
             .Build();
     }

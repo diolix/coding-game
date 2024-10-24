@@ -1,6 +1,7 @@
 using GraphModel.Node.Factories;
+using GraphModelTest.Mocks;
 using static GraphModel.Edge.EdgeFactory;
-using static GraphModel.Node.Factories.ControlFlowNodeFactory;
+using static GraphModel.Node.Factories.ControlFlowFactory;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;

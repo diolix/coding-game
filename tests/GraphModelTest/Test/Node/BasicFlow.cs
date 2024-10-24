@@ -1,4 +1,5 @@
 using GraphModel.Edge;
+using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;

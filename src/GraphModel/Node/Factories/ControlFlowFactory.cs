@@ -2,7 +2,7 @@ using GraphModel.Node.NodeBuilder.NewNode.Impure;
 
 namespace GraphModel.Node.Factories;
 
-public static class ControlFlowNodeFactory
+public static class ControlFlowFactory
 {
     public static INode CreateIf() => new ImpureNodeBuildable.Builder()
         .SetName("if")

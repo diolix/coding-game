@@ -173,7 +173,33 @@ public class EdgeControllerTestSuite
     }
 
     [GdUnit4.TestCase]
-    public void DeleteEdge()
+    public void ImpossibleToCreateEdgeBetweenDifferentValueType()
+    {
+        // Arrange
+        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
+
+        var outputHandlePosition = new HandleEventBus.HandlePosition
+        {
+            Model = new PureOutputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Position = Mock.Of<Control>()
+        };
+
+        var inputHandlePosition = new HandleEventBus.HandlePosition
+        {
+            Model = new InputValueHandle("test", ValueType.Bool, Mock.Of<INode>()),
+            Position = Mock.Of<Control>()
+        };
+
+        // Act
+        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+
+        // Assert
+        var edgeView = edgeController.GetChildren().FirstOrDefault(godotNode => godotNode is EdgeView) as EdgeView;
+        That(edgeView, Is.Null);
+    }
+
+    [GdUnit4.TestCase]
+    public void DeleteEveryEdgesOfHandle()
     {
         // Arrange
         var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();

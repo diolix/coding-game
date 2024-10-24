@@ -1,4 +1,5 @@
 using GraphModel.Edge;
+using GraphModelTest.Mocks;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.VariableNodeFactory;
 using static GraphModel.Variable.VariableFactory;

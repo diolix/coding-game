@@ -1,5 +1,6 @@
 using GraphModel.Edge;
 using GraphModel.Node.Factories;
+using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
 namespace GraphModelTest.Test.Node;
 public class BasicValue : BaseNodeTest

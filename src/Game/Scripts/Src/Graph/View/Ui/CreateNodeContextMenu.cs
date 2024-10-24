@@ -5,7 +5,7 @@ using Godot;
 using GraphModel.Node;
 using GraphModel.Node.Factories;
 using static GraphModel.Node.Factories.ConstantFactory;
-using static GraphModel.Node.Factories.ControlFlowNodeFactory;
+using static GraphModel.Node.Factories.ControlFlowFactory;
 
 namespace CodingGame.Scripts.Src.Graph.View.Ui;
 
@@ -65,7 +65,6 @@ public partial class CreateNodeContextMenu : Control
 		if (@event.IsActionPressed("right_click"))
 		{
 			GlobalPosition = GetGlobalMousePosition();
-			GD.Print(GlobalPosition);
 			Visible = true;
 		}
 

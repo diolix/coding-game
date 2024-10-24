@@ -20,7 +20,7 @@ public partial class NodeController : Node
     
     public override void _Ready()
     {
-        var start = LevelNodeFactory.CreateStart();
+        var start = LevelFactory.CreateStart();
         InstantiateNodeView(start, _startNodePosition.GlobalPosition);
         _startButton.Pressed += () => start.Execute();
         _createNodeContextMenu.OnNodeSelected += (node) =>
@@ -44,7 +44,6 @@ public partial class NodeController : Node
     public override void _UnhandledInput(InputEvent @event)
     {
         if (!@event.IsActionPressed("delete")) return;
-        GD.Print("delete");
         _edgeController.RemoveEdgesAtNode(_selectedNode.Model);
         _selectedNode?.QueueFree();
     }
