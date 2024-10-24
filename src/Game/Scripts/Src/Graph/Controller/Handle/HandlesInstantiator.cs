@@ -2,6 +2,7 @@ using CodingGame.Scripts.Graph.View.Node;
 using CodingGame.Scripts.Util;
 using Godot;
 using GraphModel.Node;
+using NodeView = CodingGame.Scripts.Src.Graph.View.Node.NodeView;
 
 namespace CodingGame.Scripts.Graph.Controller.Handle;
 

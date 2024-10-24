@@ -2,7 +2,7 @@ using System;
 using Godot;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle;
+namespace CodingGame.Scripts.Src.Graph.Controller.Handle;
 
 [GlobalClass]
 public partial class HandleEventBus : Resource
@@ -11,7 +11,7 @@ public partial class HandleEventBus : Resource
     {
         public Control Position;
         public IHandle Model;
-
+        
         public override bool Equals(object obj)
         {
             if (obj is not HandlePosition handleObj) return false;
@@ -20,13 +20,20 @@ public partial class HandleEventBus : Resource
 
         public override int GetHashCode()
         {
+            // ReSharper disable NonReadonlyMemberInGetHashCode
             return HashCode.Combine(Position, Model);
         }
     }
-	
-    public Action<HandlePosition, Control> OnOutputDragStarted;
-    public Action<HandlePosition> OnOutputDragEnded;
-    public Action<HandlePosition> OnOutputEnteredInput;
-    public Action<HandlePosition> OnOutputExitedInput;
-    public Action<IHandle> OnDeleteEdgeAtHandle;
+    public HandleEventBus(){}
+    public event Action<HandlePosition, Control> OutputDragStarted;
+    public void InvokeOutputDragStarted(HandlePosition handlePosition, Control draggable) =>
+        OutputDragStarted?.Invoke(handlePosition, draggable);
+    public event Action<HandlePosition> OutputDragEnded;
+    public void InvokeOutputDragEnded(HandlePosition handlePosition) => OutputDragEnded?.Invoke(handlePosition);
+    public event Action<HandlePosition> OutputEnteredInput;
+    public void InvokeOutputEnteredInput(HandlePosition handlePosition) => OutputEnteredInput?.Invoke(handlePosition);
+    public event Action<HandlePosition> OutputExitedInput;
+    public void InvokeOutputExitedInput(HandlePosition handlePosition) => OutputExitedInput?.Invoke(handlePosition);
+    public event Action<IHandle> DeleteEdgeAtHandle;
+    public void InvokeDeleteEdgeAtHandle(IHandle handlePosition) => DeleteEdgeAtHandle?.Invoke(handlePosition);
 }

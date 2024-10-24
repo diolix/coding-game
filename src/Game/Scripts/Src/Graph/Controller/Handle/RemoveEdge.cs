@@ -1,15 +1,16 @@
+using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle;
+namespace CodingGame.Scripts.Src.Graph.Controller.Handle;
 
 public partial class RemoveEdge : ColorRect, IHandleModelDependant
 {
-    [Export] private Handle.HandleEventBus _handleEventBus;
+    [Export] private HandleEventBus _handleEventBus;
     public IHandle Model { private get; set; }
 
     public override void _GuiInput(InputEvent @event)
     {
-        if (@event.IsActionPressed("remove_edge")) _handleEventBus.OnDeleteEdgeAtHandle(Model);
+        if (@event.IsActionPressed("remove_edge")) _handleEventBus.InvokeDeleteEdgeAtHandle(Model);
     }
 }

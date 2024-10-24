@@ -1,21 +1,21 @@
+#nullable enable
 using System.Collections.Generic;
 using System.Linq;
 using CodingGame.Script.Graph.Model.Variable;
 using CodingGame.Script.Util;
-using CodingGame.Scripts.Graph.View.Ui;
 using CodingGame.Scripts.Graph.View.Ui.Variable;
 using Godot;
 using GraphModel;
 using GraphModel.Variable;
+using CreateNodeContextMenu = CodingGame.Scripts.Src.Graph.View.Ui.CreateNodeContextMenu;
 
-namespace CodingGame.Scripts.Graph.Controller;
+namespace CodingGame.Scripts.Src.Graph.Controller;
 
 public partial class VariableController : Node
 {
-    [Export] private CreateVariableView _createVariableContainer;
-    [Export] private VariablesContainerView _variablesContainerView;
-    [Export] private CreateNodeContextMenu _createNodeContextMenu;
-    private VariableFactory _variableFactory = new();
+    [Export] private CreateVariableView _createVariableContainer = null!;
+    [Export] private VariablesContainerView _variablesContainerView = null!;
+    [Export] private CreateNodeContextMenu _createNodeContextMenu = null!;
     private readonly IList<IVariable> _variableModels = new List<IVariable>();
 
     public override void _Ready()
@@ -36,17 +36,9 @@ public partial class VariableController : Node
         if (name == "" || _variableModels.Any(model => model.Name == name)) return;
         ValueType? typeEnum = Enumeration.FromDisplayName<ValueType>(type);
         if (typeEnum == null) return;
-        var variable = _variableFactory.CreateVariable(name, typeEnum);
+        var variable = VariableFactory.CreateVariable(name, typeEnum);
         _variableModels.Add(variable);
         _variablesContainerView.AddVariable(variable);
         _createNodeContextMenu.AddGetAndSetNode(variable);
-    }
-
-    public void Reset()
-    {
-        foreach (var variableModel in _variableModels)
-        {
-            variableModel.Reset();
-        }
     }
 }

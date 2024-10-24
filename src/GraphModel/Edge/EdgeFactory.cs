@@ -8,9 +8,22 @@ namespace GraphModel.Edge;
 
 public class EdgeFactory
 {
-    public IEdge CreateEdge(INode from, string labelFrom, INode to, string labelTo)
+    public static IEdge CreateEdge(INode from, string labelFrom, INode to, string labelTo)
     {
         return CreateEdge(from.GetOutputHandle(labelFrom), to.GetInputHandle(labelTo));
+    }
+
+    public static IEdge? SafeCreateEdge(IHandle from, IHandle to)
+    {
+        try
+        {
+            return CreateEdge(from, to);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
     }
     
     public static IEdge CreateEdge(IHandle from, IHandle to)

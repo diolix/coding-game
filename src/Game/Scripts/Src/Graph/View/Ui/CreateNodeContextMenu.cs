@@ -4,16 +4,15 @@ using CodingGame.Script.Graph.Model.Variable;
 using Godot;
 using GraphModel.Node;
 using GraphModel.Node.Factories;
+using static GraphModel.Node.Factories.ConstantFactory;
+using static GraphModel.Node.Factories.ControlFlowNodeFactory;
 
-namespace CodingGame.Scripts.Graph.View.Ui;
+namespace CodingGame.Scripts.Src.Graph.View.Ui;
 
 public partial class CreateNodeContextMenu : Control
 {
     [Export] private VBoxContainer _vBoxContainer;
-	private VariableNodeFactory _variableNodeFactory = new();
-	private PrintFactory _printNodeFactory = new PrintFactory();
-	private ConstantFactory _constantNodeFactory = new();
-	private ControlFlowNodeFactory _controlFlowNodeFactory = new();
+	private readonly PrintFactory _printNodeFactory = new PrintFactory();
 	public event Action<INode> OnNodeSelected;
 	private readonly Dictionary<IVariable, Button[]> _getAndSetVariables = new();
 	
@@ -21,10 +20,10 @@ public partial class CreateNodeContextMenu : Control
 	{
 		AddStandardNode(_printNodeFactory.CreatePrint);
 		AddStandardNode(_printNodeFactory.CreatePrintHelloWorld);
-		AddStandardNode(_constantNodeFactory.CreateTrueConstant);
-		AddStandardNode(_constantNodeFactory.CreateFalseConstant);
-		AddStandardNode(_constantNodeFactory.CreatePureHelloWorldConstant);
-		AddStandardNode(_controlFlowNodeFactory.CreateIf);
+		AddStandardNode(CreateTrueConstant);
+		AddStandardNode(CreateFalseConstant);
+		AddStandardNode(CreatePureHelloWorldConstant);
+		AddStandardNode(CreateIf);
 	}
 
 	private void AddStandardNode(Func<INode> createNodeFunc)
@@ -37,8 +36,8 @@ public partial class CreateNodeContextMenu : Control
 		var getButton = new Button();
 		var setButton = new Button();
 		_getAndSetVariables.Add(variable, new[] {getButton, setButton});
-		AddSelectableNode(() => _variableNodeFactory.CreateGetVariable(variable), getButton);
-		AddSelectableNode(() => _variableNodeFactory.CreateSetVariable(variable), setButton);
+		AddSelectableNode(() => VariableNodeFactory.CreateGetVariable(variable), getButton);
+		AddSelectableNode(() => VariableNodeFactory.CreateSetVariable(variable), setButton);
 	}
 	
 	public void RemoveGetAndSetNode(IVariable variable)

@@ -3,9 +3,9 @@ using GraphModel.Node.NodeBuilder.NewNode.Pure;
 
 namespace GraphModel.Node.Factories;
 
-public class ConstantFactory
+public static class ConstantFactory
 {
-    public INode CreatePureHelloWorldConstant() => new PureNodeBuildable.Builder()
+    public static INode CreatePureHelloWorldConstant() => new PureNodeBuildable.Builder()
         .SetName("HelloWorldConstant")
         .AddOutputValue("", ValueType.String)
         .SetExecution((outputManager, _) =>
@@ -14,7 +14,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INode CreateImpureHelloWorldConstant() => new ImpureNodeBuildable.Builder()
+    public static INode CreateImpureHelloWorldConstant() => new ImpureNodeBuildable.Builder()
         .SetName("HelloWorldConstant")
         .AddInputFlow("")
         .AddOutputFlow("")
@@ -26,7 +26,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INode CreateTrueConstant() => new PureNodeBuildable.Builder()
+    public static INode CreateTrueConstant() => new PureNodeBuildable.Builder()
         .SetName("TrueConstant")
         .AddOutputValue("", ValueType.Bool)
         .SetExecution((outputManager, _) =>
@@ -35,7 +35,7 @@ public class ConstantFactory
         })
         .Build();
     
-    public INode CreateFalseConstant() => new PureNodeBuildable.Builder()
+    public static INode CreateFalseConstant() => new PureNodeBuildable.Builder()
         .SetName("FalseConstant")
         .AddOutputValue("", ValueType.Bool)
         .SetExecution((outputManager, _) =>

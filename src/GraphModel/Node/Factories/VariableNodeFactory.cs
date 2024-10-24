@@ -4,9 +4,9 @@ using GraphModel.Node.NodeBuilder.NewNode.Pure;
 
 namespace GraphModel.Node.Factories;
 
-public class VariableNodeFactory
+public static class VariableNodeFactory
 {
-    public INode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
+    public static INode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
         .SetName($"Set {variable.Name}")
         .AddInputFlow("")
         .AddInputValue("new value", variable.ValueType)
@@ -18,7 +18,7 @@ public class VariableNodeFactory
         })
         .Build();
     
-    public INode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
+    public static INode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
         .SetName($"Get {variable.Name}")
         .AddOutputValue("value", variable.ValueType)
         .SetExecution((outputManager, _) => outputManager.CacheValue("value", variable.GetValue()))

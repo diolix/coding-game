@@ -1,25 +1,23 @@
-using GraphModel.Variable;
+using GraphModel.Edge;
+using static GraphModel.Node.Factories.ConstantFactory;
+using static GraphModel.Node.Factories.VariableNodeFactory;
+using static GraphModel.Variable.VariableFactory;
 using static NUnit.Framework.Assert;
-using VariableNodeFactory = GraphModel.Node.Factories.VariableNodeFactory;
-using ConstantNodeFactory = GraphModel.Node.Factories.ConstantFactory;
 
 namespace GraphModelTest.Test.Node;
 
 public class Variable : BaseNodeTest
 {
-    private readonly VariableFactory _variableFactory = new();
-    private readonly VariableNodeFactory _variableNodeFactory = new();
-    private readonly ConstantNodeFactory _constantNodeFactory = new();
 
     [Test]
     public void GetVariable()
     {
-        var helloWorldVariable = _variableFactory.CreateVariable("HelloWorld", GraphModel.ValueType.String);
+        var helloWorldVariable = CreateVariable("HelloWorld", GraphModel.ValueType.String);
         helloWorldVariable.SafeSetValue("Hello World");
 
-        var getVariable = _variableNodeFactory.CreateGetVariable(helloWorldVariable);
+        var getVariable = CreateGetVariable(helloWorldVariable);
 
-        string spyInput = String.Empty;
+        string spyInput = string.Empty;
         var mockedNode =
             MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
 
@@ -33,9 +31,9 @@ public class Variable : BaseNodeTest
     [Test]
     public void SetVariable()
     {
-        var helloWorldVariable = _variableFactory.CreateVariable("HelloWorld", GraphModel.ValueType.String);
-        var setVariableNode = _variableNodeFactory.CreateSetVariable(helloWorldVariable);
-        var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
+        var helloWorldVariable = CreateVariable("HelloWorld", GraphModel.ValueType.String);
+        var setVariableNode = CreateSetVariable(helloWorldVariable);
+        var helloWorldConstant = CreatePureHelloWorldConstant();
     
         EdgeFactory.CreateEdge(helloWorldConstant, "", setVariableNode, "new value");
     
@@ -47,12 +45,12 @@ public class Variable : BaseNodeTest
     [Test]
     public void GetAndSetVariable()
     {
-        var variable = _variableFactory.CreateVariable("test", GraphModel.ValueType.String);
-        var setNode = _variableNodeFactory.CreateSetVariable(variable);
-        var getNode = _variableNodeFactory.CreateGetVariable(variable);
-        var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
+        var variable = CreateVariable("test", GraphModel.ValueType.String);
+        var setNode = CreateSetVariable(variable);
+        var getNode = CreateGetVariable(variable);
+        var helloWorldConstant = CreatePureHelloWorldConstant();
     
-        string spyInput = String.Empty;
+        string spyInput = string.Empty;
         var mockedNode =
             MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
         

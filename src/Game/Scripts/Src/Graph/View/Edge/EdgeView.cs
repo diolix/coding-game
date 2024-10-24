@@ -1,8 +1,9 @@
+using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
 
-namespace CodingGame.Scripts.Graph.View.Edge;
+namespace CodingGame.Scripts.Src.Graph.View.Edge;
 
 public partial class EdgeView : Godot.Node
 {
@@ -18,7 +19,11 @@ public partial class EdgeView : Godot.Node
             _controlLine.DefaultColor = Color.FromHtml(_model.Color.ToHex());
         }
     }
-
+    public EdgeView(){}
+    public EdgeView(ControlLine controlLine)
+    {
+        _controlLine = controlLine;
+    }
     public void SetPosition(Control from, Control to)
     {
         _controlLine.Set(from, to);

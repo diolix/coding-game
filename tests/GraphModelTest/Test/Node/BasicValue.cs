@@ -1,13 +1,13 @@
+using GraphModel.Edge;
 using GraphModel.Node.Factories;
 using static NUnit.Framework.Assert;
 namespace GraphModelTest.Test.Node;
 public class BasicValue : BaseNodeTest
 {
-    private ConstantFactory _constantNodeFactory = new ConstantFactory();
     [Test]
     public void BasicImpureSetValue()
     {
-        var helloWorldConstant = _constantNodeFactory.CreateImpureHelloWorldConstant();
+        var helloWorldConstant = ConstantFactory.CreateImpureHelloWorldConstant();
         
         string mockStringInputValue = string.Empty;
         var mockInputNode = MockNodeFactory.CreateStringInput((_, input) =>
@@ -30,7 +30,7 @@ public class BasicValue : BaseNodeTest
     [Test]
     public void BasicPureSetValue()
     {
-        var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
+        var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
         
         string inputValue = string.Empty;
         var mockNode = MockNodeFactory.CreateStringInput((_, input) =>
@@ -46,7 +46,7 @@ public class BasicValue : BaseNodeTest
     [Test]
     public void MultiplePureOutputEdgesValueTest()
     {
-        var helloWorldConstant = _constantNodeFactory.CreatePureHelloWorldConstant();
+        var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
         
         string inputValue1 = string.Empty;
         var mockNode1 = MockNodeFactory.CreateStringInput((_, input) =>

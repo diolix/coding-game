@@ -3,7 +3,7 @@ using Godot;
 using GraphModel.Node;
 using HandlesInstantiator = CodingGame.Scripts.Graph.Controller.Handle.HandlesInstantiator;
 
-namespace CodingGame.Scripts.Graph.View.Node;
+namespace CodingGame.Scripts.Src.Graph.View.Node;
 
 public partial class NodeView  : Control
 {

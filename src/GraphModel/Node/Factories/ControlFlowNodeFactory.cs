@@ -2,9 +2,9 @@ using GraphModel.Node.NodeBuilder.NewNode.Impure;
 
 namespace GraphModel.Node.Factories;
 
-public class ControlFlowNodeFactory
+public static class ControlFlowNodeFactory
 {
-    public INode CreateIf() => new ImpureNodeBuildable.Builder()
+    public static INode CreateIf() => new ImpureNodeBuildable.Builder()
         .SetName("if")
         .AddInputFlow("")
         .AddInputValue("condition", ValueType.Bool)
@@ -17,7 +17,7 @@ public class ControlFlowNodeFactory
             else outputManager.Execute("false");
         }).Build();
     
-    public INode CreateWhile() => new ImpureNodeBuildable.Builder()
+    public static INode CreateWhile() => new ImpureNodeBuildable.Builder()
         .SetName("while")
         .AddInputFlow("")
         .AddInputValue("condition", ValueType.Bool)
