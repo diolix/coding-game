@@ -5,7 +5,7 @@ src/game/.godot/
 src/game/.import/
 src/game/export.cfg
 src/game/export_presets.cfg
-src/game/addons
+src/game/addons/
 
 # Imported translations (automatically generated from CSV files)
 src/game/**/*.translation
