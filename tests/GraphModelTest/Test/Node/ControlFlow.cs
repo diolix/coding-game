@@ -53,7 +53,7 @@ public class ControlFlow : BaseNodeTest
         });
 
         var conditionNode = MockNodeFactory.CreatePureBoolOutput((outputManager, _) =>
-            outputManager.CacheValue("", bodyExecutedCount < 5));
+            outputManager.CacheBool("", bodyExecutedCount < 5));
 
         CreateEdge(conditionNode, "", whileNode, "condition");
         CreateEdge(whileNode, "body", mockBodyNode, "");

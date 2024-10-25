@@ -1,12 +1,12 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
-using CodingGame.Script.Util;
 using CodingGame.Scripts.Graph.View.Ui.Variable;
 using Godot;
-using GraphModel;
+using GraphModel.NewValueTypes;
 using GraphModel.Variable;
 using CreateNodeContextMenu = CodingGame.Scripts.Src.Graph.View.Ui.CreateNodeContextMenu;
+using CreateVariableView = CodingGame.Scripts.Src.Graph.View.Ui.Variable.CreateVariableView;
 
 namespace CodingGame.Scripts.Src.Graph.Controller;
 
@@ -27,15 +27,12 @@ public partial class VariableController : Node
     {
         _variableModels.Remove(variable);
         _createNodeContextMenu.RemoveGetAndSetNode(variable);
-        
     }
 
-    private void HandleCreateVariableAdded(string name, string type)
+    private void HandleCreateVariableAdded(string name, ValueTypeEnum type)
     {
         if (name == "" || _variableModels.Any(model => model.Name == name)) return;
-        ValueType? typeEnum = Enumeration.FromDisplayName<ValueType>(type);
-        if (typeEnum == null) return;
-        var variable = VariableFactory.CreateVariable(name, typeEnum);
+        var variable = VariableFactory.CreateVariable(name, type);
         _variableModels.Add(variable);
         _variablesContainerView.AddVariable(variable);
         _createNodeContextMenu.AddGetAndSetNode(variable);

@@ -1,8 +1,8 @@
 using GraphModel.Edge;
+using GraphModel.Variable;
 using GraphModelTest.Mocks;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.VariableNodeFactory;
-using static GraphModel.Variable.VariableFactory;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;
@@ -13,8 +13,7 @@ public class Variable : BaseNodeTest
     [Test]
     public void GetVariable()
     {
-        var helloWorldVariable = CreateVariable("HelloWorld", GraphModel.ValueType.String);
-        helloWorldVariable.SafeSetValue("Hello World");
+        var helloWorldVariable = new StringVariableModel("HelloWorld");
 
         var getVariable = CreateGetVariable(helloWorldVariable);
 
@@ -32,7 +31,7 @@ public class Variable : BaseNodeTest
     [Test]
     public void SetVariable()
     {
-        var helloWorldVariable = CreateVariable("HelloWorld", GraphModel.ValueType.String);
+        var helloWorldVariable = new StringVariableModel("HelloWorld");
         var setVariableNode = CreateSetVariable(helloWorldVariable);
         var helloWorldConstant = CreatePureHelloWorldConstant();
     
@@ -40,13 +39,13 @@ public class Variable : BaseNodeTest
     
         setVariableNode.Execute();
     
-        That(helloWorldVariable.GetValue(), Is.EqualTo("Hello World"));
+        That(helloWorldVariable.Value.GetValue(), Is.EqualTo("Hello World"));
     }
     
     [Test]
     public void GetAndSetVariable()
     {
-        var variable = CreateVariable("test", GraphModel.ValueType.String);
+        var variable = new StringVariableModel("test");
         var setNode = CreateSetVariable(variable);
         var getNode = CreateGetVariable(variable);
         var helloWorldConstant = CreatePureHelloWorldConstant();

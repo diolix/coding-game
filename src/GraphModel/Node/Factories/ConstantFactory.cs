@@ -1,3 +1,4 @@
+using GraphModel.NewValueTypes;
 using GraphModel.Node.NodeBuilder.Pure;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
@@ -7,10 +8,10 @@ public static class ConstantFactory
 {
     public static INode CreatePureHelloWorldConstant() => new PureNodeBuildable.Builder()
         .SetName("HelloWorldConstant")
-        .AddOutputValue("", ValueType.String)
+        .AddOutputValue("", ValueTypeEnum.String)
         .SetExecution((outputManager, _) =>
         {
-            outputManager.CacheValue("", "Hello World");
+            outputManager.CacheString("", "Hello World");
         })
         .Build();
     
@@ -18,29 +19,29 @@ public static class ConstantFactory
         .SetName("HelloWorldConstant")
         .AddInputFlow("")
         .AddOutputFlow("")
-        .AddOutputValue("value", ValueType.String)
+        .AddOutputValue("value", ValueTypeEnum.String)
         .SetExecution((outputManager, _) =>
         {
-            outputManager.CacheValue("value", "Hello World");
+            outputManager.CacheString("value", "Hello World");
             outputManager.Execute("");
         })
         .Build();
     
     public static INode CreateTrueConstant() => new PureNodeBuildable.Builder()
         .SetName("TrueConstant")
-        .AddOutputValue("", ValueType.Bool)
+        .AddOutputValue("", ValueTypeEnum.Bool)
         .SetExecution((outputManager, _) =>
         {
-            outputManager.CacheValue("", true);
+            outputManager.CacheBool("", true);
         })
         .Build();
     
     public static INode CreateFalseConstant() => new PureNodeBuildable.Builder()
         .SetName("FalseConstant")
-        .AddOutputValue("", ValueType.Bool)
+        .AddOutputValue("", ValueTypeEnum.Bool)
         .SetExecution((outputManager, _) =>
         {
-            outputManager.CacheValue("", false);
+            outputManager.CacheBool("", false);
         })
         .Build();
 }

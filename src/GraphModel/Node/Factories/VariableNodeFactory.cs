@@ -9,18 +9,18 @@ public static class VariableNodeFactory
     public static INode CreateSetVariable(IVariable variable) => new ImpureNodeBuildable.Builder()
         .SetName($"Set {variable.Name}")
         .AddInputFlow("")
-        .AddInputValue("new value", variable.ValueType)
+        .AddInputValue("new value", variable.AsTypeEnum)
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {
-            variable.SafeSetValue(inputManager.SafeGetValue<object>("new value", variable.ValueType));
+            variable.SetValue(inputManager.GetObjectValue("new value"));
             outputManager.Execute("");
         })
         .Build();
     
     public static INode CreateGetVariable(IVariable variable) => new PureNodeBuildable.Builder()
         .SetName($"Get {variable.Name}")
-        .AddOutputValue("value", variable.ValueType)
-        .SetExecution((outputManager, _) => outputManager.CacheValue("value", variable.GetValue()))
+        .AddOutputValue("value", variable.AsTypeEnum)
+        .SetExecution((outputManager, _) => outputManager.Cache("value", variable.Value))
         .Build();
 }

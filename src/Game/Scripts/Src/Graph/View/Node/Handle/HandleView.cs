@@ -32,11 +32,11 @@ public partial class HandleView : Control
     // private void ShowInput()
     // {
     //     if (_model is not IHandleValue handleValue) return;
-    //     if (handleValue.Type.Equals(ValueType.String))
+    //     if (handleValue.Type.Equals(ValueTypeEnum.String))
     //         _stringInput.Show();
-    //     else if (handleValue.Type.Equals(ValueType.Int))
+    //     else if (handleValue.Type.Equals(ValueTypeEnum.Int))
     //         _intInput.Show();
-    //     else if (handleValue.Type.Equals(ValueType.Bool))
+    //     else if (handleValue.Type.Equals(ValueTypeEnum.Bool))
     //         _boolInput.Show();
     // }
 

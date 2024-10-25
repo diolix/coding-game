@@ -1,3 +1,4 @@
+using GraphModel.NewValueTypes;
 using GraphModel.Node.HandleBuilder.Value;
 
 namespace GraphModel.Node.NodeBuilder;
@@ -21,13 +22,13 @@ public abstract partial class BaseNodeBuildable
             return _thisAsT;
         }
 
-        public virtual T AddInputValue(string label, ValueType valueType)
+        public virtual T AddInputValue(string label, ValueTypeEnum valueType)
         {
             _inputValueHandleBuilder.AddValueHandle(label, valueType);
             return _thisAsT;
         }
         
-        public virtual T AddInputValueWithField(string label, ValueType valueType)
+        public virtual T AddInputValueWithField(string label, ValueTypeEnum valueType)
         {
             _inputValueHandleBuilder.AddInputHandleWithField(label, valueType);
             return _thisAsT;

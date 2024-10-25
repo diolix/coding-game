@@ -1,21 +1,21 @@
 using GraphModel.Edge;
 using GraphModel.Handle.Value.Output;
+using GraphModel.NewValueTypes;
 using GraphModel.Node;
-using GraphModel.Util;
 
 namespace GraphModel.Handle.Value.Input;
 
-public class InputValueHandle(string label, ValueType valueType, INode node) : BaseValueHandle(label, valueType, node)
+public class InputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode node) : BaseValueHandle(label, valueTypeEnum, node)
 {
     public ValueEdge? Edge { private get; set; }
     public bool HasEdge => Edge != null;
+    public bool IsOfType(ValueTypeEnum valueTypeEnum) => ValueTypeEnum.Equals(valueTypeEnum);
+
     protected override bool IsCompatible(IHandle handle)
     {
         return handle is BaseOutputValueHandle outputValueHandle &&
-               outputValueHandle.ValueType.Equals(ValueType);
+               outputValueHandle.ValueTypeEnum.Equals(ValueTypeEnum);
     }
 
-    public override object? GetValue() => Edge?.GetOutputValue();
-    
-
+    public override NewValueTypes.Value GetValue() => Edge?.GetOutputValue() ?? ValueFactory.CreateValue(ValueTypeEnum);
 }

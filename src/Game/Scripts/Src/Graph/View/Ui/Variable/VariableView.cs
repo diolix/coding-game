@@ -2,7 +2,7 @@ using System;
 using Godot;
 using GraphModel.Variable;
 
-namespace CodingGame.Scripts.Graph.View.Ui.Variable;
+namespace CodingGame.Scripts.Src.Graph.View.Ui.Variable;
 
 public partial class VariableView : Godot.Node
 {
@@ -15,7 +15,7 @@ public partial class VariableView : Godot.Node
     {
         _variable = variable;
         _nameLabel.Text = variable.Name;
-        _typeLabel.Text = variable.ValueType.Name;
+        _typeLabel.Text = variable.AsTypeEnum.ToString();
     }
     public override void _Ready()
     {

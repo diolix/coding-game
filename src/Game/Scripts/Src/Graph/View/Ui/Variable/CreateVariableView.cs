@@ -1,6 +1,8 @@
+using System;
 using Godot;
+using GraphModel.NewValueTypes;
 
-namespace CodingGame.Scripts.Graph.View.Ui.Variable;
+namespace CodingGame.Scripts.Src.Graph.View.Ui.Variable;
 
 public partial class CreateVariableView : Godot.Node
 {
@@ -8,17 +10,16 @@ public partial class CreateVariableView : Godot.Node
     [Export] private LineEdit _variableNameLineEdit;
     [Export] private OptionButton _variableTypeOptionButton;
 
-    public delegate void VariableAddedHandler(string name, string type);
+    public delegate void VariableAddedHandler(string name, ValueTypeEnum type);
     public event VariableAddedHandler OnVariableAdded;
 
-    public override void _Ready()
-    {
-        _addButton.Pressed += OnAddButtonPressed;
-    }
-
+    public override void _Ready() => _addButton.Pressed += OnAddButtonPressed;
+    
     private void OnAddButtonPressed()
     {
-        if (_variableTypeOptionButton.Text == "") return;
-        OnVariableAdded?.Invoke(_variableNameLineEdit.Text, _variableTypeOptionButton.Text);
+        var typeSelected = _variableTypeOptionButton.Text;
+        if (typeSelected == "") return;
+        ValueTypeEnum type = Enum.Parse<ValueTypeEnum>(typeSelected);
+        OnVariableAdded?.Invoke(_variableNameLineEdit.Text, type);
     }
 }

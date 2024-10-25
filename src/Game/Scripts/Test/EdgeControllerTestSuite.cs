@@ -5,11 +5,11 @@ using CodingGame.Scripts.Src.Graph.Controller.Handle;
 using CodingGame.Scripts.Src.Util;
 using GdUnit4;
 using Godot;
-using GraphModel;
 using GraphModel.Edge;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
+using GraphModel.NewValueTypes;
 using GraphModel.Node;
 using Moq;
 using NUnit.Framework;
@@ -98,13 +98,13 @@ public class EdgeControllerTestSuite
 
         var outputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
         var inputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new InputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new InputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
@@ -128,13 +128,13 @@ public class EdgeControllerTestSuite
         var node = Mock.Of<INode>();
         var outputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("test", ValueType.String, node),
+            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, node),
             Position = Mock.Of<Control>()
         };
 
         var inputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new InputValueHandle("test", ValueType.String, node),
+            Model = new InputValueHandle("test", ValueTypeEnum.String, node),
             Position = Mock.Of<Control>()
         };
 
@@ -154,7 +154,7 @@ public class EdgeControllerTestSuite
 
         var outputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
@@ -173,20 +173,20 @@ public class EdgeControllerTestSuite
     }
 
     [GdUnit4.TestCase]
-    public void ImpossibleToCreateEdgeBetweenDifferentValueType()
+    public void ImpossibleToCreateEdgeBetweenDifferentValueTypeEnum()
     {
         // Arrange
         var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
 
         var outputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
         var inputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new InputValueHandle("test", ValueType.Bool, Mock.Of<INode>()),
+            Model = new InputValueHandle("test", ValueTypeEnum.Bool, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
@@ -206,13 +206,13 @@ public class EdgeControllerTestSuite
 
         var outputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
         var inputHandlePosition = new HandleEventBus.HandlePosition
         {
-            Model = new InputValueHandle("test", ValueType.String, Mock.Of<INode>()),
+            Model = new InputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
             Position = Mock.Of<Control>()
         };
 
@@ -241,13 +241,13 @@ public class EdgeControllerTestSuite
         var node2 = Mock.Of<INode>();
         var outputHandlePosition1 = new HandleEventBus.HandlePosition
         {
-            Model = new PureOutputValueHandle("testValue", ValueType.String, mockNode1.Object),
+            Model = new PureOutputValueHandle("testValue", ValueTypeEnum.String, mockNode1.Object),
             Position = Mock.Of<Control>()
         };
 
         var inputHandlePosition1 = new HandleEventBus.HandlePosition
         {
-            Model = new InputValueHandle("testValue", ValueType.String, node2),
+            Model = new InputValueHandle("testValue", ValueTypeEnum.String, node2),
             Position = Mock.Of<Control>()
         };
 

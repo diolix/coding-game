@@ -7,7 +7,7 @@ namespace CodingGame.Scripts.Graph.View.Ui.Variable;
 internal partial class VariablesContainerView : VBoxContainer
 {
     [Export] private PackedScene _variableViewScene;
-    [Export] private VariableView _exampleVariableView;
+    [Export] private Src.Graph.View.Ui.Variable.VariableView _exampleVariableView;
     public event Action<IVariable> OnVariableRemoved;
     
     public override void _Ready()
@@ -17,7 +17,7 @@ internal partial class VariablesContainerView : VBoxContainer
     
     public void AddVariable(IVariable variable)
     {
-        var variableView = (VariableView) _variableViewScene.Instantiate();
+        var variableView = (Src.Graph.View.Ui.Variable.VariableView) _variableViewScene.Instantiate();
         variableView.SetVariableModel(variable);
         variableView.OnRemove += variableRemoved => OnVariableRemoved?.Invoke(variableRemoved);
         AddChild(variableView);

@@ -18,8 +18,8 @@ public partial class CreateNodeContextMenu : Control
 	
 	public override void _Ready()
 	{
-		AddStandardNode(_printNodeFactory.CreatePrint);
-		AddStandardNode(_printNodeFactory.CreatePrintHelloWorld);
+		AddStandardNode(PrintFactory.CreatePrint);
+		AddStandardNode(PrintFactory.CreatePrintHelloWorld);
 		AddStandardNode(CreateTrueConstant);
 		AddStandardNode(CreateFalseConstant);
 		AddStandardNode(CreatePureHelloWorldConstant);

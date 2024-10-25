@@ -3,18 +3,15 @@ using GraphModel.Node.Factories;
 using GraphModel.Node.Input;
 using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
-using ValueType = GraphModel.ValueType;
 
 namespace GraphModelTest.Test.Edge;
 
 public class RemoveEdge : BaseEdgeTest
 {
-    private readonly PrintFactory _printFactory = new PrintFactory();
-    
     [Test]
     public void FlowEdgeRemove()
     {
-        var printHelloWorld = _printFactory.CreatePrintHelloWorld();
+        var printHelloWorld = PrintFactory.CreatePrintHelloWorld();
         bool mockExecuted = false;
         var mockedNode = MockNodeFactory.CreateFlowInput((_,_) => { mockExecuted = true; });
 
@@ -29,11 +26,9 @@ public class RemoveEdge : BaseEdgeTest
     public void ValueEdgeRemove()
     {
         var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
-        var mockNode = MockNodeFactory.CreateStringInput((_, input) => input.GetValue<string>("", ValueType.String));
-        
+        var mockNode = MockNodeFactory.CreateStringInput((_, input) => input.GetStringValue(""));
         var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
         edge.Remove();
-        
-        Throws<InputValueWithNoValueException>(() => mockNode.Execute());
+        Throws<GetValueException>(() => mockNode.Execute());
     }
 }

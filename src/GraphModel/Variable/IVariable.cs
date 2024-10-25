@@ -1,11 +1,12 @@
+using GraphModel.NewValueTypes;
+
 namespace GraphModel.Variable;
 
 public interface IVariable 
 {
     string Name { get; }
-    ValueType ValueType { get; }
-    TypeWanted? SafeGetValueOfType<TypeWanted>();
-    object GetValue();
-    bool SafeSetValue(object value);
+    ValueTypeEnum AsTypeEnum { get; }
+    void SetValue(object value);
+    Value Value { get; }
     void Reset();
 }

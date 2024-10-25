@@ -1,10 +1,11 @@
+using GraphModel.NewValueTypes;
 using GraphModel.Node;
 using GraphModel.Util;
 
 namespace GraphModel.Handle.Value.Output;
 
-public class ImpureOutputValueHandle(string label, ValueType valueType, INode node)
-    : BaseOutputValueHandle(label, valueType, node)
+public class ImpureOutputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode node)
+    : BaseOutputValueHandle(label, valueTypeEnum, node)
 {
-    public override object? GetValue() => CachedValue;
+    public override NewValueTypes.Value GetValue() => CachedValue;
 }

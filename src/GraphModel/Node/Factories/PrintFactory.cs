@@ -1,10 +1,11 @@
+using GraphModel.NewValueTypes;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
 namespace GraphModel.Node.Factories;
 
 public class PrintFactory
 {
-    public INode CreatePrintHelloWorld() => new ImpureNodeBuildable.Builder()
+    public static INode CreatePrintHelloWorld() => new ImpureNodeBuildable.Builder()
         .SetName("print hello world")
         .AddInputFlow("")
         .AddOutputFlow("")
@@ -15,10 +16,10 @@ public class PrintFactory
         })
         .Build();
     
-    public INode CreatePrint() => new ImpureNodeBuildable.Builder()
+    public static INode CreatePrint() => new ImpureNodeBuildable.Builder()
         .SetName("print")
         .AddInputFlow("")
-        .AddInputValue("value", ValueType.String)
+        .AddInputValue("value", ValueTypeEnum.String)
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {

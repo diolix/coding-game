@@ -23,7 +23,7 @@ public class BasicFlow : BaseNodeTest
     public void BasicPureNodeTest()
     {
         var helloWorldConstant =
-            MockNodeFactory.CreatePureStringOutput((output, _) => output.CacheValue("", "Hello World"));
+            MockNodeFactory.CreatePureStringOutput((output, _) => output.CacheString("", "Hello World"));
         var inputStringValue = string.Empty;
         var inputString = MockNodeFactory.CreateStringInput((_, input) => inputStringValue = input.GetStringValue(""));
         EdgeFactory.CreateEdge(helloWorldConstant, "", inputString, "");

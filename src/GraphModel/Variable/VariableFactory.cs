@@ -1,17 +1,21 @@
+﻿using GraphModel.NewValueTypes;
+
 namespace GraphModel.Variable;
 
 public static class VariableFactory
 {
-    public static IVariable CreateVariable(string name, ValueType valueType)
+    public static BaseVariableModel CreateVariable(string name, ValueTypeEnum valueTypeEnum)
     {
-        if (valueType.Equals(ValueType.Bool)) return CreateBoolVariable(name, false);
-        if (valueType.Equals(ValueType.String)) return CreateStringVariable(name, "");
-        throw new ArgumentException($"can't create variable of type : {valueType}");
+        switch (valueTypeEnum)
+        {
+            case ValueTypeEnum.String:
+                return new StringVariableModel(name);
+            case ValueTypeEnum.Bool:
+                return new BoolVariableModel(name);
+            case ValueTypeEnum.Object:
+                return new ObjectVariableModel(name);
+            default:
+                throw new NotImplementedException();
+        }
     }
-
-    private static IVariable CreateBoolVariable(string name, bool value) =>
-        new VariableModel<bool>(name, ValueType.Bool, value);
-
-    private static IVariable CreateStringVariable(string name, string value) =>
-        new VariableModel<string>(name, ValueType.String, value);
 }

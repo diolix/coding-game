@@ -1,17 +1,17 @@
+using GraphModel.NewValueTypes;
 using GraphModel.Node;
 
 namespace GraphModel.Handle.Value.Input;
 
-public class InputValueHandleWithField(string label, ValueType valueType, INode node)
-    : InputValueHandle(label, valueType, node)
+public class InputValueHandleWithField(string label, ValueTypeEnum valueTypeEnum, INode node)
+    : InputValueHandle(label, valueTypeEnum, node)
 {
-    private object? _valueSetWithField;
+    private readonly NewValueTypes.Value _valueSetWithField = ValueFactory.CreateValue(valueTypeEnum);
 
     public void SetValue(object value)
     {
-        ValueType.CoherentTypeAndValueType(value.GetType());
-        _valueSetWithField = value;
+        _valueSetWithField.SetObjValue(value);
     }
 
-    public override object? GetValue() => HasEdge ? base.GetValue() : _valueSetWithField;
+    public override NewValueTypes.Value GetValue() => HasEdge ? base.GetValue() : _valueSetWithField;
 }
