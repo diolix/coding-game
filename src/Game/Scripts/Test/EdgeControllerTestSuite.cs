@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CodingGame.Scripts.Graph.View.Edge;
 using CodingGame.Scripts.Src.Graph.Controller;
 using CodingGame.Scripts.Src.Graph.Controller.Handle;
@@ -6,6 +9,7 @@ using CodingGame.Scripts.Src.Util;
 using GdUnit4;
 using Godot;
 using GraphModel.Edge;
+using GraphModel.Handle;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
@@ -22,97 +26,107 @@ namespace CodingGame.Scripts.Test;
 [TestSuite]
 public class EdgeControllerTestSuite
 {
-    private record EdgeControllerWithMocks(
-        EdgeController EdgeController,
-        HandleEventBus HandleEventBus);
-
-    private EdgeControllerWithMocks CreateEdgeControllerWithMocks()
+    private static EdgeController _edgeController;
+    private static HandleEventBus _handleEventBus;
+    
+    [BeforeTest]
+    public void CreateEdgeControllerWithMocks()
     {
-        var handleEventBus = new HandleEventBus();
+        _handleEventBus = AutoFree(new HandleEventBus());
+        if (_handleEventBus == null) throw new NullReferenceException();
         var controlLineScene = new Mock<PackedSceneWrapper>();
-        controlLineScene.Setup(scene => scene.Instantiate<ControlLine>()).Returns(Mock.Of<ControlLine>());
+        controlLineScene.Setup(scene => scene.Instantiate<ControlLine>()).Returns(() => AutoFree(new ControlLine()));
         var edgeScene = new Mock<PackedSceneWrapper>();
-        edgeScene.Setup(scene => scene.Instantiate<EdgeView>()).Returns(() => new EdgeView(Mock.Of<ControlLine>()));
-        var edgeController = new EdgeController(handleEventBus, controlLineScene.Object, edgeScene.Object);
-        return new EdgeControllerWithMocks(edgeController, handleEventBus);
+        edgeScene.Setup(scene => scene.Instantiate<EdgeView>())
+            .Returns(() => AutoFree(new EdgeView(AutoFree(new ControlLine()))));
+
+        _edgeController = AutoFree(new EdgeController(_handleEventBus, controlLineScene.Object, edgeScene.Object));
+        _edgeController!._Ready();
+    }
+    
+    #region Helper
+
+    private void SimulateEdgeCreation(HandleEventBus.HandlePosition from, HandleEventBus.HandlePosition to)
+    {
+        _handleEventBus.InvokeOutputDragStarted(from, AutoFree(new Control()));
+        _handleEventBus.InvokeOutputEnteredInput(to);
+        _handleEventBus.InvokeOutputDragEnded(from);
     }
 
-    private void SimulateEdgeCreation(HandleEventBus handleEventBus,
-        HandleEventBus.HandlePosition from, HandleEventBus.HandlePosition to)
-    {
-        handleEventBus.InvokeOutputDragStarted(from, Mock.Of<Control>());
-        handleEventBus.InvokeOutputEnteredInput(to);
-        handleEventBus.InvokeOutputDragEnded(from);
-    }
+    private EdgeView GetFirstOrDefaultEdgeView() =>
+        _edgeController.GetChildren().FirstOrDefault(node => node is EdgeView) as EdgeView;
 
-    private EdgeControllerWithMocks CreateAndInitializeEdgeController()
+    private HandleEventBus.HandlePosition CreateHandlePosition(IHandle handle) => new()
     {
-        var res = CreateEdgeControllerWithMocks();
-        res.EdgeController._Ready();
-        return res;
-    }
+        Model = handle,
+        Position = AutoFree(new Control())
+    };
+
+    private HandleEventBus.HandlePosition CreateOutputFlowHandlePosition(string name, INode node) =>
+        CreateHandlePosition(new OutputFlowHandle(name, node));
+
+    private HandleEventBus.HandlePosition CreateOutputFlowHandlePosition(string name) =>
+        CreateHandlePosition(new OutputFlowHandle(name, Mock.Of<INode>()));
+
+    private HandleEventBus.HandlePosition CreateInputFlowHandlePosition(string name, INode node) =>
+        CreateHandlePosition(new InputFlowHandle(name, node));
+
+    private HandleEventBus.HandlePosition CreateInputFlowHandlePosition(string name) =>
+        CreateHandlePosition(new InputFlowHandle(name, Mock.Of<INode>()));
+
+    private HandleEventBus.HandlePosition CreateOutputValueHandlePosition(string name, ValueTypeEnum valueType,
+        INode node) =>
+        CreateHandlePosition(new PureOutputValueHandle(name, valueType, node));
+
+    private HandleEventBus.HandlePosition CreateOutputValueHandlePosition(string name, ValueTypeEnum valueType) =>
+        CreateHandlePosition(new PureOutputValueHandle(name, valueType, Mock.Of<INode>()));
+
+    private HandleEventBus.HandlePosition CreateInputValueHandlePosition(string name, ValueTypeEnum valueType,
+        INode node) =>
+        CreateHandlePosition(new InputValueHandle(name, valueType, node));
+
+    private HandleEventBus.HandlePosition CreateInputValueHandlePosition(string name, ValueTypeEnum valueType) =>
+        CreateHandlePosition(new InputValueHandle(name, valueType, Mock.Of<INode>()));
+
+    #endregion
 
     [GdUnit4.TestCase]
     public void Ready()
     {
-        var (edgeController, _) = CreateEdgeControllerWithMocks();
-
-        AssertObject(edgeController).IsNotNull();
-        edgeController._Ready();
+        AssertObject(_handleEventBus).IsNotNull();
     }
 
     [GdUnit4.TestCase]
     public void CreateFlowEdge()
     {
-        // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
-
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new OutputFlowHandle("test", Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
-
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputFlowHandle("test", Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputFlowHandlePosition("test");
+        var inputHandlePosition = CreateInputFlowHandlePosition("test");
 
         // Act
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
 
         // Assert
-        var edgeView = edgeController.GetChildren().First(node => node is EdgeView) as EdgeView;
+        var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
         That(edgeView.Model, Is.InstanceOf<FlowEdge>());
         That(edgeView.Model.Contains(outputHandlePosition.Model) && edgeView.Model.Contains(inputHandlePosition.Model),
             Is.True);
+        edgeView.Free();
     }
 
     [GdUnit4.TestCase]
     public void CreateValueEdge()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
 
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
-
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
+        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
 
         // Act
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
 
         // Assert
-        var edgeView = edgeController.GetChildren().First(node => node is EdgeView) as EdgeView;
+        var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
         That(edgeView.Model, Is.InstanceOf<ValueEdge>());
         That(edgeView.Model.Contains(outputHandlePosition.Model) && edgeView.Model.Contains(inputHandlePosition.Model),
@@ -123,161 +137,90 @@ public class EdgeControllerTestSuite
     public void ImpossibleToCreateEdgeBetweenSameNode()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
-
         var node = Mock.Of<INode>();
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, node),
-            Position = Mock.Of<Control>()
-        };
-
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputValueHandle("test", ValueTypeEnum.String, node),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String, node);
+        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String, node);
 
         // Act
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
 
         // Assert
-        var edgeView = edgeController.GetChildren().FirstOrDefault(godotNode => godotNode is EdgeView) as EdgeView;
-        That(edgeView, Is.Null);
+        That(GetFirstOrDefaultEdgeView(), Is.Null);
     }
 
     [GdUnit4.TestCase]
     public void ImpossibleToCreateEdgeBetweenValueAndFlow()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
-
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
-
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputFlowHandle("test", Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputFlowHandlePosition("test");
+        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
 
         // Act
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
 
         // Assert
-        var edgeView = edgeController.GetChildren().FirstOrDefault(godotNode => godotNode is EdgeView) as EdgeView;
-        That(edgeView, Is.Null);
+        That(GetFirstOrDefaultEdgeView(), Is.Null);
     }
 
     [GdUnit4.TestCase]
     public void ImpossibleToCreateEdgeBetweenDifferentValueTypeEnum()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
-
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
-
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputValueHandle("test", ValueTypeEnum.Bool, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
+        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.Bool);
 
         // Act
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
 
         // Assert
-        var edgeView = edgeController.GetChildren().FirstOrDefault(godotNode => godotNode is EdgeView) as EdgeView;
-        That(edgeView, Is.Null);
+        That(GetFirstOrDefaultEdgeView(), Is.Null);
     }
 
     [GdUnit4.TestCase]
     public void DeleteEveryEdgesOfHandle()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
 
-        var outputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
+        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
 
-        var inputHandlePosition = new HandleEventBus.HandlePosition
-        {
-            Model = new InputValueHandle("test", ValueTypeEnum.String, Mock.Of<INode>()),
-            Position = Mock.Of<Control>()
-        };
-
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition, inputHandlePosition);
-        var edgeView = edgeController.GetChildren().First(node => node is EdgeView) as EdgeView;
+        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
 
         // Act
-        handleEventBus.InvokeDeleteEdgeAtHandle(outputHandlePosition.Model);
+        _handleEventBus.InvokeDeleteEdgeAtHandle(outputHandlePosition.Model);
 
         // Assert
-        ISceneRunner.SyncProcessFrame.OnCompleted(() =>
-        {
-            var deletedEdgeView = edgeController.GetChildren().FirstOrDefault(node => node is EdgeView);
-            That(deletedEdgeView, Is.Null);
-        });
+        That(GetFirstOrDefaultEdgeView().IsQueuedForDeletion(), Is.True);
     }
 
     [GdUnit4.TestCase]
     public void DeleteEveryEdgeOfNode()
     {
         // Arrange
-        var (edgeController, handleEventBus) = CreateAndInitializeEdgeController();
-
         var mockNode1 = new Mock<INode>();
         var node2 = Mock.Of<INode>();
-        var outputHandlePosition1 = new HandleEventBus.HandlePosition
-        {
-            Model = new PureOutputValueHandle("testValue", ValueTypeEnum.String, mockNode1.Object),
-            Position = Mock.Of<Control>()
-        };
 
-        var inputHandlePosition1 = new HandleEventBus.HandlePosition
-        {
-            Model = new InputValueHandle("testValue", ValueTypeEnum.String, node2),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition1 = CreateOutputValueHandlePosition("testValue", ValueTypeEnum.String, mockNode1.Object);
+        var inputHandlePosition1 = CreateInputValueHandlePosition("testValue", ValueTypeEnum.String, node2);
 
-        var outputHandlePosition2 = new HandleEventBus.HandlePosition
-        {
-            Model = new OutputFlowHandle("testFlow", mockNode1.Object),
-            Position = Mock.Of<Control>()
-        };
+        var outputHandlePosition2 = CreateOutputFlowHandlePosition("testFlow", mockNode1.Object);
+        var inputHandlePosition2 = CreateInputFlowHandlePosition("testFlow", node2);
 
-        var inputHandlePosition2 = new HandleEventBus.HandlePosition
-        {
-            Model = new InputFlowHandle("testFlow", node2),
-            Position = Mock.Of<Control>()
-        };
-        
-        mockNode1.Setup((node => node.Inputs)).Returns([outputHandlePosition1.Model, outputHandlePosition2.Model]);
-        
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition1, inputHandlePosition1);
-        SimulateEdgeCreation(handleEventBus, outputHandlePosition2, inputHandlePosition2);
-        var nbEdge = edgeController.GetChildren().Count(godotNode => godotNode is EdgeView);
-        That(nbEdge, Is.EqualTo(2));
+        mockNode1.Setup(node => node.Inputs).Returns([outputHandlePosition1.Model, outputHandlePosition2.Model]);
 
         // Act
-        edgeController.RemoveEdgesAtNode(mockNode1.Object);
-
+        SimulateEdgeCreation(outputHandlePosition1, inputHandlePosition1);
+        SimulateEdgeCreation(outputHandlePosition2, inputHandlePosition2);
+        var nbEdge = _edgeController.GetChildren().Count(godotNode => godotNode is EdgeView);
+        That(nbEdge, Is.EqualTo(2));
+        _edgeController.RemoveEdgesAtNode(mockNode1.Object);
+        var edgeViews = _edgeController.GetChildren().OfType<EdgeView>();
+        
         // Assert
-        ISceneRunner.SyncProcessFrame.OnCompleted(() =>
-        {
-            var deletedEdgeView = edgeController.GetChildren().FirstOrDefault(node => node is EdgeView);
-            That(deletedEdgeView, Is.Null);
-        });
+        var edgeViewsArray = edgeViews as EdgeView[] ?? edgeViews.ToArray();
+        That(edgeViewsArray.Length, Is.EqualTo(2));
+        That(edgeViewsArray.All(edgeView => edgeView.IsQueuedForDeletion()), Is.True);
     }
 }

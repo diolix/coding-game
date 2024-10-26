@@ -13,10 +13,7 @@ public class InputValueManager(IEnumerable<InputValueHandle> handles)
             ? boolValue.GetValue()
             : throw new GetValueException(GetHandle(label));
 
-    public string GetStringValue(string label) => 
-        GetHandle(label).IsOfType(ValueTypeEnum.String) stringValue
-            ? stringValue.GetValue()
-            : throw new GetValueException(GetHandle(label));
+    public string GetStringValue(string label) => throw new NotImplementedException();
 
     public object GetObjectValue(string label) => 
         GetHandle(label).GetValue() is ObjectValue objectValue

@@ -1,7 +1,7 @@
 using System;
 using Godot;
 using GraphModel.Node;
-using HandlesInstantiator = CodingGame.Scripts.Graph.Controller.Handle.HandlesInstantiator;
+using HandlesInstantiator = CodingGame.Scripts.Src.Graph.Controller.Handle.HandlesInstantiator;
 
 namespace CodingGame.Scripts.Src.Graph.View.Node;
 

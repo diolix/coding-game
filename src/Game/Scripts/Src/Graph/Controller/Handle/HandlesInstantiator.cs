@@ -1,10 +1,10 @@
-using CodingGame.Scripts.Graph.View.Node;
 using CodingGame.Scripts.Util;
 using Godot;
 using GraphModel.Node;
 using NodeView = CodingGame.Scripts.Src.Graph.View.Node.NodeView;
+using RowHandles = CodingGame.Scripts.Src.Graph.View.Node.RowHandles;
 
-namespace CodingGame.Scripts.Graph.Controller.Handle;
+namespace CodingGame.Scripts.Src.Graph.Controller.Handle;
 
 public partial class HandlesInstantiator : Node
 {
@@ -14,7 +14,7 @@ public partial class HandlesInstantiator : Node
 
     public void BuildHandles(INode node)
     {
-        _hanldesRowExample.QueueFree();
+        _hanldesRowExample.Free();
 
         foreach (var (input, output) in CollectionHelper.ZipLongest(node.Inputs, node.Outputs))
         {

@@ -1,8 +1,8 @@
-using CodingGame.Scripts.Graph.View.Node.Handle;
 using Godot;
 using GraphModel.Handle;
+using HandleView = CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleView;
 
-namespace CodingGame.Scripts.Graph.View.Node;
+namespace CodingGame.Scripts.Src.Graph.View.Node;
 
 public partial class RowHandles : Godot.Node
 {
