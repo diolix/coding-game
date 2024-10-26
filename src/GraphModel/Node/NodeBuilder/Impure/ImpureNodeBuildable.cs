@@ -1,4 +1,4 @@
-using GraphModel.Node.Input;
+using GraphModel.Node.ExecutionManager.Input;
 using GraphModel.Node.Output;
 
 namespace GraphModel.Node.NodeBuilder.Impure;

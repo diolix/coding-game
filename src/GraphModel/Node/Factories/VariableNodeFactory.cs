@@ -1,3 +1,4 @@
+using GraphModel.NewValueTypes;
 using GraphModel.Node.NodeBuilder.Pure;
 using GraphModel.Variable;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
@@ -13,7 +14,8 @@ public static class VariableNodeFactory
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {
-            variable.SetValue(inputManager.GetObjectValue("new value"));
+            Value value = inputManager.GetValue("new value", variable.AsTypeEnum);
+            variable.SetValue(value);
             outputManager.Execute("");
         })
         .Build();

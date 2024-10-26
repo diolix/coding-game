@@ -1,13 +1,14 @@
 ﻿using GraphModel.Handle.Value.Output;
 using GraphModel.NewValueTypes;
 using GraphModel.NewValueTypes.PrimitiveType;
+using GraphModel.Values.PrimitiveType;
 
-namespace GraphModel.Node.Output;
+namespace GraphModel.Node.ExecutionManager.Output;
 
 public class OutputValueManager(IEnumerable<BaseOutputValueHandle> outputs)
 {
     private BaseOutputValueHandle GetHandle(string label) =>
-        outputs.First(handle => handle.Label == label);
+        outputs.FirstOrDefault(handle => handle.Label == label) ?? throw new InvalidOperationException();
 
     public void Cache(string label, Value value) =>
         GetHandle(label).SetCachedValue(value);

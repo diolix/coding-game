@@ -1,8 +1,9 @@
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
 using GraphModel.NewValueTypes;
+using GraphModel.Node.ExecutionManager.Input;
+using GraphModel.Node.ExecutionManager.Output;
 using GraphModel.Node.HandleBuilder.Value;
-using GraphModel.Node.Input;
 using GraphModel.Node.Output;
 
 namespace GraphModel.Node.NodeBuilder.Pure;
@@ -42,7 +43,7 @@ public class PureNodeBuildable : BaseNodeBuildable
             node.Outputs = _outputHandlesBuilder.Build(node);
             
             node._inputValueManager = new InputValueManager(node.Inputs.OfType<InputValueHandle>().ToList());
-            node._outputManager = new OutputValueManager(node.Outputs.OfType<ImpureOutputValueHandle>().ToList());
+            node._outputManager = new OutputValueManager(node.Outputs.OfType<PureOutputValueHandle>().ToList());
             
             if (_execution == null)
                 throw new Exception("Execution is required");

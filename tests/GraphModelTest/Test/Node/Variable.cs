@@ -1,5 +1,6 @@
 using GraphModel.Edge;
 using GraphModel.Variable;
+using GraphModel.Variable.TypeImplementation;
 using GraphModelTest.Mocks;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.VariableNodeFactory;
@@ -13,7 +14,7 @@ public class Variable : BaseNodeTest
     [Test]
     public void GetVariable()
     {
-        var helloWorldVariable = new StringVariableModel("HelloWorld");
+        var helloWorldVariable = new StringVariableModel("HelloWorld", "Hello World");
 
         var getVariable = CreateGetVariable(helloWorldVariable);
 

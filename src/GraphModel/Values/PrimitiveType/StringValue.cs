@@ -1,4 +1,6 @@
-﻿namespace GraphModel.NewValueTypes.PrimitiveType;
+﻿using GraphModel.NewValueTypes;
+
+namespace GraphModel.Values.PrimitiveType;
 
 public class StringValue : Value
 {

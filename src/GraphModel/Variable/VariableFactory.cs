@@ -1,4 +1,5 @@
 ﻿using GraphModel.NewValueTypes;
+using GraphModel.Variable.TypeImplementation;
 
 namespace GraphModel.Variable;
 
@@ -6,16 +7,12 @@ public static class VariableFactory
 {
     public static BaseVariableModel CreateVariable(string name, ValueTypeEnum valueTypeEnum)
     {
-        switch (valueTypeEnum)
+        return valueTypeEnum switch
         {
-            case ValueTypeEnum.String:
-                return new StringVariableModel(name);
-            case ValueTypeEnum.Bool:
-                return new BoolVariableModel(name);
-            case ValueTypeEnum.Object:
-                return new ObjectVariableModel(name);
-            default:
-                throw new NotImplementedException();
-        }
+            ValueTypeEnum.String => new StringVariableModel(name),
+            ValueTypeEnum.Bool => new BoolVariableModel(name),
+            ValueTypeEnum.Object => new ObjectVariableModel(name),
+            _ => throw new NotImplementedException()
+        };
     }
 }
