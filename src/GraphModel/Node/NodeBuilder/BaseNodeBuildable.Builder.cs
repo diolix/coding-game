@@ -1,5 +1,5 @@
-using GraphModel.NewValueTypes;
 using GraphModel.Node.HandleBuilder.Value;
+using GraphModel.Values;
 
 namespace GraphModel.Node.NodeBuilder;
 

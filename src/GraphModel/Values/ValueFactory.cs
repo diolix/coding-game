@@ -1,7 +1,6 @@
-﻿using GraphModel.NewValueTypes.PrimitiveType;
-using GraphModel.Values.PrimitiveType;
+﻿using GraphModel.Values.PrimitiveType;
 
-namespace GraphModel.NewValueTypes;
+namespace GraphModel.Values;
 
 public static class ValueFactory
 {

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace GraphModel.NewValueTypes.PrimitiveType;
+﻿namespace GraphModel.Values.PrimitiveType;
 
 public class BoolValue : Value
 {

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using GraphModel.Util;
 
-namespace GraphModel.NewValueTypes;
+namespace GraphModel.Values;
 
 public static class ValueTypeColor
 {

@@ -1,6 +1,5 @@
 using GraphModel.Handle.Value.Input;
-using GraphModel.NewValueTypes;
-using GraphModel.NewValueTypes.PrimitiveType;
+using GraphModel.Values;
 using GraphModel.Values.PrimitiveType;
 
 namespace GraphModel.Node.ExecutionManager.Input;

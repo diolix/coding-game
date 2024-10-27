@@ -1,5 +1,5 @@
-using GraphModel.NewValueTypes;
 using GraphModel.Node.NodeBuilder.Pure;
+using GraphModel.Values;
 using GraphModel.Variable;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 

@@ -1,9 +1,8 @@
 ﻿using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Output;
-using GraphModel.NewValueTypes;
-using GraphModel.Node.ExecutionManager.Output;
+using GraphModel.Values;
 
-namespace GraphModel.Node.Output;
+namespace GraphModel.Node.ExecutionManager.Output;
 
 public class ImpureOutputManager(
     IEnumerable<ImpureOutputValueHandle> outputValues,

@@ -1,4 +1,4 @@
-﻿using GraphModel.NewValueTypes.PrimitiveType;
+﻿using GraphModel.Values.PrimitiveType;
 
 namespace GraphModel.Variable.TypeImplementation;
 

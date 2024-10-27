@@ -1,4 +1,4 @@
-﻿namespace GraphModel.NewValueTypes.PrimitiveType;
+﻿namespace GraphModel.Values.PrimitiveType;
 
 public class ObjectValue : Value
 {

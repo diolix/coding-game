@@ -1,7 +1,7 @@
 using GraphModel.Edge;
 using GraphModel.Handle.Value.Output;
-using GraphModel.NewValueTypes;
 using GraphModel.Node;
+using GraphModel.Values;
 
 namespace GraphModel.Handle.Value.Input;
 
@@ -17,5 +17,5 @@ public class InputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode n
                outputValueHandle.ValueTypeEnum.Equals(ValueTypeEnum);
     }
 
-    public override NewValueTypes.Value GetValue() => Edge?.GetOutputValue() ?? ValueFactory.CreateValue(ValueTypeEnum);
+    public override Values.Value GetValue() => Edge?.GetOutputValue() ?? ValueFactory.CreateValue(ValueTypeEnum);
 }

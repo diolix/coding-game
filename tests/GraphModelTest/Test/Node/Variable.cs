@@ -14,19 +14,19 @@ public class Variable : BaseNodeTest
     [Test]
     public void GetVariable()
     {
-        var helloWorldVariable = new StringVariableModel("HelloWorld", "Hello World");
+        var helloWorldVariable = new BoolVariableModel("Test", true);
 
         var getVariable = CreateGetVariable(helloWorldVariable);
 
-        string spyInput = string.Empty;
+        bool spyInput = false;
         var mockedNode =
-            MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
+            MockNodeFactory.CreateBoolInput((_, input) => spyInput = input.GetBoolValue(""));
 
         EdgeFactory.CreateEdge(getVariable, "value", mockedNode, "");
 
         mockedNode.Execute();
 
-        That(spyInput, Is.EqualTo("Hello World"));
+        That(spyInput, Is.EqualTo(true));
     }
 
     [Test]

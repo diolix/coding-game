@@ -1,6 +1,6 @@
 using GraphModel.Edge;
-using GraphModel.NewValueTypes;
 using GraphModel.Node.Factories;
+using GraphModel.Values;
 using GraphModelTest.Mocks;
 using static NUnit.Framework.Assert;
 

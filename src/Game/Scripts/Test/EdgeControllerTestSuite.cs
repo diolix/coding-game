@@ -15,6 +15,7 @@ using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
 using GraphModel.NewValueTypes;
 using GraphModel.Node;
+using GraphModel.Values;
 using Moq;
 using NUnit.Framework;
 using static GdUnit4.Assertions;

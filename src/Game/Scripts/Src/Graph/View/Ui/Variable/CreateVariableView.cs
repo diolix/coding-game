@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using GraphModel.NewValueTypes;
+using GraphModel.Values;
 
 namespace CodingGame.Scripts.Src.Graph.View.Ui.Variable;
 

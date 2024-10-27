@@ -1,5 +1,5 @@
 using GraphModel.Node.ExecutionManager.Input;
-using GraphModel.Node.Output;
+using GraphModel.Node.ExecutionManager.Output;
 
 namespace GraphModel.Node.NodeBuilder.Impure;
 

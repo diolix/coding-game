@@ -1,4 +1,4 @@
-﻿namespace GraphModel.NewValueTypes;
+﻿namespace GraphModel.Values;
 
 public enum ValueTypeEnum
 {

@@ -1,6 +1,6 @@
-using GraphModel.NewValueTypes;
 using GraphModel.Node;
 using GraphModel.Node.NodeBuilder.Pure;
+using GraphModel.Values;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
 namespace GraphModelTest.Mocks

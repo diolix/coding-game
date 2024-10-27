@@ -110,16 +110,4 @@ public class Logic : BaseNodeTest
         mockedNode.Execute();
         IsTrue(mockedNodeValue);
     }
-
-    [Test]
-    public void Greater()
-    {
-        throw new NotImplementedException();
-    }
-
-    [Test]
-    public void Less()
-    {
-        throw new NotImplementedException();
-    }
 }

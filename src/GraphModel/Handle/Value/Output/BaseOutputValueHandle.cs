@@ -1,17 +1,17 @@
 using GraphModel.Handle.Value.Input;
-using GraphModel.NewValueTypes;
 using GraphModel.Node;
+using GraphModel.Values;
 
 namespace GraphModel.Handle.Value.Output;
 
 public abstract class BaseOutputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode node) : BaseValueHandle(label, valueTypeEnum, node)
 {
-    protected NewValueTypes.Value CachedValue = ValueFactory.CreateValue(valueTypeEnum);
+    protected Values.Value CachedValue = ValueFactory.CreateValue(valueTypeEnum);
 
     protected override bool IsCompatible(IHandle handle) => handle is InputValueHandle inputValueHandle &&
                                                          inputValueHandle.ValueTypeEnum.Equals(ValueTypeEnum);
     
-    public void SetCachedValue(NewValueTypes.Value value){
+    public void SetCachedValue(Values.Value value){
         CachedValue = value;
     }
 }

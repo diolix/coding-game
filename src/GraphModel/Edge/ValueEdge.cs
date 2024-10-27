@@ -2,6 +2,7 @@ using GraphModel.Handle;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
 using GraphModel.Util;
+using GraphModel.Values;
 
 namespace GraphModel.Edge;
 
@@ -28,7 +29,7 @@ public class ValueEdge : IEdge
 
     public void Remove() => _to.Edge = null;
     public bool Contains(IHandle handle) => handle == _from || handle == _to;
-    public NewValueTypes.Value GetOutputValue() => _from.GetValue();
+    public Value GetOutputValue() => _from.GetValue();
 }
 
 public class MultipleValueEdgesToSameInputException(BaseOutputValueHandle from, InputValueHandle to)

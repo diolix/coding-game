@@ -1,6 +1,6 @@
-using GraphModel.NewValueTypes;
 using GraphModel.Node;
 using GraphModel.Util;
+using GraphModel.Values;
 
 namespace GraphModel.Handle.Value;
 
@@ -8,5 +8,5 @@ public abstract class BaseValueHandle(string label, ValueTypeEnum valueTypeEnum,
 {
     public ValueTypeEnum ValueTypeEnum { get; } = valueTypeEnum;
     public override ColorHex Color => ValueTypeColor.ColorFor(ValueTypeEnum);
-    public abstract NewValueTypes.Value GetValue();
+    public abstract Values.Value GetValue();
 }

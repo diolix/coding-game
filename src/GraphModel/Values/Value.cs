@@ -1,6 +1,6 @@
 ﻿using GraphModel.Util;
 
-namespace GraphModel.NewValueTypes;
+namespace GraphModel.Values;
 
 public abstract class Value
 {
@@ -41,12 +41,6 @@ public abstract class Value
 
         _value = value;
     }
-
-    public bool IsNull => _value is null;
-    public bool IsOfType<T>() => Type == typeof(T);
-    public bool IsOfType(Type type) => Type == type;
-    public bool IsOfType(Value value) => Type == value.Type;
-    public bool IsOfType(object obj) => Type == obj.GetType();
     public bool IsOfType(ValueTypeEnum valueTypeEnum) => valueTypeEnum == TypeAsEnum;
     public abstract ValueTypeEnum TypeAsEnum { get; }
 }
