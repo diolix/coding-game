@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CodingGame.Scripts.Graph.View.Ui.Variable;
 using Godot;
-using GraphModel.NewValueTypes;
 using GraphModel.Values;
 using GraphModel.Variable;
 using CreateNodeContextMenu = CodingGame.Scripts.Src.Graph.View.Ui.CreateNodeContextMenu;
