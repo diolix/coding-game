@@ -1,56 +1,58 @@
 using GraphModel.Edge;
-using GraphModelTest.Mocks;
+using GraphModel.Values;
+using static GraphModel.Edge.EdgeFactory;
+using static GraphModelTest.Mocks.MockNodeFactory;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Edge;
 
-public class CreateEdge : BaseEdgeTest
+public class CreateEdge
 {
     [Test]
     public void ImpossibleToCreateEdgeBetweenValueAndFlow()
     {
-        var boolOutput = MockNodeFactory.CreatePureBoolOutput();
-        var flowInput = MockNodeFactory.CreateFlowInput();
+        var boolOutput = CreateOutputValue(ValueTypeEnum.Bool);
+        var flowInput = CreateFlowInput();
 
-        Throws<HandlesNotCompatibleException>(() => EdgeFactory.CreateEdge(boolOutput, "", flowInput, ""));
+        Throws<HandlesNotCompatibleException>(() => CreateEdge(boolOutput, "", flowInput, ""));
     }
 
     [Test]
     public void ImpossibleToCreateEdgeBetweenHandleOfSameNode()
     {
-        var flowInputOutputNode = MockNodeFactory.CreateFlowInputOutput();
+        var flowInputOutputNode = CreateFlowInputOutput();
 
         Throws<HandlesNotCompatibleException>(() =>
-            EdgeFactory.CreateEdge(flowInputOutputNode, "", flowInputOutputNode, ""));
+            CreateEdge(flowInputOutputNode, "", flowInputOutputNode, ""));
     }
 
     [Test]
     public void ImpossibleToCreateEdgeBetweenValueWithDifferentType()
     {
-        var stringInput = MockNodeFactory.CreateStringInput();
-        var boolOutput = MockNodeFactory.CreatePureBoolOutput();
+        var stringInput = CreateInputValue(ValueTypeEnum.String);
+        var boolOutput = CreateOutputValue(ValueTypeEnum.Bool);
 
         Throws<HandlesNotCompatibleException>(() =>
-            EdgeFactory.CreateEdge(boolOutput, "", stringInput, ""));
+            CreateEdge(boolOutput, "", stringInput, ""));
     }
 
     [Test]
     public void ImpossibleToCreateMultipleEdgesToInputHandleValue()
     {
-        var stringOutput = MockNodeFactory.CreatePureStringOutput();
-        var stringInput = MockNodeFactory.CreateStringInput();
+        var stringOutput = CreateOutputValue(ValueTypeEnum.String);
+        var stringInput = CreateInputValue(ValueTypeEnum.String);
         
-        EdgeFactory.CreateEdge(stringOutput, "", stringInput, "");
-        Throws<MultipleValueEdgesToSameInputException>(() => EdgeFactory.CreateEdge(stringOutput, "", stringInput, ""));
+        CreateEdge(stringOutput, "", stringInput, "");
+        Throws<MultipleValueEdgesToSameInputException>(() => CreateEdge(stringOutput, "", stringInput, ""));
     }
 
     [Test]
     public void ImpossibleToCreateMultipleEdgesFromOutputHandleFlow()
     {
-        var flowOutput = MockNodeFactory.CreateFlowOutput();
-        var flowInput = MockNodeFactory.CreateFlowInput();
+        var flowOutput = CreateFlowOutput();
+        var flowInput = CreateFlowInput();
         
-        EdgeFactory.CreateEdge(flowOutput, "", flowInput, "");
-        Throws<MultipleFlowEdgesFromSameOutputException>(() => EdgeFactory.CreateEdge(flowOutput, "", flowInput, ""));
+        CreateEdge(flowOutput, "", flowInput, "");
+        Throws<MultipleFlowEdgesFromSameOutputException>(() => CreateEdge(flowOutput, "", flowInput, ""));
     }
 }

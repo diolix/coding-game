@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CodingGame.Scripts.Graph.View.Edge;
 using CodingGame.Scripts.Src.Graph.Controller;
 using CodingGame.Scripts.Src.Graph.Controller.Handle;

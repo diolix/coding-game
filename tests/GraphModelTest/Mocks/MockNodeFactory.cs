@@ -3,72 +3,52 @@ using GraphModel.Node.NodeBuilder.Pure;
 using GraphModel.Values;
 using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildable;
 
-namespace GraphModelTest.Mocks
-{
-    public class MockNodeFactory
-    {
-        public static INode CreateFlowInput(ImpureNodeBuildable.Execution? callback = null)
-        {
-            return new ImpureNodeBuildable.Builder()
-                .SetName("MockFlowInput")
-                .AddInputFlow("")
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    
-        public static INode CreateFlowOutput(ImpureNodeBuildable.Execution? callback = null)
-        {
-            return new ImpureNodeBuildable.Builder()
-                .SetName("MockFlowInput")
-                .AddOutputFlow("")
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    
-        public static INode CreateFlowInputOutput(ImpureNodeBuildable.Execution? callback = null)
-        {
-            return new ImpureNodeBuildable.Builder()
-                .SetName("MockFlowInputOutput")
-                .AddInputFlow("")
-                .AddOutputFlow("")
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
+namespace GraphModelTest.Mocks;
 
-        public static INode CreateStringInput(PureNodeBuildable.Execution? callback = null)
-        {
-            return new PureNodeBuildable.Builder()
-                .SetName("MockStringInput")
-                .AddInputValue("", ValueTypeEnum.String)
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    
-        public static INode CreatePureStringOutput(PureNodeBuildable.Execution? callback = null)
-        {
-            return new PureNodeBuildable.Builder()
-                .SetName("MockStringOutput")
-                .AddOutputValue("", ValueTypeEnum.String)
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    
-        public static INode CreatePureBoolOutput(PureNodeBuildable.Execution? callback = null)
-        {
-            return new PureNodeBuildable.Builder()
-                .SetName("MockBoolOutput")
-                .AddOutputValue("", ValueTypeEnum.Bool)
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    
-        public static INode CreateBoolInput(PureNodeBuildable.Execution? callback = null)
-        {
-            return new PureNodeBuildable.Builder()
-                .SetName("MockBoolInput")
-                .AddInputValue("", ValueTypeEnum.Bool)
-                .SetExecution(callback ?? ((_, _) => {}))
-                .Build();
-        }
-    }
+public static class MockNodeFactory
+{
+    public static INode CreateFlowInput(ImpureNodeBuildable.Execution? callback = null)
+        => new ImpureNodeBuildable.Builder()
+            .SetName("MockFlowInput")
+            .AddInputFlow("")
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
+
+
+    public static INode CreateFlowOutput(ImpureNodeBuildable.Execution? callback = null)
+        => new ImpureNodeBuildable.Builder()
+            .SetName("MockFlowInput")
+            .AddOutputFlow("")
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
+
+
+    public static INode CreateFlowInputOutput(ImpureNodeBuildable.Execution? callback = null)
+        => new ImpureNodeBuildable.Builder()
+            .SetName("MockFlowInputOutput")
+            .AddInputFlow("")
+            .AddOutputFlow("")
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
+
+    public static INode CreateOutputValue(ValueTypeEnum fieldType, PureNodeBuildable.Execution? callback = null)
+        => new PureNodeBuildable.Builder()
+            .SetName("MockOutputValue")
+            .AddOutputValue("", fieldType)
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
+
+    public static INode CreateInputValue(ValueTypeEnum fieldType, PureNodeBuildable.Execution? callback = null)
+        => new PureNodeBuildable.Builder()
+            .SetName("MockInputValue")
+            .AddInputValue("", fieldType)
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
+
+    public static INode CreateInputValueWithField(ValueTypeEnum fieldType, PureNodeBuildable.Execution? callback = null)
+        => new PureNodeBuildable.Builder()
+            .SetName("MockInputValueWithField")
+            .AddInputValueWithField("", fieldType)
+            .SetExecution(callback ?? ((_, _) => { }))
+            .Build();
 }

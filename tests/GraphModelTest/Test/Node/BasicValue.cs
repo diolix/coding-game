@@ -1,21 +1,22 @@
 using GraphModel.Edge;
-using GraphModel.Node.Factories;
-using GraphModelTest.Mocks;
+using GraphModel.Values;
+using static GraphModel.Node.Factories.ConstantFactory;
+using static GraphModelTest.Mocks.MockNodeFactory;
 using static NUnit.Framework.Assert;
 namespace GraphModelTest.Test.Node;
-public class BasicValue : BaseNodeTest
+public class BasicValue
 {
     [Test]
     public void BasicImpureSetValue()
     {
-        var helloWorldConstant = ConstantFactory.CreateImpureHelloWorldConstant();
+        var helloWorldConstant = CreateImpureHelloWorldConstant();
         
         string mockStringInputValue = string.Empty;
-        var mockInputNode = MockNodeFactory.CreateStringInput((_, input) =>
+        var mockInputNode = CreateInputValue(ValueTypeEnum.String, (_, input) =>
             mockStringInputValue = input.GetStringValue(""));
         
         bool mockExecuted = false;
-        var mockExecutionNode = MockNodeFactory.CreateFlowInput((_, _) =>
+        var mockExecutionNode = CreateFlowInput((_, _) =>
             mockExecuted = true);
 
         EdgeFactory.CreateEdge(helloWorldConstant, "value", mockInputNode, "");
@@ -31,10 +32,10 @@ public class BasicValue : BaseNodeTest
     [Test]
     public void BasicPureSetValue()
     {
-        var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
+        var helloWorldConstant = CreatePureHelloWorldConstant();
         
         string inputValue = string.Empty;
-        var mockNode = MockNodeFactory.CreateStringInput((_, input) =>
+        var mockNode = CreateInputValue(ValueTypeEnum.String, (_, input) =>
             inputValue = input.GetStringValue(""));
 
         EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
@@ -47,14 +48,14 @@ public class BasicValue : BaseNodeTest
     [Test]
     public void MultiplePureOutputEdgesValueTest()
     {
-        var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
+        var helloWorldConstant = CreatePureHelloWorldConstant();
         
         string inputValue1 = string.Empty;
-        var mockNode1 = MockNodeFactory.CreateStringInput((_, input) =>
+        var mockNode1 = CreateInputValue(ValueTypeEnum.String, (_, input) =>
             inputValue1 = input.GetStringValue(""));
         
         string inputValue2 = string.Empty;
-        var mockNode2 = MockNodeFactory.CreateStringInput((_, input) =>
+        var mockNode2 = CreateInputValue(ValueTypeEnum.String, (_, input) =>
             inputValue2 = input.GetStringValue(""));
         
         EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode1, "");

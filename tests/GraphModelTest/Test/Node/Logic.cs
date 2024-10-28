@@ -1,3 +1,4 @@
+using GraphModel.Values;
 using static GraphModel.Edge.EdgeFactory;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.LogicFactory;
@@ -6,7 +7,7 @@ using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;
 
-public class Logic : BaseNodeTest
+public class Logic
 {
     [Test]
     public void AndTrue()
@@ -16,7 +17,7 @@ public class Logic : BaseNodeTest
         var falseConstant = CreateFalseConstant();
         
         var mockedNodeValue = true;
-        var mockedNode = CreateBoolInput((_, input) =>
+        var mockedNode = CreateInputValue(ValueTypeEnum.Bool, (_, input) =>
         {
             mockedNodeValue = input.GetBoolValue("");
         });
@@ -37,7 +38,7 @@ public class Logic : BaseNodeTest
         var trueConstant2 = CreateTrueConstant();
         
         var mockedNodeValue = false;
-        var mockedNode = CreateBoolInput((_, input) =>
+        var mockedNode = CreateInputValue(ValueTypeEnum.Bool,(_, input) =>
         {
             mockedNodeValue = input.GetBoolValue("");
         });
@@ -58,7 +59,7 @@ public class Logic : BaseNodeTest
         var falseConstant2 = CreateFalseConstant();
         
         var mockedNodeValue = true;
-        var mockedNode = CreateBoolInput((_, input) =>
+        var mockedNode = CreateInputValue(ValueTypeEnum.Bool,(_, input) =>
         {
             mockedNodeValue = input.GetBoolValue("");
         });
@@ -79,7 +80,7 @@ public class Logic : BaseNodeTest
         var trueConstant = CreateTrueConstant();
         
         var mockedNodeValue = false;
-        var mockedNode = CreateBoolInput((_, input) =>
+        var mockedNode = CreateInputValue(ValueTypeEnum.Bool,(_, input) =>
         {
             mockedNodeValue = input.GetBoolValue("");
         });
@@ -99,7 +100,7 @@ public class Logic : BaseNodeTest
         var falseConstant = CreateFalseConstant();
         
         var mockedNodeValue = false;
-        var mockedNode = CreateBoolInput((_, input) =>
+        var mockedNode = CreateInputValue(ValueTypeEnum.Bool,(_, input) =>
         {
             mockedNodeValue = input.GetBoolValue("");
         });

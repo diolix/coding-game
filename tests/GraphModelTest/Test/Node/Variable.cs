@@ -1,14 +1,14 @@
-using GraphModel.Edge;
-using GraphModel.Variable;
+using GraphModel.Values;
 using GraphModel.Variable.TypeImplementation;
-using GraphModelTest.Mocks;
+using static GraphModel.Edge.EdgeFactory;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.VariableNodeFactory;
+using static GraphModelTest.Mocks.MockNodeFactory;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;
 
-public class Variable : BaseNodeTest
+public class Variable
 {
 
     [Test]
@@ -19,10 +19,9 @@ public class Variable : BaseNodeTest
         var getVariable = CreateGetVariable(helloWorldVariable);
 
         bool spyInput = false;
-        var mockedNode =
-            MockNodeFactory.CreateBoolInput((_, input) => spyInput = input.GetBoolValue(""));
+        var mockedNode = CreateInputValue( ValueTypeEnum.Bool, (_, input) => spyInput = input.GetBoolValue(""));
 
-        EdgeFactory.CreateEdge(getVariable, "value", mockedNode, "");
+        CreateEdge(getVariable, "value", mockedNode, "");
 
         mockedNode.Execute();
 
@@ -36,7 +35,7 @@ public class Variable : BaseNodeTest
         var setVariableNode = CreateSetVariable(helloWorldVariable);
         var helloWorldConstant = CreatePureHelloWorldConstant();
     
-        EdgeFactory.CreateEdge(helloWorldConstant, "", setVariableNode, "new value");
+        CreateEdge(helloWorldConstant, "", setVariableNode, "new value");
     
         setVariableNode.Execute();
     
@@ -53,10 +52,10 @@ public class Variable : BaseNodeTest
     
         string spyInput = string.Empty;
         var mockedNode =
-            MockNodeFactory.CreateStringInput((_, input) => spyInput = input.GetStringValue(""));
+            CreateInputValue(ValueTypeEnum.String, (_, input) => spyInput = input.GetStringValue(""));
         
-        EdgeFactory.CreateEdge(helloWorldConstant, "", setNode, "new value");
-        EdgeFactory.CreateEdge(getNode, "value", mockedNode, "");
+        CreateEdge(helloWorldConstant, "", setNode, "new value");
+        CreateEdge(getNode, "value", mockedNode, "");
         
         setNode.Execute();
         mockedNode.Execute();

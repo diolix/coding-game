@@ -1,19 +1,20 @@
-using GraphModel.Edge;
-using GraphModelTest.Mocks;
+using GraphModel.Values;
+using static GraphModel.Edge.EdgeFactory;
+using static GraphModelTest.Mocks.MockNodeFactory;
 using static NUnit.Framework.Assert;
 
 namespace GraphModelTest.Test.Node;
 
-public class BasicFlow : BaseNodeTest
+public class BasicFlow
 {
     [Test]
     public void BasicFlowTest()
     {
-        var flowInputOutput = MockNodeFactory.CreateFlowInputOutput((output, _) => output.Execute(""));
+        var flowInputOutput = CreateFlowInputOutput((output, _) => output.Execute(""));
         bool mockExecuted = false;
-        var mockedNode = MockNodeFactory.CreateFlowInput((_, _) => { mockExecuted = true; });
+        var mockedNode = CreateFlowInput((_, _) => { mockExecuted = true; });
 
-        EdgeFactory.CreateEdge(flowInputOutput, "", mockedNode, "");
+        CreateEdge(flowInputOutput, "", mockedNode, "");
         flowInputOutput.Execute();
 
         IsTrue(mockExecuted);
@@ -23,10 +24,10 @@ public class BasicFlow : BaseNodeTest
     public void BasicPureNodeTest()
     {
         var helloWorldConstant =
-            MockNodeFactory.CreatePureStringOutput((output, _) => output.CacheString("", "Hello World"));
+            CreateOutputValue(ValueTypeEnum.String, (output, _) => output.CacheString("", "Hello World"));
         var inputStringValue = string.Empty;
-        var inputString = MockNodeFactory.CreateStringInput((_, input) => inputStringValue = input.GetStringValue(""));
-        EdgeFactory.CreateEdge(helloWorldConstant, "", inputString, "");
+        var inputString = CreateInputValue(ValueTypeEnum.String, (_, input) => inputStringValue = input.GetStringValue(""));
+        CreateEdge(helloWorldConstant, "", inputString, "");
 
         inputString.Execute();
         That(inputStringValue, Is.EqualTo("Hello World"));
