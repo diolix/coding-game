@@ -1,10 +1,9 @@
-using CodingGame.Scripts.Graph.Controller.Handle;
 using Godot;
 using GraphModel.Handle;
 
 namespace CodingGame.Scripts.Src.Graph.Controller.Handle;
 
-public partial class Input : Area2D, IHandleModelDependant
+public partial class InputAreaController : Area2D
 {
     [Export] private HandleEventBus _handleEventBus;
     [Export] private Control _handleIcon;

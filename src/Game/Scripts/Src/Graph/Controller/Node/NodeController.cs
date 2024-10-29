@@ -1,3 +1,4 @@
+#nullable enable
 using CodingGame.Scripts.Src.Util;
 using Godot;
 using GraphModel.Node;
@@ -5,18 +6,19 @@ using GraphModel.Node.Factories;
 using CreateNodeContextMenu = CodingGame.Scripts.Src.Graph.View.Ui.CreateNodeContextMenu;
 using NodeView = CodingGame.Scripts.Src.Graph.View.Node.NodeView;
 
-namespace CodingGame.Scripts.Src.Graph.Controller;
+namespace CodingGame.Scripts.Src.Graph.Controller.Node;
 
-public partial class NodeController : Node
+public partial class NodeController : Godot.Node
 {
-    [Export] private Control _startNodePosition;
-    [Export] private PackedSceneWrapper _nodeViewScene;
-    [Export] private CreateNodeContextMenu _createNodeContextMenu;
-    [Export] private Button _startButton;
-    [Export] private EdgeController _edgeController;
-    [Export] private VariableController _variableController;
+    [Export] private Control _startNodePosition = null!;
+    [Export] private PackedSceneWrapper _nodeViewScene = null!;
+    [Export] private NodeSelectionEventBus _nodeSelectionEventBus = null!;
+    [Export] private CreateNodeContextMenu _createNodeContextMenu = null!;
+    [Export] private Button _startButton = null!;
+    [Export] private EdgeController _edgeController = null!;
+    [Export] private VariableController _variableController = null!;
 
-    private NodeView _selectedNode;
+    private NodeView? _selectedNode;
     
     public override void _Ready()
     {
@@ -25,6 +27,7 @@ public partial class NodeController : Node
         _startButton.Pressed += () => start.Execute();
         _createNodeContextMenu.OnNodeSelected += (node) =>
             InstantiateNodeView(node, _createNodeContextMenu.GetGlobalMousePosition());
+        _nodeSelectionEventBus.OnNodeSelected += HandleNodeSelect;
     }
     
     private void InstantiateNodeView(INode baseNode, Vector2 position)
@@ -33,17 +36,26 @@ public partial class NodeController : Node
         AddChild(nodeView);
         nodeView.GlobalPosition = position;
         nodeView.BuildVisual(baseNode);
-        nodeView.OnSelectChanged += selected => HandleNodeSelectedChanged(nodeView, selected);
-    }
-    
-    private void HandleNodeSelectedChanged(NodeView nodeView, bool selected)
-    {
-        _selectedNode = selected ? nodeView : null;
     }
 
+    private void HandleNodeSelect(NodeView nodeView)
+    {
+        if (_selectedNode == nodeView)
+        {
+            _selectedNode = null;
+            nodeView.Deselect();
+        }
+        else
+        {
+            _selectedNode?.Deselect();
+            _selectedNode = nodeView;
+            nodeView.Select();
+        }
+    }
+    
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (!@event.IsActionPressed("delete")) return;
+        if (!@event.IsActionPressed("delete") || _selectedNode == null) return;
         _edgeController.RemoveEdgesAtNode(_selectedNode.Model);
         _selectedNode?.QueueFree();
     }

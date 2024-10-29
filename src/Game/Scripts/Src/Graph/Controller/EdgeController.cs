@@ -1,7 +1,6 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
-using CodingGame.Scripts.Graph.View.Edge;
 using CodingGame.Scripts.Src.Util;
 using Godot;
 using GraphModel.Edge;
@@ -9,12 +8,13 @@ using GraphModel.Handle;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Node;
+using ControlLine = CodingGame.Scripts.Src.Graph.View.Edge.ControlLine;
 using EdgeView = CodingGame.Scripts.Src.Graph.View.Edge.EdgeView;
 using HandleEventBus = CodingGame.Scripts.Src.Graph.Controller.Handle.HandleEventBus;
 
 namespace CodingGame.Scripts.Src.Graph.Controller;
 
-public partial class EdgeController : Node
+public partial class EdgeController : Godot.Node
 {
     [Export] private HandleEventBus HandleEventBus = null!;
     [Export] private PackedSceneWrapper ControlLineScene = null!;

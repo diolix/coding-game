@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b46w1vx555h24"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/RowHandles.cs" id="1_tmjqf"]
+[ext_resource type="PackedScene" uid="uid://d184op5wjfdi" path="res://Scenes/GraphEditor/Node/Handle/input_handle.tscn" id="2_pyyl7"]
+[ext_resource type="PackedScene" uid="uid://cmta1wuh1fe6i" path="res://Scenes/GraphEditor/Node/Handle/output_handle.tscn" id="3_kmpnj"]
+
+[node name="HandleRow" type="HBoxContainer" node_paths=PackedStringArray("_inputBaseHandle", "_outputBaseHandle")]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 122.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_constants/separation = 10
+script = ExtResource("1_tmjqf")
+_inputBaseHandle = NodePath("InputHandle")
+_outputBaseHandle = NodePath("OutputHandle")
+
+[node name="InputHandle" parent="." instance=ExtResource("2_pyyl7")]
+layout_mode = 2
+size_flags_horizontal = 2
+mouse_filter = 2
+
+[node name="OutputHandle" parent="." instance=ExtResource("3_kmpnj")]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_filter = 2

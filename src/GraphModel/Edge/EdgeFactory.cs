@@ -1,13 +1,12 @@
 using GraphModel.Handle;
 using GraphModel.Handle.Flow;
-using GraphModel.Handle.Value;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
 using GraphModel.Node;
 
 namespace GraphModel.Edge;
 
-public class EdgeFactory
+public static class EdgeFactory
 {
     public static IEdge CreateEdge(INode from, string labelFrom, INode to, string labelTo)
     {

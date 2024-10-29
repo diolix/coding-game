@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CodingGame.Scripts.Graph.View.Edge;
+namespace CodingGame.Scripts.Src.Graph.View.Edge;
 
 public partial class ControlLine : Line2D
 {
@@ -11,12 +11,12 @@ public partial class ControlLine : Line2D
     {
         _from = from;
         _to = to;
-        Points = new[] { _from.GlobalPosition, _to.GlobalPosition };
+        Points = [_from.GlobalPosition, _to.GlobalPosition];
     }
 
     public override void _Process(double delta)
     {
         if(_from == null || _to == null) return;
-        Points = new[] { _from.GlobalPosition + _from.PivotOffset, _to.GlobalPosition + _to.PivotOffset };
+        Points = [_from.GlobalPosition + _from.PivotOffset, _to.GlobalPosition + _to.PivotOffset];
     }
 }

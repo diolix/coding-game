@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="NodeSelectionEventBus" load_steps=2 format=3 uid="uid://d0smfmv4pgaqk"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Node/NodeSelectionEventBus.cs" id="1_vpytj"]
+
+[resource]
+script = ExtResource("1_vpytj")

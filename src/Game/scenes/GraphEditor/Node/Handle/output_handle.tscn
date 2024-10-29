@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmta1wuh1fe6i"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/HandleVIew/OutputHandleView.cs" id="1_g2f4c"]
+[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_x407k"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/RemoveEdge.cs" id="2_0sjc0"]
+[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="3_trn0c"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/OutputDraggableController.cs" id="4_14ehv"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Draggable/DraggableDefaultGuiEvent.cs" id="6_0fqj2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dlg4b"]
+radius = 5.0
+
+[node name="OutputHandle" type="HBoxContainer" node_paths=PackedStringArray("_outputDraggableController", "_label", "_icon", "_removeEdge")]
+custom_minimum_size = Vector2(90, 0)
+layout_direction = 3
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_g2f4c")
+_outputDraggableController = NodePath("HandleContainer/HandleIcon/OutputDraggableController")
+_label = NodePath("Label")
+_icon = NodePath("HandleContainer/HandleIcon")
+_removeEdge = NodePath("HandleContainer/HandleIcon")
+
+[node name="HandleContainer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="HandleIcon" parent="HandleContainer" instance=ExtResource("1_x407k")]
+layout_mode = 2
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("2_0sjc0")
+_handleEventBus = ExtResource("3_trn0c")
+
+[node name="OutputDraggableController" type="Node" parent="HandleContainer/HandleIcon" node_paths=PackedStringArray("_draggable", "_handleIcon")]
+script = ExtResource("4_14ehv")
+_draggable = NodePath("../Draggable")
+_handleEventBus = ExtResource("3_trn0c")
+_handleIcon = NodePath("..")
+
+[node name="Draggable" type="Control" parent="HandleContainer/HandleIcon" node_paths=PackedStringArray("_target")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 5)
+mouse_filter = 1
+script = ExtResource("6_0fqj2")
+_target = NodePath(".")
+
+[node name="Area2D" type="Area2D" parent="HandleContainer/HandleIcon/Draggable"]
+position = Vector2(5, 5)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandleContainer/HandleIcon/Draggable/Area2D"]
+shape = SubResource("CircleShape2D_dlg4b")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Label"
+horizontal_alignment = 2
+vertical_alignment = 1

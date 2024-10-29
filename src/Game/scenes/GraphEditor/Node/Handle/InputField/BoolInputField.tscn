@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqxmj6030ryjx"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/Field/BoolInputField.cs" id="1_2mhm4"]
+
+[node name="CheckBox" type="CheckBox"]
+offset_right = 24.0
+offset_bottom = 24.0
+
+[node name="BoolInputField" type="Node" parent="." node_paths=PackedStringArray("_checkBox")]
+script = ExtResource("1_2mhm4")
+_checkBox = NodePath("..")

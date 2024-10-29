@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using CodingGame.Scripts.Graph.View.Edge;
 using CodingGame.Scripts.Src.Graph.Controller;
 using CodingGame.Scripts.Src.Graph.Controller.Handle;
 using CodingGame.Scripts.Src.Util;
@@ -17,6 +16,7 @@ using Moq;
 using NUnit.Framework;
 using static GdUnit4.Assertions;
 using static NUnit.Framework.Assert;
+using ControlLine = CodingGame.Scripts.Src.Graph.View.Edge.ControlLine;
 using EdgeView = CodingGame.Scripts.Src.Graph.View.Edge.EdgeView;
 
 namespace CodingGame.Scripts.Test;

@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d24y6f85m6ud4"]
+[gd_scene load_steps=11 format=3 uid="uid://d24y6f85m6ud4"]
 
 [ext_resource type="StyleBox" uid="uid://d1ti4gfctyxoc" path="res://NodeVisual/unselected_node.tres" id="1_tcvcs"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/NodeView.cs" id="2_bq6wr"]
 [ext_resource type="StyleBox" uid="uid://d3uoenmkebtph" path="res://NodeVisual/selected_node.tres" id="3_gqadq"]
-[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Draggable.cs" id="4_bqly7"]
+[ext_resource type="Script" path="res://Scripts/Src/Util/GuiEventDispatch/GuiInputEventDispatcher.cs" id="4_wjeqi"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Draggable/DraggableCustomGuiEvent.cs" id="5_5nl21"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/NodeSelectionComponent.cs" id="5_ghkca"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/HandlesInstantiator.cs" id="5_riqcn"]
-[ext_resource type="PackedScene" uid="uid://b46w1vx555h24" path="res://Scenes/GraphEditor/Node/handle_row.tscn" id="6_jqyma"]
+[ext_resource type="PackedScene" uid="uid://b46w1vx555h24" path="res://Scenes/GraphEditor/Node/Handle/handle_row.tscn" id="6_jqyma"]
+[ext_resource type="Resource" uid="uid://d0smfmv4pgaqk" path="res://Resource/node_selection_event_bus.tres" id="6_ye5kj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4t7ql"]
 bg_color = Color(0.111197, 0.111197, 0.111197, 1)
@@ -16,15 +19,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -110.0
+offset_left = -100.0
 offset_top = -40.5
-offset_right = 110.0
+offset_right = 100.0
 offset_bottom = 40.5
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(111, 42.5)
+pivot_offset = Vector2(100, 40)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_tcvcs")
 script = ExtResource("2_bq6wr")
 _selectedBackGround = ExtResource("3_gqadq")
@@ -32,14 +36,33 @@ _unselectedBackGround = ExtResource("1_tcvcs")
 _nameLabel = NodePath("VBoxContainer/NodeName")
 _handlesInstantiator = NodePath("VBoxContainer/MarginContainer/Handles")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("_target")]
+[node name="GuiEventDispatcher" type="Control" parent="." node_paths=PackedStringArray("_controls")]
 layout_mode = 2
-mouse_filter = 1
-script = ExtResource("4_bqly7")
-_target = NodePath("..")
+script = ExtResource("4_wjeqi")
+_controls = [NodePath("Draggable"), NodePath("Selectable")]
+
+[node name="Draggable" type="Control" parent="GuiEventDispatcher" node_paths=PackedStringArray("_target")]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 81.0
+pivot_offset = Vector2(100, 40)
+mouse_filter = 2
+script = ExtResource("5_5nl21")
+_target = NodePath("../..")
+
+[node name="Selectable" type="Control" parent="GuiEventDispatcher" node_paths=PackedStringArray("_nodeView")]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 81.0
+mouse_filter = 2
+script = ExtResource("5_ghkca")
+_nodeSelectionEventBus = ExtResource("6_ye5kj")
+_nodeView = NodePath("../..")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 2
 

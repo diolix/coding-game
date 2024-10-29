@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://d184op5wjfdi"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/HandleVIew/InputHandleView.cs" id="1_3iw0c"]
+[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_p3vaf"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/RemoveEdge.cs" id="2_4m18s"]
+[ext_resource type="Resource" uid="uid://b7ed0arrwvixi" path="res://Resource/input_field_factory.tres" id="2_h26h8"]
+[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="3_axsnh"]
+[ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/InputAreaController.cs" id="4_dx3ll"]
+[ext_resource type="PackedScene" uid="uid://tl011dp44bkq" path="res://Scenes/GraphEditor/Node/Handle/InputField/StringInputField.tscn" id="5_h7sw3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mey1"]
+height = 25.0
+
+[node name="NewInputHandle" type="HBoxContainer" node_paths=PackedStringArray("_inputAreaController", "_inputFieldContainer", "_label", "_icon", "_removeEdge")]
+custom_minimum_size = Vector2(90, 0)
+offset_right = 90.0
+offset_bottom = 40.0
+script = ExtResource("1_3iw0c")
+_inputAreaController = NodePath("IconContainer/Handle/InputAnchor")
+_inputFieldFactory = ExtResource("2_h26h8")
+_inputFieldContainer = NodePath("HBoxContainer")
+_label = NodePath("HBoxContainer/Label")
+_icon = NodePath("IconContainer/Handle")
+_removeEdge = NodePath("IconContainer/Handle")
+
+[node name="IconContainer" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Handle" parent="IconContainer" instance=ExtResource("1_p3vaf")]
+layout_mode = 1
+script = ExtResource("2_4m18s")
+_handleEventBus = ExtResource("3_axsnh")
+
+[node name="InputAnchor" type="Area2D" parent="IconContainer/Handle" node_paths=PackedStringArray("_handleIcon")]
+position = Vector2(0, 5)
+collision_layer = 0
+monitorable = false
+script = ExtResource("4_dx3ll")
+_handleEventBus = ExtResource("3_axsnh")
+_handleIcon = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IconContainer/Handle/InputAnchor"]
+position = Vector2(2, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2mey1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Label"
+vertical_alignment = 1
+
+[node name="StringInputField" parent="HBoxContainer" instance=ExtResource("5_h7sw3")]
+visible = false
+layout_mode = 2

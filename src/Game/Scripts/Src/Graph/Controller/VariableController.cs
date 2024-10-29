@@ -10,7 +10,7 @@ using CreateVariableView = CodingGame.Scripts.Src.Graph.View.Ui.Variable.CreateV
 
 namespace CodingGame.Scripts.Src.Graph.Controller;
 
-public partial class VariableController : Node
+public partial class VariableController : Godot.Node
 {
     [Export] private CreateVariableView _createVariableContainer = null!;
     [Export] private VariablesContainerView _variablesContainerView = null!;

@@ -19,7 +19,7 @@ public class PrintFactory
     public static INode CreatePrint() => new ImpureNodeBuildable.Builder()
         .SetName("print")
         .AddInputFlow("")
-        .AddInputValue("value", ValueTypeEnum.String)
+        .AddInputValueWithField("value", ValueTypeEnum.String)
         .AddOutputFlow("")
         .SetExecution((outputManager, inputManager) =>
         {

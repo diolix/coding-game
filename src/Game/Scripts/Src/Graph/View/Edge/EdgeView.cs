@@ -1,4 +1,3 @@
-using CodingGame.Scripts.Graph.View.Edge;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;

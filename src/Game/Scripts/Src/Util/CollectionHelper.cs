@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CodingGame.Scripts.Util;
+namespace CodingGame.Scripts.Src.Util;
 
 public static class CollectionHelper
 {
