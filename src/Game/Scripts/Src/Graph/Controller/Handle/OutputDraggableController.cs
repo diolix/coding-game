@@ -1,4 +1,5 @@
 using CodingGame.Scripts.Src.Graph.View.Draggable;
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using Godot;
 using GraphModel.Handle;
 
@@ -8,8 +9,7 @@ public partial class OutputDraggableController : Godot.Node
 {
     [Export] private BaseDraggable _draggable;
     [Export] private HandleEventBus _handleEventBus;
-    [Export] private Control _handleIcon;
-    public IHandle Model { private get; set; }
+    [Export] private OutputHandleView _outputHandleView;
 
     private Vector2 _draggableInitialPosition;
 
@@ -17,11 +17,11 @@ public partial class OutputDraggableController : Godot.Node
     {
         _draggableInitialPosition = _draggable.Position;
         _draggable.OnDragStart += () =>
-            _handleEventBus.InvokeOutputDragStarted(new() { Position = _handleIcon, Model = Model }, _draggable);
+            _handleEventBus.InvokeOutputDragStarted(_outputHandleView, _draggable);
 
         _draggable.OnDragEnd += () =>
         {
-            _handleEventBus.InvokeOutputDragEnded(new() { Model = Model, Position = _handleIcon });
+            _handleEventBus.InvokeOutputDragEnded();
             _draggable.Position = _draggableInitialPosition;
         };
     }

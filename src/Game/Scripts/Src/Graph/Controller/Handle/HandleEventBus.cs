@@ -1,4 +1,5 @@
 using System;
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using Godot;
 using GraphModel.Handle;
 
@@ -24,16 +25,16 @@ public partial class HandleEventBus : Resource
             return HashCode.Combine(Position, Model);
         }
     }
-    public HandleEventBus(){}
-    public event Action<HandlePosition, Control> OutputDragStarted;
-    public void InvokeOutputDragStarted(HandlePosition handlePosition, Control draggable) =>
-        OutputDragStarted?.Invoke(handlePosition, draggable);
-    public event Action<HandlePosition> OutputDragEnded;
-    public void InvokeOutputDragEnded(HandlePosition handlePosition) => OutputDragEnded?.Invoke(handlePosition);
-    public event Action<HandlePosition> OutputEnteredInput;
-    public void InvokeOutputEnteredInput(HandlePosition handlePosition) => OutputEnteredInput?.Invoke(handlePosition);
-    public event Action<HandlePosition> OutputExitedInput;
-    public void InvokeOutputExitedInput(HandlePosition handlePosition) => OutputExitedInput?.Invoke(handlePosition);
+
+    public event Action<OutputHandleView, Control> OutputDragStarted;
+    public void InvokeOutputDragStarted(OutputHandleView handleView, Control draggable) =>
+        OutputDragStarted?.Invoke(handleView, draggable);
+    public event Action OutputDragEnded;
+    public void InvokeOutputDragEnded() => OutputDragEnded?.Invoke();
+    public event Action<InputHandleView> OutputEnteredInput;
+    public void InvokeOutputEnteredInput(InputHandleView handlePosition) => OutputEnteredInput?.Invoke(handlePosition);
+    public event Action<InputHandleView> OutputExitedInput;
+    public void InvokeOutputExitedInput(InputHandleView handlePosition) => OutputExitedInput?.Invoke(handlePosition);
     public event Action<IHandle> DeleteEdgeAtHandle;
     public void InvokeDeleteEdgeAtHandle(IHandle handlePosition) => DeleteEdgeAtHandle?.Invoke(handlePosition);
 }

@@ -40,23 +40,23 @@ public partial class NodeController : Godot.Node
 
     private void HandleNodeSelect(NodeView nodeView)
     {
-        if (_selectedNode == nodeView)
-        {
-            _selectedNode = null;
-            nodeView.Deselect();
-        }
-        else
-        {
             _selectedNode?.Deselect();
             _selectedNode = nodeView;
             nodeView.Select();
-        }
     }
     
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (!@event.IsActionPressed("delete") || _selectedNode == null) return;
-        _edgeController.RemoveEdgesAtNode(_selectedNode.Model);
-        _selectedNode?.QueueFree();
+        if (@event.IsActionPressed("delete") && _selectedNode != null)
+        {
+            _edgeController.RemoveEdgesAtNode(_selectedNode.Model);
+            _selectedNode?.QueueFree();
+        }
+
+        if (@event.IsActionPressed("left_click"))
+        {
+            _selectedNode?.Deselect();
+            _selectedNode = null;
+        }
     }
 }

@@ -2,11 +2,11 @@ using System;
 using System.Linq;
 using CodingGame.Scripts.Src.Graph.Controller;
 using CodingGame.Scripts.Src.Graph.Controller.Handle;
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using CodingGame.Scripts.Src.Util;
 using GdUnit4;
 using Godot;
 using GraphModel.Edge;
-using GraphModel.Handle;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
@@ -26,7 +26,7 @@ public class EdgeControllerTestSuite
 {
     private static EdgeController _edgeController;
     private static HandleEventBus _handleEventBus;
-    
+
     [BeforeTest]
     public void CreateEdgeControllerWithMocks()
     {
@@ -41,51 +41,45 @@ public class EdgeControllerTestSuite
         _edgeController = AutoFree(new EdgeController(_handleEventBus, controlLineScene.Object, edgeScene.Object));
         _edgeController!._Ready();
     }
-    
+
     #region Helper
 
-    private void SimulateEdgeCreation(HandleEventBus.HandlePosition from, HandleEventBus.HandlePosition to)
+    private void SimulateEdgeCreation(OutputHandleView from, InputHandleView to)
     {
         _handleEventBus.InvokeOutputDragStarted(from, AutoFree(new Control()));
         _handleEventBus.InvokeOutputEnteredInput(to);
-        _handleEventBus.InvokeOutputDragEnded(from);
+        _handleEventBus.InvokeOutputDragEnded();
     }
 
     private EdgeView GetFirstOrDefaultEdgeView() =>
         _edgeController.GetChildren().FirstOrDefault(node => node is EdgeView) as EdgeView;
 
-    private HandleEventBus.HandlePosition CreateHandlePosition(IHandle handle) => new()
-    {
-        Model = handle,
-        Position = AutoFree(new Control())
-    };
+    private OutputHandleView CreateOutputFlowHandleView(string name, INode node) =>
+        AutoFree(new OutputHandleView(new OutputFlowHandle(name, node), AutoFree(new ColorRect())));
 
-    private HandleEventBus.HandlePosition CreateOutputFlowHandlePosition(string name, INode node) =>
-        CreateHandlePosition(new OutputFlowHandle(name, node));
+    private OutputHandleView CreateOutputFlowHandleView(string name) =>
+        AutoFree(new OutputHandleView(new OutputFlowHandle(name, Mock.Of<INode>()), AutoFree(new ColorRect())));
 
-    private HandleEventBus.HandlePosition CreateOutputFlowHandlePosition(string name) =>
-        CreateHandlePosition(new OutputFlowHandle(name, Mock.Of<INode>()));
+    private InputHandleView CreateInputFlowHandleView(string name, INode node) =>
+        AutoFree(new InputHandleView(new InputFlowHandle(name, node), AutoFree(new ColorRect())!));
 
-    private HandleEventBus.HandlePosition CreateInputFlowHandlePosition(string name, INode node) =>
-        CreateHandlePosition(new InputFlowHandle(name, node));
+    private InputHandleView CreateInputFlowHandleView(string name) =>
+        AutoFree(new InputHandleView(new InputFlowHandle(name, Mock.Of<INode>()), AutoFree(new ColorRect())!));
 
-    private HandleEventBus.HandlePosition CreateInputFlowHandlePosition(string name) =>
-        CreateHandlePosition(new InputFlowHandle(name, Mock.Of<INode>()));
-
-    private HandleEventBus.HandlePosition CreateOutputValueHandlePosition(string name, ValueTypeEnum valueType,
+    private OutputHandleView CreateOutputValueHandleView(string name, ValueTypeEnum valueType,
         INode node) =>
-        CreateHandlePosition(new PureOutputValueHandle(name, valueType, node));
+         AutoFree(new OutputHandleView(new PureOutputValueHandle(name, valueType, node), AutoFree(new ColorRect())));
 
-    private HandleEventBus.HandlePosition CreateOutputValueHandlePosition(string name, ValueTypeEnum valueType) =>
-        CreateHandlePosition(new PureOutputValueHandle(name, valueType, Mock.Of<INode>()));
+    private OutputHandleView CreateOutputValueHandleView(string name, ValueTypeEnum valueType) =>
+        AutoFree(new OutputHandleView(new PureOutputValueHandle(name, valueType, Mock.Of<INode>()), AutoFree(new ColorRect())));
 
-    private HandleEventBus.HandlePosition CreateInputValueHandlePosition(string name, ValueTypeEnum valueType,
+    private InputHandleView CreateInputValueHandleView(string name, ValueTypeEnum valueType,
         INode node) =>
-        CreateHandlePosition(new InputValueHandle(name, valueType, node));
+        AutoFree(new InputHandleView(new InputValueHandle(name, valueType, node), AutoFree(new ColorRect())!));
 
-    private HandleEventBus.HandlePosition CreateInputValueHandlePosition(string name, ValueTypeEnum valueType) =>
-        CreateHandlePosition(new InputValueHandle(name, valueType, Mock.Of<INode>()));
-
+    private InputHandleView CreateInputValueHandleView(string name, ValueTypeEnum valueType) =>
+        AutoFree(new InputHandleView(new InputValueHandle(name, valueType, Mock.Of<INode>()), AutoFree(new ColorRect())!));
+    
     #endregion
 
     [GdUnit4.TestCase]
@@ -97,17 +91,17 @@ public class EdgeControllerTestSuite
     [GdUnit4.TestCase]
     public void CreateFlowEdge()
     {
-        var outputHandlePosition = CreateOutputFlowHandlePosition("test");
-        var inputHandlePosition = CreateInputFlowHandlePosition("test");
+        var outputHandleView = CreateOutputFlowHandleView("test");
+        var inputHandleView = CreateInputFlowHandleView("test");
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
 
         // Assert
         var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
         That(edgeView.Model, Is.InstanceOf<FlowEdge>());
-        That(edgeView.Model.Contains(outputHandlePosition.Model) && edgeView.Model.Contains(inputHandlePosition.Model),
+        That(edgeView.Model.Contains(outputHandleView.Model) && edgeView.Model.Contains(inputHandleView.Model),
             Is.True);
         edgeView.Free();
     }
@@ -117,17 +111,17 @@ public class EdgeControllerTestSuite
     {
         // Arrange
 
-        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
-        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
+        var outputHandleView = CreateOutputValueHandleView("test", ValueTypeEnum.String);
+        var inputHandleView = CreateInputValueHandleView("test", ValueTypeEnum.String);
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
 
         // Assert
         var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
         That(edgeView.Model, Is.InstanceOf<ValueEdge>());
-        That(edgeView.Model.Contains(outputHandlePosition.Model) && edgeView.Model.Contains(inputHandlePosition.Model),
+        That(edgeView.Model.Contains(outputHandleView.Model) && edgeView.Model.Contains(inputHandleView.Model),
             Is.True);
     }
 
@@ -136,11 +130,11 @@ public class EdgeControllerTestSuite
     {
         // Arrange
         var node = Mock.Of<INode>();
-        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String, node);
-        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String, node);
+        var outputHandleView = CreateOutputValueHandleView("test", ValueTypeEnum.String, node);
+        var inputHandleView = CreateInputValueHandleView("test", ValueTypeEnum.String, node);
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
 
         // Assert
         That(GetFirstOrDefaultEdgeView(), Is.Null);
@@ -150,11 +144,11 @@ public class EdgeControllerTestSuite
     public void ImpossibleToCreateEdgeBetweenValueAndFlow()
     {
         // Arrange
-        var outputHandlePosition = CreateOutputFlowHandlePosition("test");
-        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
+        var outputHandleView = CreateOutputFlowHandleView("test");
+        var inputHandleView = CreateInputValueHandleView("test", ValueTypeEnum.String);
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
 
         // Assert
         That(GetFirstOrDefaultEdgeView(), Is.Null);
@@ -164,11 +158,11 @@ public class EdgeControllerTestSuite
     public void ImpossibleToCreateEdgeBetweenDifferentValueTypeEnum()
     {
         // Arrange
-        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
-        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.Bool);
+        var outputHandleView = CreateOutputValueHandleView("test", ValueTypeEnum.String);
+        var inputHandleView = CreateInputValueHandleView("test", ValueTypeEnum.Bool);
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
 
         // Assert
         That(GetFirstOrDefaultEdgeView(), Is.Null);
@@ -179,15 +173,15 @@ public class EdgeControllerTestSuite
     {
         // Arrange
 
-        var outputHandlePosition = CreateOutputValueHandlePosition("test", ValueTypeEnum.String);
-        var inputHandlePosition = CreateInputValueHandlePosition("test", ValueTypeEnum.String);
+        var outputHandleView = CreateOutputValueHandleView("test", ValueTypeEnum.String);
+        var inputHandleView = CreateInputValueHandleView("test", ValueTypeEnum.String);
 
-        SimulateEdgeCreation(outputHandlePosition, inputHandlePosition);
+        SimulateEdgeCreation(outputHandleView, inputHandleView);
         var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
 
         // Act
-        _handleEventBus.InvokeDeleteEdgeAtHandle(outputHandlePosition.Model);
+        _handleEventBus.InvokeDeleteEdgeAtHandle(outputHandleView.Model);
 
         // Assert
         That(GetFirstOrDefaultEdgeView().IsQueuedForDeletion(), Is.True);
@@ -200,22 +194,23 @@ public class EdgeControllerTestSuite
         var mockNode1 = new Mock<INode>();
         var node2 = Mock.Of<INode>();
 
-        var outputHandlePosition1 = CreateOutputValueHandlePosition("testValue", ValueTypeEnum.String, mockNode1.Object);
-        var inputHandlePosition1 = CreateInputValueHandlePosition("testValue", ValueTypeEnum.String, node2);
+        var outputHandleView1 =
+            CreateOutputValueHandleView("testValue", ValueTypeEnum.String, mockNode1.Object);
+        var inputHandleView1 = CreateInputValueHandleView("testValue", ValueTypeEnum.String, node2);
 
-        var outputHandlePosition2 = CreateOutputFlowHandlePosition("testFlow", mockNode1.Object);
-        var inputHandlePosition2 = CreateInputFlowHandlePosition("testFlow", node2);
+        var outputHandleView2 = CreateOutputFlowHandleView("testFlow", mockNode1.Object);
+        var inputHandleView2 = CreateInputFlowHandleView("testFlow", node2);
 
-        mockNode1.Setup(node => node.Inputs).Returns([outputHandlePosition1.Model, outputHandlePosition2.Model]);
+        mockNode1.Setup(node => node.Inputs).Returns([outputHandleView1.Model, outputHandleView2.Model]);
 
         // Act
-        SimulateEdgeCreation(outputHandlePosition1, inputHandlePosition1);
-        SimulateEdgeCreation(outputHandlePosition2, inputHandlePosition2);
+        SimulateEdgeCreation(outputHandleView1, inputHandleView1);
+        SimulateEdgeCreation(outputHandleView2, inputHandleView2);
         var nbEdge = _edgeController.GetChildren().Count(godotNode => godotNode is EdgeView);
         That(nbEdge, Is.EqualTo(2));
         _edgeController.RemoveEdgesAtNode(mockNode1.Object);
         var edgeViews = _edgeController.GetChildren().OfType<EdgeView>();
-        
+
         // Assert
         var edgeViewsArray = edgeViews as EdgeView[] ?? edgeViews.ToArray();
         That(edgeViewsArray.Length, Is.EqualTo(2));

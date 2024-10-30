@@ -1,18 +1,17 @@
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using Godot;
-using GraphModel.Handle;
 
 namespace CodingGame.Scripts.Src.Graph.Controller.Handle;
 
 public partial class InputAreaController : Area2D
 {
     [Export] private HandleEventBus _handleEventBus;
-    [Export] private Control _handleIcon;
-    public IHandle Model { private get; set; }
+    [Export] private InputHandleView _inputHandleView;
 
     public override void _Ready()
     {
-        AreaEntered += (_) =>
-            _handleEventBus.InvokeOutputEnteredInput(new() { Position = _handleIcon, Model = Model });
-        AreaExited += (_) => _handleEventBus.InvokeOutputExitedInput(new() { Position = _handleIcon, Model = Model });
+        AreaEntered += _ =>
+            _handleEventBus.InvokeOutputEnteredInput(_inputHandleView);
+        AreaExited += _ => _handleEventBus.InvokeOutputExitedInput(_inputHandleView);
     }
 }

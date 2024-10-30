@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Draggable/DraggableCustomGuiEvent.cs" id="5_5nl21"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/NodeSelectionComponent.cs" id="5_ghkca"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/HandlesInstantiator.cs" id="5_riqcn"]
-[ext_resource type="PackedScene" uid="uid://b46w1vx555h24" path="res://Scenes/GraphEditor/Node/Handle/handle_row.tscn" id="6_jqyma"]
+[ext_resource type="PackedScene" uid="uid://b46w1vx555h24" path="res://scenes/GraphEditor/Node/Handle/handle_row.tscn" id="6_jqyma"]
 [ext_resource type="Resource" uid="uid://d0smfmv4pgaqk" path="res://Resource/node_selection_event_bus.tres" id="6_ye5kj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4t7ql"]

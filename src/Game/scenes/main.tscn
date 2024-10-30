@@ -1,30 +1,30 @@
 [gd_scene load_steps=17 format=3 uid="uid://0rw0ctuaas2q"]
 
-[ext_resource type="PackedScene" uid="uid://d24y6f85m6ud4" path="res://Scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
+[ext_resource type="PackedScene" uid="uid://d24y6f85m6ud4" path="res://scenes/GraphEditor/Node/node_view.tscn" id="1_ja4pk"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Node/NodeController.cs" id="1_wg2mq"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/EdgeController.cs" id="3_17n21"]
-[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://Scenes/GraphEditor/control_line.tscn" id="3_gu1o8"]
 [ext_resource type="Script" path="res://Scripts/Src/Util/PackedSceneWrapper.cs" id="3_l8aph"]
 [ext_resource type="Resource" uid="uid://d0smfmv4pgaqk" path="res://Resource/node_selection_event_bus.tres" id="4_jc0vp"]
-[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="4_ncg6r"]
+[ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="6_7fe3i"]
+[ext_resource type="PackedScene" uid="uid://dtus104lhxq0q" path="res://scenes/GraphEditor/control_line.tscn" id="7_5j1g8"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/VariableController.cs" id="7_5r6to"]
-[ext_resource type="PackedScene" uid="uid://dv7y4aa444l5x" path="res://Scenes/GraphEditor/edge_view.tscn" id="7_ifjd8"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Ui/Variable/CreateVariableView.cs" id="8_5g7cp"]
-[ext_resource type="PackedScene" uid="uid://b4y8vnv0gftl" path="res://Scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
+[ext_resource type="PackedScene" uid="uid://dv7y4aa444l5x" path="res://scenes/GraphEditor/edge_view.tscn" id="8_p5ahn"]
+[ext_resource type="PackedScene" uid="uid://b4y8vnv0gftl" path="res://scenes/GraphEditor/Ui/create_node_context_menu.tscn" id="8_xwlbf"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Ui/Variable/VariablesContainerView.cs" id="9_bnsft"]
-[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://Scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
+[ext_resource type="PackedScene" uid="uid://chr6x5o8r55h8" path="res://scenes/GraphEditor/Ui/variable_view.tscn" id="10_0kg8d"]
 
 [sub_resource type="Resource" id="Resource_a26le"]
 script = ExtResource("3_l8aph")
 Scene = ExtResource("1_ja4pk")
 
-[sub_resource type="Resource" id="Resource_3bxno"]
+[sub_resource type="Resource" id="Resource_plpmm"]
 script = ExtResource("3_l8aph")
-Scene = ExtResource("3_gu1o8")
+Scene = ExtResource("7_5j1g8")
 
-[sub_resource type="Resource" id="Resource_dj7hi"]
+[sub_resource type="Resource" id="Resource_7fp5c"]
 script = ExtResource("3_l8aph")
-Scene = ExtResource("7_ifjd8")
+Scene = ExtResource("8_p5ahn")
 
 [node name="Main" type="Node2D"]
 
@@ -40,9 +40,9 @@ _variableController = NodePath("../VariableController")
 
 [node name="EdgeController" type="Node" parent="."]
 script = ExtResource("3_17n21")
-HandleEventBus = ExtResource("4_ncg6r")
-ControlLineScene = SubResource("Resource_3bxno")
-EdgeScene = SubResource("Resource_dj7hi")
+_handleEventBus = ExtResource("6_7fe3i")
+_controlLineScene = SubResource("Resource_plpmm")
+_edgeScene = SubResource("Resource_7fp5c")
 
 [node name="VariableController" type="Node" parent="." node_paths=PackedStringArray("_createVariableContainer", "_variablesContainerView", "_createNodeContextMenu")]
 script = ExtResource("7_5r6to")

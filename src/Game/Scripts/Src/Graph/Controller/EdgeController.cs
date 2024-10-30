@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using CodingGame.Scripts.Src.Util;
 using Godot;
 using GraphModel.Edge;
@@ -16,74 +17,71 @@ namespace CodingGame.Scripts.Src.Graph.Controller;
 
 public partial class EdgeController : Godot.Node
 {
-    [Export] private HandleEventBus HandleEventBus = null!;
-    [Export] private PackedSceneWrapper ControlLineScene = null!;
-    [Export] private PackedSceneWrapper EdgeScene = null!;
+    [Export] private HandleEventBus _handleEventBus = null!;
+    [Export] private PackedSceneWrapper _controlLineScene = null!;
+    [Export] private PackedSceneWrapper _edgeScene = null!;
 
-    private HandleEventBus.HandlePosition? _currentOutputHandlePosition;
-    private HandleEventBus.HandlePosition? _currentInputHandlePosition;
+    private OutputHandleView? _currentOutputHandleView;
+    private InputHandleView? _currentInputHandleView;
     private ControlLine? _edgePreview;
     private readonly List<EdgeView> _edgeViews = new();
 
     public EdgeController(){}
     public EdgeController(HandleEventBus handleEventBus, PackedSceneWrapper controlLineScene, PackedSceneWrapper edgeScene)
     {
-        HandleEventBus = handleEventBus;
-        ControlLineScene = controlLineScene;
-        EdgeScene = edgeScene;
+        _handleEventBus = handleEventBus;
+        _controlLineScene = controlLineScene;
+        _edgeScene = edgeScene;
     }
     
     public override void _Ready()
     {
-        HandleEventBus.OutputDragStarted += HandleOutputDragStarted;
-        HandleEventBus.OutputDragEnded += HandleOutputDragEnded;
-        HandleEventBus.OutputEnteredInput += (handlePosition) => _currentInputHandlePosition = handlePosition;
+        _handleEventBus.OutputDragStarted += HandleOutputDragStarted;
+        _handleEventBus.OutputDragEnded += HandleOutputDragEnded;
+        _handleEventBus.OutputEnteredInput += handlePosition => _currentInputHandleView = handlePosition;
         
-        HandleEventBus.OutputExitedInput += (handlePosition) => _currentInputHandlePosition =
-            Equals(handlePosition, _currentInputHandlePosition) ? null : _currentInputHandlePosition;
+        _handleEventBus.OutputExitedInput += handlePosition => _currentInputHandleView =
+            Equals(handlePosition, _currentInputHandleView) ? null : _currentInputHandleView;
         
-        HandleEventBus.DeleteEdgeAtHandle += RemoveEdgesAtHandle;
+        _handleEventBus.DeleteEdgeAtHandle += RemoveEdgesAtHandle;
     }
 
     public void RemoveEdgesAtNode(INode selectedNode) =>
         selectedNode.Inputs.Concat(selectedNode.Outputs).ToList().ForEach(RemoveEdgesAtHandle);
     
     
-    private void HandleOutputDragEnded(HandleEventBus.HandlePosition handlePosition)
+    private void HandleOutputDragEnded()
     {
-        if (_currentInputHandlePosition != null && _currentOutputHandlePosition != null &&
-            _currentInputHandlePosition.Model.IsCompatible(_currentOutputHandlePosition.Model))
-            TryCreateEdge(_currentOutputHandlePosition, _currentInputHandlePosition);
-        _currentInputHandlePosition = null;
+        if (_currentInputHandleView != null && _currentOutputHandleView != null)
+        {
+            var model = SafeCreateEdgeModel(_currentOutputHandleView.Model, _currentInputHandleView.Model);
+            if (model is not null) CreateEdgeView(model, _currentOutputHandleView, _currentInputHandleView);
+        }
+        _currentInputHandleView = null;
+        _currentOutputHandleView = null;
         _edgePreview?.QueueFree();
         _edgePreview = null;
     }
 
-    private void HandleOutputDragStarted(HandleEventBus.HandlePosition handlePosition, Control draggable)
+    private void HandleOutputDragStarted(OutputHandleView handleView, Control draggable)
     {
-        _currentOutputHandlePosition = handlePosition;
-        _edgePreview = ControlLineScene.Instantiate<ControlLine>();
+        _currentOutputHandleView = handleView;
+        _edgePreview = _controlLineScene.Instantiate<ControlLine>();
         AddChild(_edgePreview);
-        _edgePreview.DefaultColor = Color.FromHtml(handlePosition.Model.Color.ToHex());
-        _edgePreview.Set(handlePosition.Position, draggable);
+        _edgePreview.DefaultColor = handleView.Color;
+        _edgePreview.Set(handleView.Icon, draggable);
     }
 
-    private void TryCreateEdge(HandleEventBus.HandlePosition from, HandleEventBus.HandlePosition to)
+    private void CreateEdgeView(IEdge edgeModel, OutputHandleView fromHandle, InputHandleView toPosition)
     {
-        var model = SafeCreateModelEdge(from.Model, to.Model);
-        if (model is not null) CreateEdge(model, from.Position, to.Position);
-    }
-
-    private void CreateEdge(IEdge edgeModel, Control fromPosition, Control toPosition)
-    {
-        var edgeView = EdgeScene.Instantiate<EdgeView>();
+        var edgeView = _edgeScene.Instantiate<EdgeView>();
         AddChild(edgeView);
         edgeView.Model = edgeModel;
-        edgeView.SetPosition(fromPosition, toPosition);
+        edgeView.SetPosition(fromHandle.Icon, toPosition.Icon);
         _edgeViews.Add(edgeView);
     }
 
-    private IEdge? SafeCreateModelEdge(IHandle from, IHandle to)
+    private IEdge? SafeCreateEdgeModel(IHandle from, IHandle to)
     {
         if (from is OutputFlowHandle { HasEdge: true })
         {

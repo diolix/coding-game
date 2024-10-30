@@ -14,4 +14,7 @@
     <PackageReference Include="gdUnit4.test.adapter" Version="2.0.0" />
     <PackageReference Include="NUnit" Version="4.2.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Src\Graph\Controller\Edge\" />
+  </ItemGroup>
 </Project>
