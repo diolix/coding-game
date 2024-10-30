@@ -6,7 +6,6 @@ using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using CodingGame.Scripts.Src.Util;
 using GdUnit4;
 using Godot;
-using GraphModel.Edge;
 using GraphModel.Handle.Flow;
 using GraphModel.Handle.Value.Input;
 using GraphModel.Handle.Value.Output;
@@ -41,7 +40,7 @@ public class EdgeControllerTestSuite
         _edgeController = AutoFree(new EdgeController(_handleEventBus, controlLineScene.Object, edgeScene.Object));
         _edgeController!._Ready();
     }
-
+    
     #region Helper
 
     private void SimulateEdgeCreation(OutputHandleView from, InputHandleView to)
@@ -100,8 +99,7 @@ public class EdgeControllerTestSuite
         // Assert
         var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
-        That(edgeView.Model, Is.InstanceOf<FlowEdge>());
-        That(edgeView.Model.Contains(outputHandleView.Model) && edgeView.Model.Contains(inputHandleView.Model),
+        That(edgeView.Contains(outputHandleView.Model) && edgeView.Contains(inputHandleView.Model),
             Is.True);
         edgeView.Free();
     }
@@ -120,8 +118,7 @@ public class EdgeControllerTestSuite
         // Assert
         var edgeView = GetFirstOrDefaultEdgeView();
         That(edgeView, Is.Not.Null);
-        That(edgeView.Model, Is.InstanceOf<ValueEdge>());
-        That(edgeView.Model.Contains(outputHandleView.Model) && edgeView.Model.Contains(inputHandleView.Model),
+        That(edgeView.Contains(outputHandleView.Model) && edgeView.Contains(inputHandleView.Model),
             Is.True);
     }
 

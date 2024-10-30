@@ -1,3 +1,4 @@
+using CodingGame.Scripts.Src.Graph.View.Node.Handle.HandleVIew;
 using Godot;
 using GraphModel.Edge;
 using GraphModel.Handle;
@@ -9,20 +10,27 @@ public partial class EdgeView : Godot.Node
     [Export] private ControlLine _controlLine;
 
     private IEdge _model;
-    public IEdge Model
+    private OutputHandleView _output;
+    private InputHandleView _input;
+
+    public void SetDependencies(IEdge edgeMode, OutputHandleView output, InputHandleView input)
     {
-        get => _model;
-        set
-        {
-            _model = value;
-            _controlLine.DefaultColor = Color.FromHtml(_model.Color.ToHex());
-        }
+        _model = edgeMode;
+        _output = output;
+        _input = input;
+        _input.HideInputField();
+        _controlLine.DefaultColor = Color.FromHtml(_model.Color.ToHex());
     }
-    public EdgeView(){}
+
+    public EdgeView()
+    {
+    }
+
     public EdgeView(ControlLine controlLine)
     {
         _controlLine = controlLine;
     }
+
     public void SetPosition(Control from, Control to)
     {
         _controlLine.Set(from, to);
@@ -32,6 +40,7 @@ public partial class EdgeView : Godot.Node
 
     public void Remove()
     {
+        _input.ShowInputField();
         _model.Remove();
         QueueFree();
     }

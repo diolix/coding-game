@@ -11,5 +11,6 @@ public static class Literal
         .SetName(valueType + " Literal")
         .AddInputValueWithField("", valueType)
         .AddOutputValue("", valueType)
+        .SetExecution((output, input) => output.Cache("", input.GetValue("", valueType)))
         .Build();
 }

@@ -5,10 +5,6 @@
 [node name="LineEdit" type="LineEdit"]
 offset_right = 67.0625
 offset_bottom = 31.0
-text = "StringInputField"
 max_length = 20
 expand_to_text_length = true
-
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("_lineEdit")]
 script = ExtResource("1_nq2g6")
-_lineEdit = NodePath("..")

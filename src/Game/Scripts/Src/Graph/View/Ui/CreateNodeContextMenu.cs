@@ -6,20 +6,23 @@ using GraphModel.Node.Factories;
 using GraphModel.Variable;
 using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.ControlFlowFactory;
+using static GraphModel.Node.Factories.Literal;
+using static GraphModel.Node.Factories.PrintFactory;
 
 namespace CodingGame.Scripts.Src.Graph.View.Ui;
 
 public partial class CreateNodeContextMenu : Control
 {
     [Export] private VBoxContainer _vBoxContainer;
-	private readonly PrintFactory _printNodeFactory = new PrintFactory();
 	public event Action<INode> OnNodeSelected;
 	private readonly Dictionary<IVariable, Button[]> _getAndSetVariables = new();
 	
 	public override void _Ready()
 	{
-		AddStandardNode(PrintFactory.CreatePrint);
-		AddStandardNode(PrintFactory.CreatePrintHelloWorld);
+		AddStandardNode(CreatePrint);
+		AddStandardNode(CreatePrintHelloWorld);
+		AddStandardNode(CreateBoolLiteralNode);
+		AddStandardNode(CreateStringLiteralNode);
 		AddStandardNode(CreateTrueConstant);
 		AddStandardNode(CreateFalseConstant);
 		AddStandardNode(CreatePureHelloWorldConstant);

@@ -21,5 +21,6 @@ public partial class InputHandleView: BaseHandleView
         base.SetUp(model);
     }
     
-    private void HideInputField() => _inputField?.Hide();
+    public void HideInputField() => _inputField?.Hide();
+    public void ShowInputField() => _inputField?.Show();
 }

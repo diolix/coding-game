@@ -75,8 +75,8 @@ public partial class EdgeController : Godot.Node
     private void CreateEdgeView(IEdge edgeModel, OutputHandleView fromHandle, InputHandleView toPosition)
     {
         var edgeView = _edgeScene.Instantiate<EdgeView>();
+        edgeView.SetDependencies(edgeModel, fromHandle, toPosition);
         AddChild(edgeView);
-        edgeView.Model = edgeModel;
         edgeView.SetPosition(fromHandle.Icon, toPosition.Icon);
         _edgeViews.Add(edgeView);
     }

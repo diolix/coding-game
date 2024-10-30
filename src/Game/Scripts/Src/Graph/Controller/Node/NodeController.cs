@@ -19,7 +19,7 @@ public partial class NodeController : Godot.Node
     [Export] private VariableController _variableController = null!;
 
     private NodeView? _selectedNode;
-    
+
     public override void _Ready()
     {
         var start = LevelFactory.CreateStart();
@@ -29,7 +29,7 @@ public partial class NodeController : Godot.Node
             InstantiateNodeView(node, _createNodeContextMenu.GetGlobalMousePosition());
         _nodeSelectionEventBus.OnNodeSelected += HandleNodeSelect;
     }
-    
+
     private void InstantiateNodeView(INode baseNode, Vector2 position)
     {
         var nodeView = _nodeViewScene.Instantiate<NodeView>();
@@ -40,17 +40,18 @@ public partial class NodeController : Godot.Node
 
     private void HandleNodeSelect(NodeView nodeView)
     {
-            _selectedNode?.Deselect();
-            _selectedNode = nodeView;
-            nodeView.Select();
+        _selectedNode?.Deselect();
+        _selectedNode = nodeView;
+        nodeView.Select();
     }
-    
+
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event.IsActionPressed("delete") && _selectedNode != null)
         {
             _edgeController.RemoveEdgesAtNode(_selectedNode.Model);
             _selectedNode?.QueueFree();
+            _selectedNode = null;
         }
 
         if (@event.IsActionPressed("left_click"))

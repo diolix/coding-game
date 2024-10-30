@@ -19,9 +19,15 @@ public partial class InputFieldFactory : Resource
 
         return inputHandle.ValueTypeEnum switch
         {
-            ValueTypeEnum.String => _stringFieldScene.Instantiate<Control>(),
-            ValueTypeEnum.Bool => _boolFieldScene.Instantiate<Control>(),
+            ValueTypeEnum.String => CreateInputField(inputHandle, _stringFieldScene.Instantiate<StringInputField>()),
+            ValueTypeEnum.Bool => CreateInputField(inputHandle, _boolFieldScene.Instantiate<BoolInputField>()),
             _ => null
         };
+    }
+
+    private Control CreateInputField(InputValueHandleWithField model, Control inputField)
+    {
+        ((IInputValueHandleWithFieldDependant)inputField).SetHandleModel(model);
+        return inputField;
     }
 }

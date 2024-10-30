@@ -4,8 +4,12 @@ using GraphModel.Handle.Value.Input;
 
 namespace CodingGame.Scripts.Src.Graph.View.Node.Handle.Field;
 
-public partial class StringInputField : BaseInputField
+public partial class StringInputField : LineEdit, IInputValueHandleWithFieldDependant
 {
-    [Export] private LineEdit _lineEdit = null!;
-    public override void _Ready() => _lineEdit.TextChanged += newValue => Model?.SetValue(newValue);
+    private InputValueHandleWithField? _model;
+    public void SetHandleModel(InputValueHandleWithField model) {
+        _model = model;
+        _model.SetValue("");
+    }
+    public override void _Ready() => TextChanged += newValue => _model?.SetValue(newValue);
 }
