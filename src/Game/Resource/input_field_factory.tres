@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="InputFieldFactory" load_steps=5 format=3 uid="uid://b7ed0arrwvixi"]
 
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/Field/InputFieldFactory.cs" id="1_4onjx"]
-[ext_resource type="PackedScene" uid="uid://cqxmj6030ryjx" path="res://Scenes/GraphEditor/Node/Handle/InputField/BoolInputField.tscn" id="1_fxfa4"]
-[ext_resource type="PackedScene" uid="uid://bvx36il1r58vt" path="res://Scenes/GraphEditor/Node/Handle/InputField/int_input_field.tscn" id="2_3yapq"]
-[ext_resource type="PackedScene" uid="uid://tl011dp44bkq" path="res://Scenes/GraphEditor/Node/Handle/InputField/StringInputField.tscn" id="2_8fv8r"]
+[ext_resource type="PackedScene" uid="uid://cqxmj6030ryjx" path="res://scenes/GraphEditor/Node/Handle/InputField/BoolInputField.tscn" id="1_fxfa4"]
+[ext_resource type="PackedScene" uid="uid://tl011dp44bkq" path="res://scenes/GraphEditor/Node/Handle/InputField/StringInputField.tscn" id="2_8fv8r"]
+[ext_resource type="PackedScene" uid="uid://idm8am0qd78s" path="res://scenes/GraphEditor/Node/Handle/InputField/int_input_field.tscn" id="2_c7pyo"]
 
 [resource]
 script = ExtResource("1_4onjx")
 _stringFieldScene = ExtResource("2_8fv8r")
 _boolFieldScene = ExtResource("1_fxfa4")
-_intFieldScene = ExtResource("2_3yapq")
+_intFieldScene = ExtResource("2_c7pyo")

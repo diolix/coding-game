@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://idm8am0qd78s"]
+
+[ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/Field/IntInputField.cs" id="1_p37ih"]
+
+[node name="IntInputField" type="SpinBox"]
+min_value = -9999.0
+max_value = 9999.0
+script = ExtResource("1_p37ih")
