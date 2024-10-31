@@ -11,6 +11,7 @@ public static class VariableFactory
         {
             ValueTypeEnum.String => new StringVariableModel(name),
             ValueTypeEnum.Bool => new BoolVariableModel(name),
+            ValueTypeEnum.Int => new IntVariableModel(name),
             ValueTypeEnum.Object => new ObjectVariableModel(name),
             _ => throw new NotImplementedException()
         };
