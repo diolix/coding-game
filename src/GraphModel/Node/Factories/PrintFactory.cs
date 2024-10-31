@@ -3,21 +3,22 @@ using ImpureNodeBuildable = GraphModel.Node.NodeBuilder.Impure.ImpureNodeBuildab
 
 namespace GraphModel.Node.Factories;
 
-public class PrintFactory
+public static class PrintFactory
 {
-    public static INode CreatePrintHelloWorld() => new ImpureNodeBuildable.Builder()
-        .SetName("print hello world")
+    public static INode CreatePrintObj() => new ImpureNodeBuildable.Builder()
+        .SetName("Print object")
         .AddInputFlow("")
+        .AddInputValue("value", ValueTypeEnum.Object)
         .AddOutputFlow("")
-        .SetExecution((outputManager, _) =>
+        .SetExecution((outputManager, inputManager) =>
         {
-            Console.WriteLine("Hello World");
+            Console.WriteLine(inputManager.GetObjectValue("value"));
             outputManager.Execute("");
         })
         .Build();
     
-    public static INode CreatePrint() => new ImpureNodeBuildable.Builder()
-        .SetName("print")
+    public static INode CreatePrintString() => new ImpureNodeBuildable.Builder()
+        .SetName("Print string")
         .AddInputFlow("")
         .AddInputValueWithField("value", ValueTypeEnum.String)
         .AddOutputFlow("")

@@ -10,9 +10,11 @@ public static class ValueTypeColor
         switch (typeEnum)
         {
             case ValueTypeEnum.String:
-                return new(Color.Pink);
+                return new(Color.LightPink);
             case ValueTypeEnum.Bool:
                 return new(Color.LightBlue);
+            case ValueTypeEnum.Int:
+                return new(Color.LightGreen);
             case ValueTypeEnum.Object:
                 return new(Color.Gray);
             default:

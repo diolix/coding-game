@@ -1,12 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d184op5wjfdi"]
+[gd_scene load_steps=8 format=3 uid="uid://d184op5wjfdi"]
 
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/HandleVIew/InputHandleView.cs" id="1_3iw0c"]
-[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_p3vaf"]
+[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_p3vaf"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/RemoveEdge.cs" id="2_4m18s"]
 [ext_resource type="Resource" uid="uid://b7ed0arrwvixi" path="res://Resource/input_field_factory.tres" id="2_h26h8"]
 [ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="3_axsnh"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/InputAreaController.cs" id="4_dx3ll"]
-[ext_resource type="PackedScene" uid="uid://tl011dp44bkq" path="res://scenes/GraphEditor/Node/Handle/InputField/StringInputField.tscn" id="5_h7sw3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mey1"]
 height = 25.0
@@ -52,7 +51,3 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Label"
 vertical_alignment = 1
-
-[node name="StringInputField" parent="HBoxContainer" instance=ExtResource("5_h7sw3")]
-visible = false
-layout_mode = 2

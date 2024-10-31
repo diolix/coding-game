@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cmta1wuh1fe6i"]
 
 [ext_resource type="Script" path="res://Scripts/Src/Graph/View/Node/Handle/HandleVIew/OutputHandleView.cs" id="1_g2f4c"]
-[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_x407k"]
+[ext_resource type="PackedScene" uid="uid://b7cor7x1vfyx6" path="res://Scenes/GraphEditor/Node/Handle/handle_icon.tscn" id="1_x407k"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/RemoveEdge.cs" id="2_0sjc0"]
 [ext_resource type="Resource" uid="uid://ddybjejxbgfo" path="res://Resource/handle_event_bus.tres" id="3_trn0c"]
 [ext_resource type="Script" path="res://Scripts/Src/Graph/Controller/Handle/OutputDraggableController.cs" id="4_14ehv"]
@@ -35,11 +35,12 @@ size_flags_vertical = 4
 script = ExtResource("2_0sjc0")
 _handleEventBus = ExtResource("3_trn0c")
 
-[node name="OutputDraggableController" type="Node" parent="HandleContainer/HandleIcon" node_paths=PackedStringArray("_draggable", "_outputHandleView")]
+[node name="OutputDraggableController" type="Node" parent="HandleContainer/HandleIcon" node_paths=PackedStringArray("_draggable", "_outputHandleView", "_draggableArea")]
 script = ExtResource("4_14ehv")
 _draggable = NodePath("../Draggable")
 _handleEventBus = ExtResource("3_trn0c")
 _outputHandleView = NodePath("../../..")
+_draggableArea = NodePath("../Draggable/Area2D")
 
 [node name="Draggable" type="Control" parent="HandleContainer/HandleIcon" node_paths=PackedStringArray("_target")]
 layout_mode = 1

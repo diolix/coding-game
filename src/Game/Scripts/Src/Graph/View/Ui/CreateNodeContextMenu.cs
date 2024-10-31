@@ -4,10 +4,10 @@ using Godot;
 using GraphModel.Node;
 using GraphModel.Node.Factories;
 using GraphModel.Variable;
-using static GraphModel.Node.Factories.ConstantFactory;
 using static GraphModel.Node.Factories.ControlFlowFactory;
-using static GraphModel.Node.Factories.Literal;
+using static GraphModel.Node.Factories.LiteralFactory;
 using static GraphModel.Node.Factories.PrintFactory;
+using static GraphModel.Node.Factories.VariableNodeFactory;
 
 namespace CodingGame.Scripts.Src.Graph.View.Ui;
 
@@ -19,14 +19,15 @@ public partial class CreateNodeContextMenu : Control
 	
 	public override void _Ready()
 	{
-		AddStandardNode(CreatePrint);
-		AddStandardNode(CreatePrintHelloWorld);
+		AddStandardNode(CreatePrintObj);
+		AddStandardNode(CreatePrintString);
 		AddStandardNode(CreateBoolLiteralNode);
 		AddStandardNode(CreateStringLiteralNode);
-		AddStandardNode(CreateTrueConstant);
-		AddStandardNode(CreateFalseConstant);
-		AddStandardNode(CreatePureHelloWorldConstant);
+		AddStandardNode(CreateIntLiteralNode);
 		AddStandardNode(CreateIf);
+		AddStandardNode(CreateWhile);
+		AddStandardNode(MathIntegerFactory.CreateAddNode);
+		AddStandardNode(MathIntegerFactory.CreateSubtractNode);
 	}
 
 	private void AddStandardNode(Func<INode> createNodeFunc)
@@ -39,15 +40,15 @@ public partial class CreateNodeContextMenu : Control
 		var getButton = new Button();
 		var setButton = new Button();
 		_getAndSetVariables.Add(variable, new[] {getButton, setButton});
-		AddSelectableNode(() => VariableNodeFactory.CreateGetVariable(variable), getButton);
-		AddSelectableNode(() => VariableNodeFactory.CreateSetVariable(variable), setButton);
+		AddSelectableNode(() => CreateGetVariable(variable), getButton);
+		AddSelectableNode(() => CreateSetVariable(variable), setButton);
 	}
 	
 	public void RemoveGetAndSetNode(IVariable variable)
 	{
-		foreach (var t in _getAndSetVariables[variable])
+		foreach (var button in _getAndSetVariables[variable])
 		{
-			t.QueueFree();
+			button.QueueFree();
 		}
 		_getAndSetVariables.Remove(variable);
 	}

@@ -21,6 +21,9 @@ public class OutputValueManager(IEnumerable<BaseOutputValueHandle> outputs)
     public void CacheBool(string label, bool value) =>
         GetHandle(label).SetCachedValue(new BoolValue(value));
 
+    public void CacheInt(string label, int value) =>
+        GetHandle(label).SetCachedValue(new IntValue(value));
+    
     public void CacheObject(string label, int value) =>
         GetHandle(label).SetCachedValue(new ObjectValue(value));
 }

@@ -1,6 +1,7 @@
-using GraphModel.Edge;
 using GraphModel.Node.Factories;
 using GraphModel.Values;
+using static GraphModel.Edge.EdgeFactory;
+using static GraphModel.Node.Factories.PrintFactory;
 using static GraphModelTest.Mocks.MockNodeFactory;
 using static NUnit.Framework.Assert;
 
@@ -11,11 +12,11 @@ public class RemoveEdge
     [Test]
     public void FlowEdgeRemove()
     {
-        var printHelloWorld = PrintFactory.CreatePrintHelloWorld();
+        var printHelloWorld = CreateFlowInputOutput();
         bool mockExecuted = false;
         var mockedNode = CreateFlowInput((_,_) => { mockExecuted = true; });
 
-        var edge = EdgeFactory.CreateEdge(printHelloWorld, "", mockedNode, "");
+        var edge = CreateEdge(printHelloWorld, "", mockedNode, "");
         edge.Remove();
         printHelloWorld.Execute();
         
@@ -27,7 +28,7 @@ public class RemoveEdge
     {
         var helloWorldConstant = ConstantFactory.CreatePureHelloWorldConstant();
         var mockNode = CreateInputValue(ValueTypeEnum.String, (_, input) =>  input.GetStringValue(""));
-        var edge = EdgeFactory.CreateEdge(helloWorldConstant, "", mockNode, "");
+        var edge = CreateEdge(helloWorldConstant, "", mockNode, "");
         
         edge.Remove();
         

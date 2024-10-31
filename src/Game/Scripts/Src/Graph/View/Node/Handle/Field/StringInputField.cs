@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using Godot;
 using GraphModel.Handle.Value.Input;
 
@@ -11,5 +12,10 @@ public partial class StringInputField : LineEdit, IInputValueHandleWithFieldDepe
         _model = model;
         _model.SetValue("");
     }
-    public override void _Ready() => TextChanged += newValue => _model?.SetValue(newValue);
+
+    public override void _Ready() => TextChanged += newValue =>
+    {
+        _model?.SetValue(newValue); 
+        Console.WriteLine("text changed");
+    };
 }

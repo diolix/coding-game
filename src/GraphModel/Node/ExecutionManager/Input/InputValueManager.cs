@@ -17,11 +17,17 @@ public class InputValueManager(IEnumerable<InputValueHandle> handles)
         GetHandle(label)?.GetValue() is StringValue stringValue
             ? stringValue.GetValue()
             : throw new HandleValueNonexistentException(label, ValueTypeEnum.String);
+    
+    public int GetIntValue(string label) =>
+        GetHandle(label)?.GetValue() is IntValue intValue
+            ? intValue.GetValue()
+            : throw new HandleValueNonexistentException(label, ValueTypeEnum.Int);
 
-    public object GetObjectValue(string label) =>
-        GetHandle(label)?.GetValue() is ObjectValue objectValue
-            ? objectValue.GetValue()
-            : throw new HandleValueNonexistentException(label, ValueTypeEnum.Object);
+    public object GetObjectValue(string label)
+    {
+        var res = GetHandle(label)?.GetValue().GetObjValueOrNull();
+        return res ?? throw new HandleValueNonexistentException(label, ValueTypeEnum.Object);
+    }
     
     public Value GetValue(string label, ValueTypeEnum valueTypeEnum) =>
         GetHandle(label)?.GetValue() is { } value && value.IsOfType(valueTypeEnum)

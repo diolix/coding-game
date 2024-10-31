@@ -11,6 +11,7 @@ public static class ValueFactory
             ValueTypeEnum.String => new StringValue((string)value),
             ValueTypeEnum.Bool => new BoolValue((bool)value),
             ValueTypeEnum.Object => new ObjectValue(value),
+            ValueTypeEnum.Int => new IntValue((int)value),
             _ => throw new ArgumentOutOfRangeException(nameof(valueType), valueType, null)
         };
     }
@@ -22,6 +23,7 @@ public static class ValueFactory
             ValueTypeEnum.String => new StringValue(),
             ValueTypeEnum.Bool => new BoolValue(),
             ValueTypeEnum.Object => new ObjectValue(),
+            ValueTypeEnum.Int => new IntValue(),
             _ => throw new ArgumentOutOfRangeException(nameof(valueType), valueType, null)
         };
     }

@@ -9,7 +9,6 @@ public class InputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode n
 {
     public ValueEdge? Edge { private get; set; }
     public bool HasEdge => Edge != null;
-    public bool IsOfType(ValueTypeEnum valueTypeEnum) => ValueTypeEnum.Equals(valueTypeEnum);
 
     protected override bool IsCompatible(IHandle handle)
     {
@@ -18,4 +17,6 @@ public class InputValueHandle(string label, ValueTypeEnum valueTypeEnum, INode n
     }
 
     public override Values.Value GetValue() => Edge?.GetOutputValue() ?? ValueFactory.CreateValue(ValueTypeEnum);
+
+    public bool IsOfType(ValueTypeEnum otherValueTypeEnum) => ValueTypeEnum.Equals(otherValueTypeEnum);
 }

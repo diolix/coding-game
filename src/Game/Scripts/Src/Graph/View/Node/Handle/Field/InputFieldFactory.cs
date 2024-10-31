@@ -11,6 +11,7 @@ public partial class InputFieldFactory : Resource
 {
     [Export] private PackedScene _stringFieldScene = null!;
     [Export] private PackedScene _boolFieldScene = null!;
+    [Export] private PackedScene _intFieldScene = null!;
 
     public Control? CreateInputField(IHandle model)
     {
@@ -19,15 +20,18 @@ public partial class InputFieldFactory : Resource
 
         return inputHandle.ValueTypeEnum switch
         {
-            ValueTypeEnum.String => CreateInputField(inputHandle, _stringFieldScene.Instantiate<StringInputField>()),
-            ValueTypeEnum.Bool => CreateInputField(inputHandle, _boolFieldScene.Instantiate<BoolInputField>()),
+            ValueTypeEnum.String => CreateInputField<StringInputField>(inputHandle, _stringFieldScene),
+            ValueTypeEnum.Bool => CreateInputField<BoolInputField>(inputHandle, _boolFieldScene),
+            ValueTypeEnum.Int => CreateInputField<IntInputField>(inputHandle, _intFieldScene),
             _ => null
         };
     }
 
-    private Control CreateInputField(InputValueHandleWithField model, Control inputField)
+    private Control CreateInputField<T>(InputValueHandleWithField model, PackedScene inputFieldScene)
+        where T : Control, IInputValueHandleWithFieldDependant
     {
-        ((IInputValueHandleWithFieldDependant)inputField).SetHandleModel(model);
+        var inputField = inputFieldScene.Instantiate<T>();
+        inputField.SetHandleModel(model);
         return inputField;
     }
 }
